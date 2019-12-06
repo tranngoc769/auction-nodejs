@@ -37,7 +37,13 @@
     <Content Include="app\areas\seller\controller\seller.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="app\home\controller\account.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="app\home\controller\home.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="app\middleware\security.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="app\models\role.js">
@@ -46,13 +52,22 @@
     <Content Include="app\models\user.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="app\utils\auth.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="app\utils\db.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="private.key">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public.key">
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\assets\css\bootstrap.min.css" />
     <Content Include="public\assets\js\bootstrap.min.js" />
     <Content Include="public\assets\js\jquery.twbsPagination.min.js" />
-    <Content Include="views\admin\homepage.hbs" />
+    <Content Include="views\account\admin\homepage.hbs" />
     <Content Include="views\home\homepage.hbs">
       <SubType>Code</SubType>
     </Content>
@@ -66,7 +81,10 @@
     <Content Include="views\layouts\layout.hbs">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\seller\homepage.hbs" />
+    <Content Include="views\account\seller\homepage.hbs" />
+    <Content Include="views\account\userprofile.hbs">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
@@ -89,9 +107,10 @@
     <Folder Include="routes\" />
     <Folder Include="views\" />
     <Folder Include="views\layouts\" />
-    <Folder Include="views\admin\" />
+    <Folder Include="views\account\admin\" />
     <Folder Include="views\home\" />
-    <Folder Include="views\seller\" />
+    <Folder Include="views\account\" />
+    <Folder Include="views\account\seller\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>

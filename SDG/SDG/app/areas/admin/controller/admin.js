@@ -6,7 +6,7 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 //
 router.get('/', async (req, res) => {
-    res.render("admin/homepage");
+        res.render("account/admin/homepage");
 });
 
 module.exports = router;

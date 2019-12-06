@@ -9,7 +9,8 @@ const bodyParser = require('body-parser');
 
 //const home = require('./routes/index');
 //const users = require('./routes/users');
-
+const middleware = require('./app/middleware/security');
+const auth = require('./app/utils/auth');
 var app = express();
 const exphbs = require('express-handlebars');
 // view engine setup
@@ -29,12 +30,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.get('/', (req, res) => {
-    res.redirect('/home');
+app.use(async function (req, res, next) {
+    if (typeof req.cookies.jwt == "string") {
+        const data = await auth.verifyToken(req.cookies.jwt)
+        res.locals.fullName = data.fullName;
+        res.locals.isLogin = true;
+        res.locals.isAdmin = (data.roleName == "admin") ? true : false;
+        res.locals.isSeller = (data.roleName == "seller") ? true : false;
+        res.locals.isBidder = (data.roleName == "bidder") ? true : false;
+    }
+    //res.clearCookie("jwt");
+    next();
+
 })
-app.use('/home', require('./app/home/controller/home'));
-app.use('/admin', require('./app/areas/admin/controller/admin'));
-app.use('/seller', require('./app/areas/seller/controller/seller'));
+
+app.use('/',require('./app/home/controller/home'));
+app.use('/user', require('./app/home/controller/account'));
+app.use('/admin', middleware.isAdmin, require('./app/areas/admin/controller/admin'));
+app.use('/seller', middleware.isSeller, require('./app/areas/seller/controller/seller'));
 //app.use('/users', users);
 
 // catch 404 and forward to error handler
@@ -68,7 +81,7 @@ app.use(function (err, req, res, next) {
     });
 });
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 
 var server = app.listen(app.get('port'), function () {
     debug('Express server listening on port ' + server.address().port);

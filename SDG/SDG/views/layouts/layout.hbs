@@ -1,4 +1,4 @@
-<head>
+﻿<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -7,21 +7,128 @@
     <script src="../../assets/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
     <title>{{title}}</title>
+    <style>
+        button:focus {
+            outline: 0;
+        }
+
+        .navbar .dropdown-menu .form-control {
+            width: 200px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="row">
             <div class="col-sm">
-                <nav class="navbar navbar-light bg-light justify-content-between shadow">
-                    <a class="navbar-brand" href="/">Home</a>
-                    <!--<form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 
-        </form>-->
-                    <a class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="modal" href="#myModal">Login</a>
+
+
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <div class="container">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">
+                            <img src="http://www.bobmazzo.com/wp-content/uploads/2009/07/bobmazzoCD.jpg" width="30" height="30">
+                        </a>
+                        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#">eBay Auction <span class="sr-only">(current)</span></a>
+                                </li>
+                                {{#if isBidder}}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">My Cart</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="#">My Auction</a>
+                                </li>
+                                {{/if}}
+                                {{#if isSeller }}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/seller">My Product</a>
+                                </li>
+                                {{/if}}
+                            </ul>
+                            {{#if isLogin}}
+                            <ul class="navbar-nav ">
+                                <!-- PROFILE DROPDOWN - scrolling off the page to the right -->
+                                <li class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" id="navDropDownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Hi, {{fullName}}
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navDropDownLink">
+                                        <a class="dropdown-item" href="/user/myprofile">My Profile</a>
+                                        <div class="dropdown-divider"></div>
+                                        {{#if isBidder}}
+                                        <a class="dropdown-item" href="/#">My Order</a>
+                                        <div class="dropdown-divider"></div>
+                                        {{/if}}
+
+                                        <a class="dropdown-item" href="/user/logout">Logout</a>
+                                    </div>
+                                </li>
+                            </ul>
+                            {{else}}
+                            <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+                                <li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>
+                                <li class="dropdown order-1">
+                                    <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Login <span class="caret"></span></button>
+                                    <ul class="dropdown-menu dropdown-menu-right mt-2">
+                                        <li class="px-3 py-2">
+                                            <form class="form" role="form" method="post" action='/login' name="login_form">
+                                                <div class="form-group">
+                                                    <input id="uname" placeholder="username" name="uname" class="form-control form-control-sm" type="text" required="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input id="passwordInput" placeholder="Password" name="passwd" class="form-control form-control-sm" type="password" required="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                                </div>
+                                                <div class="form-group text-center">
+                                                    <small><a href="#" data-toggle="modal" data-target="#modalPassword">Forgot password?</a></small>
+                                                </div>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <a class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="modal" href="#myModal">Register</a>
+                            {{/if}}
+                            <!--<form id="searchForm" class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </form>-->
+
+
+
+                        </div>
+                    </div>
+
                 </nav>
+                <!--modal reset pass-->
+                <div id="modalPassword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>Forgot password</h3>
+                                <button type="button" class="close font-weight-light" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Reset your password..</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                <button class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--modal dang ki-->
                 <div class="modal fade" data-backdrop="false" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document" >
+                    <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h3 class="modal-title" id="ModalTitle" style="color:firebrick; text-align:center">Login</h3>
@@ -34,8 +141,7 @@
                                     <p><input type="text" class="span3" name="uname" id="email" placeholder="Email"></p>
                                     <p><input type="password" class="span3" name="passwd" placeholder="Password"></p>
                                     <p>
-                                        <button type="submit" class="btn btn-primary">Sign in</button>
-                                        <a href="#">Forgot Password?</a>
+                                        <button type="submit" class="btn btn-primary">Sign Up</button>
                                     </p>
                                 </form>
                             </div>
@@ -49,17 +155,18 @@
         </div>
         <div class="row p-3">
             {{{body}}}
-            
+
         </div>
         <div class="row border">
             <div class="col-sm">
             </div>
         </div>
     </div>
-    
+
 </body>
 <script>
-function formatNumber(num) {
-  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-}
+    function formatNumber(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    }
+
 </script>
