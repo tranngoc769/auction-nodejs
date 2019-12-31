@@ -23,5 +23,20 @@ module.exports = {
         const rows = await db.load(sql);
         console.log("token:", rows);
         return rows;
+    },
+    getCustomer: async (page, perpage, query_search,field,sort) => {
+        const start_index = (page - 1) * perpage;
+        const sql = `SELECT  a.id, a.id_role , i.fullName, a.username, i.email,i.phone,i.DOB
+                     FROM ${tb_account} a INNER JOIN ${tb_info} i
+                                           ON a.id = i.accountID
+                     WHERE a.id_role!=1 AND isDeleted=0
+                            AND (i.fullName like '%${query_search}%' ||a.username like '%${query_search}%' 
+                                 || i.phone like  '%${query_search}%' || i.email like  '%${query_search}%')
+                     ORDER BY ${field} ${sort}
+                     LIMIT ${start_index} , ${perpage}`;
+        console.log(sql);
+        const rows = await db.load(sql);
+        console.log("token:", rows);
+        return rows;
     }
 };
