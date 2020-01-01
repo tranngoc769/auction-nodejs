@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mUser = require('../../../models/user');
+const mCate = require('../../../models/category');
 //If the data was sent as JSON
 router.use(express.json());
 //If the data was sent using Content-Type: application/x-www-form-urlencoded
@@ -77,4 +78,51 @@ router.post('/updateRole', async (req, res) => {
    
     res.json('successfull');
 });
+router.get('/cate', async (req, res) => {
+    res.render("account/admin/cate_list",
+        { layout: 'adminLayout' });
+});
+router.get('/getAllCategory', async (req, res) => {
+    var datareq = {};
+    datareq.page = parseInt(req.query.pagination.page);
+    datareq.perpage = parseInt(req.query.pagination.perpage);
+    datareq.pages = 0;
+    datareq.total = 0;
+    datareq.field = 'ID';
+    datareq.sort = 'desc';
+
+    if (typeof req.query.pagination.total != 'undefined') { datareq.total = req.query.pagination.total; }
+    if (typeof req.query.sort != 'undefined') { datareq.sort = req.query.sort.sort; }
+    if (typeof req.query.sort != 'undefined') { datareq.field = req.query.sort.field; }
+
+    console.log(datareq);
+    let querysearch = '';
+    if (req.query.query != '') {
+        querysearch = req.query.query.search;
+    };
+    const Info = await mCate.getAllCategory(datareq.page, datareq.perpage, querysearch, datareq.field, datareq.sort);
+    datareq.total = Info.length;
+    var meta = {};
+    meta.page = datareq.page;
+    meta.perpage = datareq.perpage;
+    meta.pages = Math.ceil(datareq.total / datareq.perpage);
+    meta.total = datareq.total;
+    meta.field = datareq.field;
+    meta.sort = datareq.sort;
+    var result = {};
+    result.meta = meta;
+    result.data = Info;
+    console.log(result);
+    res.json(result);
+})
+router.post('/delCate', async (req, res) => {
+    const data = JSON.parse(JSON.stringify(req.body));
+    var arr = data.data.split('-');
+    console.log(arr);
+    arr.forEach(async p => {
+        const status = await mCate.delByID(parseInt(p));
+    })
+
+    res.json('successfull');
+})
 module.exports = router;

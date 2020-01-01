@@ -1,0 +1,183 @@
+
+    <div class="kt-content kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+
+        <!-- begin:: Subheader -->
+        <div class="kt-subheader kt-grid__item" id="kt_subheader">
+            <div class="kt-container kt-container--fluid ">
+                <div class="kt-subheader__main">
+                    <h3 class="kt-subheader__title">CateManagement</h3>
+
+                    <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+
+                    <span class="total-items kt-subheader__desc">Tong: <span id="total"></span></span>
+
+                    <form class="kt-margin-l-20" id="kt_subheader_search_form">
+                        <div class="kt-input-icon kt-input-icon--right kt-subheader__search">
+                            <input type="text" class="form-control" placeholder="Search..."
+                                   id="search">
+                            <span class="kt-input-icon__icon kt-input-icon__icon--right">
+                                <span><i class="fas fa-search"></i></span>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="kt-subheader__toolbar">
+                    <button class="btn btn-primary" onclick="delCate()">
+                        <a> <i class="fas fa-user-lock"></i>Delete</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- end:: Subheader -->
+        <!-- begin:: Content -->
+        <div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid">
+            <div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid">
+                <div class="kt-portlet kt-portlet--mobile">
+                    <div class="kt-datatable"></div>
+                </div>
+            </div>
+        </div>
+        <!-- end:: Content -->
+    </div>
+
+<script>
+    var datatable;
+    var dataSet = [];
+
+    $(document).ready(function () {
+        $('#total').html(total);
+
+        var options = {
+            // datasource definition
+            data: {
+                type: 'remote',
+                source: {
+                    read: {
+                        url: '/admin/getAllCategory',
+                        method: 'GET',
+                        map: function (raw) {
+                            dataSet = raw;
+                            if (typeof raw.data !== 'undefined') {
+                                dataSet = raw.data;
+                            }
+                            return dataSet;
+                        },
+                    },
+                },
+                pageSize: 10,
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true,
+            },
+            // layout definition
+            layout: {
+                scroll: true,
+                height: 500,
+              
+            },
+            // column sorting
+            sortable: true,
+            pagination: true,
+            search: {
+                input: $('#search'),
+            },
+            // columns definition
+            columns: [{
+                field: 'ID',
+                title: '#',
+                width: 20,
+                type: 'number',
+                selector: {
+                    class: 'kt-checkbox--solid'
+                },
+                textAlign: 'center',
+                //responsive: { hidden: 'xl' },
+            }, {
+                field: 'Catname',
+                title: 'catName',
+                textAlign: 'center',
+                template: function (data) {
+                    return '<div class="">' +
+                        '<div class="kt-user-card-v2__details">' +
+                        '<span class="kt-user-card-v2__name" >' + (data['Catname'] ? data['Catname'] : '') + '</span>' +
+                        '</div>' +
+                        '</div>';
+                }
+            }, {
+                field: 'parentCate',
+                title: ' Parent Cate',
+                textAlign: 'center',
+            }]
+        };
+
+        datatable = $('.kt-datatable').KTDatatable(options);
+        datatable.on('kt-datatable--on-reloaded', function () {
+            setRowClickEvent();
+        });
+
+        datatable.reload();
+    });
+
+    function delCate() {
+        let chkCheckeds = datatable.find('input[type=checkbox]:checked');
+
+        if (chkCheckeds.length) {
+            if (!confirm('B?n ch?c ch?n mu?n m?/khóa tuy?n ???ng này?')) {
+                return;
+            }
+        }
+        var arr = '';
+        chkCheckeds.each(function () {
+            let id = $(this).val();
+             arr = arr + id + '-';
+        });
+        if (arr != '') {
+             $.ajax({
+            type: 'POST',
+            url: '/admin/delCate',
+            data:
+            {
+                data: method(arr)
+            },
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                if (result == "successfull") {
+                    datatable.reload();
+                }
+                else {
+                    alert("please choose items having the require");
+                }
+            },
+            error: function (err) {
+
+            }
+        })
+        }
+        //session.setData('dataSet', JSON.stringify(dataSet));
+        //location.reload();
+    }
+
+    function setRowClickEvent() {
+        datatable.on('click', 'td', function () {
+            if ($(this).find('input[type=checkbox]').length ||
+                $(this).find('.kt-datatable__toggle-detail').length) {
+                return;
+            }
+
+            var id = $(this).parent().find('input[type=checkbox]').val();
+             var id = $(this).parent().find('input[type=checkbox]').val();
+            if (id) {
+                //session.setData('Id_acc', id);
+                location.href = `/cate/${id}/product`;
+            }
+        });
+    }
+
+</script>
+
+
+
+
+

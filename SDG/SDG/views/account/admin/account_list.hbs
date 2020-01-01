@@ -222,11 +222,9 @@
             var id = $(this).parent().find('input[type=checkbox]').val();
             if (id) {
                 //session.setData('Id_acc', id);
-                location.href = "/Account/EditAccount/?id=" + id;
+                location.href = `/user/${id}/detail`;
             }
         });
     }
-    function method(str) {
-        return str.substring(0, str.length - 1);
-    }
+    
 </script>
