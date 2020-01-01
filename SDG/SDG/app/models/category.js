@@ -56,5 +56,9 @@ module.exports = {
     UpdateCate: async (entity) => {
         const rows = await db.update(tb_category, idField, entity);
         return rows;
+    },
+    AddOneCate: async (entity) => {
+        const rows = await db.add(tb_category,entity);
+        return rows;
     }
 };

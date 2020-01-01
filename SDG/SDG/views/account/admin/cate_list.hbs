@@ -22,6 +22,12 @@
                 </form>
             </div>
             <div class="kt-subheader__toolbar">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#Catetogory">
+                    <a style="color:white">
+                        <i class="fas fa-plus"></i>
+                        Create/Add new Category
+                    </a>
+                </button>
                 <button class="btn btn-primary" onclick="delCate()">
                     <a> <i class="fas fa-user-lock"></i>Delete</a>
                 </button>
@@ -43,9 +49,9 @@
 <div id="Catetogory" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form action="/admin/updateCate" method="post">
+            <form  action="/admin/createCate" method="post" id="formHidden">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="titile"></h5>
+                    <h5 class="modal-title" id="titile">Create/Add</h5>
                     <input id="cateID" name="cateID" type="number" hidden/>
                 </div>
                 <div class="modal-body">
@@ -88,14 +94,13 @@
                         <div class="row">
                             <div class="col-xl-2"></div>
                             <div class="col-xl-4">
-                                <button type="submit" class="btn btn-primary btn-full-width"
-                                        >
+                                <button type="submit" class="btn btn-primary btn-full-width">
                                     OK
                                 </button>
                             </div>
                             <div class="col-xl-4">
-                                <button class="btn btn-primary btn-full-width" type="button"
-                                        data-dismiss="modal">
+                                <button onclick="cancel()" class="btn btn-primary btn-full-width" type="button"
+                                       >
                                     Cancel
                                 </button>
                             </div>
@@ -242,15 +247,24 @@
             }
             if (id) {
                 //session.setData('Id_acc', id);
-                $('#titile').html("Update")
-                 $('#cateID').val(dataSet[index].ID);
+                $('#titile').empty().html("Update")
+                $('#cateID').val(dataSet[index].ID);
                 $('#cateName').val(dataSet[index].Catname);
                 $('#parentCate').val(dataSet[index].parentID);
+                $('#formHidden').attr('action', '/admin/updateCate');
                 $('#Catetogory').modal('show');
               
             }
         });
         
+    }
+    function cancel() {
+        $('#titile').empty().html("Create/Add");
+        $('#cateID').val('');
+        $('#cateName').val('');
+        $('#parentCate').val(0);
+        $('#formHidden').attr('action', '/admin/createCate');
+         $('#Catetogory').modal('hide');
     }
     
 

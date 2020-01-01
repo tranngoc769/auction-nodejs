@@ -135,7 +135,7 @@ router.post('/updateCate', async (req, res) => {
     entity.ID = data.cateID;
     entity.Catname = data.cateName;
     if (data.parentCateID != 0) {
-        entity.parentID = data.parentCateID;
+        entity.parentID = parseInt(data.parentCateID);
     }
     else {
         entity.parentID = null;
@@ -145,4 +145,20 @@ router.post('/updateCate', async (req, res) => {
         .catch();
 
 })
+router.post('/createCate', async (req, res) => {
+    const data = JSON.parse(JSON.stringify(req.body));
+    console.log(data);
+    var entity = {};
+    entity.Catname = data.cateName;
+    if (data.parentCateID != 0) {
+        entity.parentID = parseInt(data.parentCateID);
+    }
+    else {
+        entity.parentID = null;
+    }
+    mCate.AddOneCate(entity)
+        .then(res.redirect('/admin/cate'))
+        .catch();
+})
+
 module.exports = router;
