@@ -1,10 +1,11 @@
 const mysql = require('mysql');
+
 function connectToSring() {
     return mysql.createConnection({
         host: 'localhost',
         port: '3306',
         user: 'root',
-        database: 'myauction'
+        database: 'auction'
     });
 }
 
