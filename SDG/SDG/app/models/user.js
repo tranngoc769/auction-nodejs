@@ -11,9 +11,9 @@ module.exports = {
                                           INNER JOIN ${tb_role} r
                                            ON a.id_role = r.id
                      WHERE username = '${username}' AND password = '${password}' AND isDeleted=0`;
-        //console.log(sql);
+        ////console.log(sql);
         const rows = await db.load(sql);
-        console.log("token:", rows);
+        //console.log("token:", rows);
         return rows;
     },
     getUserInfo: async (id) => {
@@ -21,7 +21,7 @@ module.exports = {
                      FROM ${tb_info} i              
                      WHERE i.accountID= ${id}`;
         const rows = await db.load(sql);
-        console.log("token:", rows);
+        //console.log("token:", rows);
         return rows;
     },
     getCustomer: async (page, perpage, query_search,field,sort) => {
@@ -34,9 +34,9 @@ module.exports = {
                                  || i.phone like  '%${query_search}%' || i.email like  '%${query_search}%')
                      ORDER BY ${field} ${sort}
                      LIMIT ${start_index} , ${perpage}`;
-        console.log(sql);
+        //console.log(sql);
         const rows = await db.load(sql);
-        console.log("token:", rows);
+        //console.log("token:", rows);
         return rows;
     }
 };

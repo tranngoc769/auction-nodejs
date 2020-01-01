@@ -27,7 +27,7 @@ router.get('/getAllUser', async (req, res) => {
     if (typeof req.query.sort != 'undefined') { datareq.sort = req.query.sort.sort;}
     if (typeof req.query.sort != 'undefined') { datareq.field = req.query.sort.field;}
 
-    console.log(datareq);
+    //console.log(datareq);
     let querysearch = '';
     if (req.query.query != '')
     {
@@ -45,7 +45,7 @@ router.get('/getAllUser', async (req, res) => {
     var result = {};
     result.meta = meta;
     result.data = uNameInfo;
-    console.log(result);
+    //console.log(result);
     res.json(result);
 });
 module.exports = router;

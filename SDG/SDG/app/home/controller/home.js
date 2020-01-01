@@ -8,26 +8,34 @@ router.use(express.json());
 //If the data was sent using Content-Type: application/x-www-form-urlencoded
 router.use(express.urlencoded({ extended: false }));
 //
-router.get('/', async(req, res) => {
-    //console.log(req.cookies.jwt);
+router.get('/', async (req, res) => {
+    ////console.log(req.cookies.jwt);
     const token = req.cookies.jwt;
-    //console.log(token);
+    ////console.log(token);
     if (typeof token == "string") {
         const payload = await auth.verifyToken(token);
         //console.log("Abc" + JSON.stringify(payload));
         //const role = await mRole.getOnebyId(payload.roleID);
         if (payload.roleName == "admin") {
             res.redirect(`/${payload.roleName}`);
-        } else {
-            //console.log(payload.roleName);
+        }
+        else {
+            //console.log(payloa
+         const payload = await auth.verifyToken(token);
+         console.log(" aaaaaaaaaaaaaaa : "+ payload.uID);
+         
             res.render('home/homepage');
         }
-    } else {
+    }
+    else {
+        const payload = await auth.verifyToken(token);
+        const uNameInfo = await mUser.getUserInfo(payload.uID);
         res.render('home/homepage');
+        
     }
 
 });
-router.post('/login', async(req, res) => {
+router.post('/login', async (req, res) => {
     const data = JSON.parse(JSON.stringify(req.body));
     const resLogin = await mUser.resLogin(data.uname, data.passwd);
     //console.log(resLogin);
@@ -43,7 +51,8 @@ router.post('/login', async(req, res) => {
         //console.log(token);
         res.cookie('jwt', token);
         res.redirect('/');
-    } else {
+    }
+    else {
         res.render('error');
     }
 

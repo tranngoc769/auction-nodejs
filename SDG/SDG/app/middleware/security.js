@@ -1,43 +1,47 @@
 const mRole = require('../models/role');
 const auth = require('../utils/auth');
 module.exports = {
-    isAdmin: async(req, res, next) => {
+    isAdmin: async (req, res, next) => {
         const token = req.cookies.jwt;
         //console.log(token);
         if (typeof token == "string") {
             const payload = await auth.verifyToken(token);
-            //console.log("Abc" + JSON.stringify(payload));
+            ////console.log("Abc" + JSON.stringify(payload));
             const role = await mRole.getOnebyId(payload.roleID);
             if (role[0].byname == "admin") {
                 next();
-            } else {
+            }
+            else {
                 backURL = req.header('Referer') || '/';
                 //console.log(backURL);
                 res.redirect(backURL);
             }
-        } else {
+        }
+        else {
             backURL = req.header('Referer') || '/';
             //console.log(backURL);
             res.redirect(backURL);
             //res.redirect('/home');
         }
     },
-    isSeller: async(req, res, next) => {
-        //const token = req.cookies.jwt;
+    isSeller: async (req, res, next) => {
+        const token = req.cookies.jwt;
         //console.log(token);
         if (typeof token == "string") {
             const payload = await auth.verifyToken(token);
-            //console.log("Abc" + JSON.stringify(payload));
+            ////console.log("Abc" + JSON.stringify(payload));
             const role = await mRole.getOnebyId(payload.roleID);
             if (role[0].byname == "seller") {
                 next();
-            } else {
+            }
+            else {
                 //res.redirect('/home');
                 backURL = req.header('Referer') || '/';
                 //console.log(backURL);
                 res.redirect(backURL);
             }
-        } else {
+        }
+        else {
             backURL = req.header('Referer') || '/';
             //console.log(backURL);
             res.redirect(backURL);

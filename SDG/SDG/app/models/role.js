@@ -6,9 +6,9 @@ module.exports = {
         const sql = `SELECT  *
                      FROM ${tb_account} 
                      WHERE id = ${id}`;
-        //console.log(sql);
+        ////console.log(sql);
         const rows = await db.load(sql);
-        console.log("token:", rows);
+        //console.log("token:", rows);
         return rows;
     },
 };

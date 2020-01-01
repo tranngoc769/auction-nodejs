@@ -106,23 +106,36 @@
     <div class="col-md-8">
 <form accept-charset="UTF-8" action="/seller/multiple-upload" method="POST" enctype="multipart/form-data" >
 <div class="form-group">
-<label for="productName" required="required">Product Name</label>
+<label for="productName" required="required">Tên Sản Phẩm</label>
 <input value="Quang" t type="text" name="pName" class="form-control" id="ippname" placeholder="Product Name">
 </div>
 <div class="form-group">
-<label for="startPrice">Start Price</label>
+
+
+<label for="categoryname" required="required">Danh Mục Hàng</label>
+<select  class="form-control" id="ipCate" name="Cate" required="required">
+   {{#each Cha}}
+             <optgroup value="10.00.00" label="{{Catname}}">
+                    {{#with (lookup ../Matrix @index)}}
+                     {{#each this}}
+                    <option>{{Catname}}</option>
+                     {{/each}}
+                    {{/with}}
+             </optgroup>
+            {{/each}}
+</select>
+
+</div>
+<div class="form-group">
+<label for="startPrice">Giá Khởi Điểm</label>
 <input value="1" t type="number" name="sPrice" class="form-control" id="ipsPrice" placeholder="Start Price" required="required">
 </div>
 <div class="form-group">
-<label for="stepPrice">Step Price</label>
+<label for="stepPrice">Bước Giá</label>
 <input value="1" type="number" name="stPrice" class="form-control" id="ipstPrice" placeholder="Step Price" required="required">
 </div>
 <div class="form-group">
-<label for="sellNowPrice">Sell Now Price</label>
-<input value="1" t type="number" name="snPrice" class="form-control" id="ipsnPrice" placeholder="Sell Now Price" required="required">
-</div>
-<div class="form-group">
-<label for="sellNowPrice">Sell Now Price</label>
+<label for="sellNowPrice">Giá Bán Ngay</label>
 <input value="1" t type="number" name="snPrice" class="form-control" id="ipsnPrice" placeholder="Sell Now Price" required="required">
 </div>
 <div class="form-group">
@@ -131,6 +144,7 @@
 <option>Yes</option>
 <option>No</option>
 </select>
+
 </div>
 
 <div class="form-group">

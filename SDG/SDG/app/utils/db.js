@@ -1,5 +1,4 @@
 const mysql = require('mysql');
-
 function connectToSring() {
     return mysql.createConnection({
         host: 'localhost',
@@ -17,7 +16,7 @@ exports.load = sql => {
             if (err) {
                 reject(err);
             }
-            //console.log("Connected!");
+            ////console.log("Connected!");
         });
         con.query(sql, (error, results, fields) => {
             if (error) {
@@ -35,7 +34,7 @@ exports.del = (tbName, idField, id) => {
             if (err) {
                 reject(err);
             }
-            //console.log("Connected!");
+            ////console.log("Connected!");
         });
         let sql = 'delete from ?? where ?? = ?';
         const params = [tbName, idField, id];
@@ -56,7 +55,7 @@ exports.update = (tbName, idField, entity) => {
             if (err) {
                 reject(err);
             }
-            //console.log("Connected!");
+            ////console.log("Connected!");
         });
         const id = entity[idField];
         delete entity[idField];
