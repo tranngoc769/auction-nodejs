@@ -47,5 +47,34 @@ router.get('/getAllUser', async (req, res) => {
     result.data = uNameInfo;
     //console.log(result);
     res.json(result);
+}); 
+router.post('/updateRole', async (req, res) => {
+    const data = JSON.parse(JSON.stringify(req.body));
+    var arr = data.data.split('-');
+    console.log(arr);
+    arr.forEach(async p => {
+        const status = await mUser.getWantToUpdate(parseInt(p));
+        var entity = {};
+        entity.id = parseInt(p);
+        entity.id_role = 5 - parseInt(status[0].id_role);
+        console.log(entity);
+        if (status[0].id_role == 2) {
+            if (status[0].wantToUpdate == 1) {
+                entity.wantToUpdate = 0;
+                const data = await mUser.responseUpdateRole(entity);
+                console.log(data);
+            }
+            else {
+                res.json('failure');
+            }
+        }
+        else {
+            const data = await mUser.responseUpdateRole(entity);
+            console.log(data);
+        }
+       
+    })
+   
+    res.json('successfull');
 });
 module.exports = router;

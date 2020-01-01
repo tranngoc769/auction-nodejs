@@ -62,7 +62,7 @@ exports.update = (tbName, idField, entity) => {
         const id = entity[idField];
         delete entity[idField];
         let sql = `update ${tbName} set ? where ${idField}=${id}`;
-        con.query(sql, (error, results, fields) => {
+        con.query(sql, entity, (error, results, fields) => {
             if (error) {
                 reject(error);
             }

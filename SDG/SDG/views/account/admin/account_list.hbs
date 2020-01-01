@@ -93,7 +93,8 @@
             }, {
                 field: 'username',
                 title: 'User Name',
-                template: function (data) {
+                    template: function (data) {
+
                     return '<div class="kt-user-card-v2">' +
                         '<div class="kt-user-card-v2__pic">' +
                         '<div class="kt-badge kt-badge--xl bg-main">' +
@@ -132,7 +133,20 @@
                         return '<div class="StatusActiveBusowner" value="' + data['id_role'] + '">' + 'seller' + '</div>'
                     }
                 }
+            }, {
+                field: 'wantToUpdate',
+                title: 'Upgrade',
+                textAlign: 'center',
+                template: function (data) {
+                    if (data['wantToUpdate'] == 1) {
+                        return '<div class="StatusActiveBusowner" style="color:red" value="' + data['wantToUpdate'] + '">' + 'Waiting' + '</div>'
+                    }
+                    else {
+                        return '<div class="StatusActiveBusowner" value="' + data['id_role'] + '">' + '' + '</div>'
+                    }
+                }
             }
+
             ]
         };
 
@@ -145,14 +159,14 @@
     });
 
 
-    function lockAccount() {
+    function updateRole() {
         let chkCheckeds = datatable.find('input[type=checkbox]:checked');
         if (chkCheckeds.length) {
             if (!confirm('B?n ch?c ch?n mu?n m?/khóa tài kho?n này?')) {
                 return;
             }
         }
-        var arr = [];
+        var arr ='';
         chkCheckeds.each(function () {
             //var index = -1;
             let id = $(this).val();
@@ -168,28 +182,32 @@
             //} else {
             //    dataSet[id].StatusActive = 1;
             //}
-            arr.push(id);
+            arr = arr + id + '-';
         });
-        $.ajax({
+        if (arr != '') {
+             $.ajax({
             type: 'POST',
-            url: '/Account/LockAccount',
+            url: '/admin/updateRole',
             data:
             {
-                'idList': arr
+                data: method(arr)
             },
             dataType: "json",
             success: function (result) {
-                if (result.Result == "success") {
+                console.log(result);
+                if (result == "successfull") {
                     datatable.reload();
                 }
                 else {
-                    alert("please choose items having the same statusActive");
+                    alert("please choose items having the require");
                 }
             },
             error: function (err) {
 
             }
         })
+        }
+       
         //session.setData('dataSet', JSON.stringify(dataSet));
         //location.reload();
     }
@@ -207,5 +225,8 @@
                 location.href = "/Account/EditAccount/?id=" + id;
             }
         });
+    }
+    function method(str) {
+        return str.substring(0, str.length - 1);
     }
 </script>
