@@ -29,7 +29,7 @@ module.exports = {
   },
     getAllCategory: async (page, perpage, query_search, field, sort) => {
         const start_index = (page - 1) * perpage;
-        const sql = `SELECT  c1.ID, c1.Catname , c2.catName as parentCate
+        const sql = `SELECT  c1.ID, c1.Catname , c2.catName as parentCate, c2.ID as parentID
                      FROM ${tb_category} c1 INNER JOIN ${tb_category} c2
                                            ON c1.ParentID = c2.ID
                      WHERE  (c1.Catname like '%${query_search}%' ||c2.Catname like '%${query_search}%' )
@@ -44,5 +44,17 @@ module.exports = {
         const nr = await db.del(tb_category, idField, id);
         console.log(nr);
         return nr;
+    },
+    getParentCate: async() => {
+        const sql = `SELECT *
+                     FROM ${tb_category} a              
+                     WHERE a.parentID is NULL`;
+        const rows = await db.load(sql);
+        console.log("token:", rows);
+        return rows;
+    },
+    UpdateCate: async (entity) => {
+        const rows = await db.update(tb_category, idField, entity);
+        return rows;
     }
 };

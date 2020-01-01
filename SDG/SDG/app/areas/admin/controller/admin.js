@@ -79,8 +79,12 @@ router.post('/updateRole', async (req, res) => {
     res.json('successfull');
 });
 router.get('/cate', async (req, res) => {
+    const data = await mCate.getParentCate();
     res.render("account/admin/cate_list",
-        { layout: 'adminLayout' });
+        {
+            layout: 'adminLayout',
+           data
+        });
 });
 router.get('/getAllCategory', async (req, res) => {
     var datareq = {};
@@ -122,7 +126,23 @@ router.post('/delCate', async (req, res) => {
     arr.forEach(async p => {
         const status = await mCate.delByID(parseInt(p));
     })
-
     res.json('successfull');
+})
+router.post('/updateCate', async (req, res) => {
+    const data = JSON.parse(JSON.stringify(req.body));
+    console.log(data);
+    var entity = {};
+    entity.ID = data.cateID;
+    entity.Catname = data.cateName;
+    if (data.parentCateID != 0) {
+        entity.parentID = data.parentCateID;
+    }
+    else {
+        entity.parentID = null;
+    }
+    mCate.UpdateCate(entity)
+        .then(res.redirect('/admin/cate'))
+        .catch();
+
 })
 module.exports = router;
