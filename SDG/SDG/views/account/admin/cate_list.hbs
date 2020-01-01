@@ -49,10 +49,10 @@
 <div id="Catetogory" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form  action="/admin/createCate" method="post" id="formHidden">
+            <form action="/admin/createCate" method="post" id="formHidden">
                 <div class="modal-header">
                     <h5 class="modal-title" id="titile">Create/Add</h5>
-                    <input id="cateID" name="cateID" type="number" hidden/>
+                    <input id="cateID" name="cateID" type="number" hidden />
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
@@ -77,7 +77,7 @@
                                             <i class="far fa-credit-card"></i>
                                         </div>
                                     </div>
-                                    <select id="parentCate" name="parentCateID"type="text" class="form-control">
+                                    <select id="parentCate" name="parentCateID" type="text" class="form-control">
                                         <option value="0">--NULL--</option>
                                         {{#each data}}
                                         <option value="{{ID}}">{{Catname}}</option>
@@ -99,8 +99,7 @@
                                 </button>
                             </div>
                             <div class="col-xl-4">
-                                <button onclick="cancel()" class="btn btn-primary btn-full-width" type="button"
-                                       >
+                                <button onclick="cancel()" class="btn btn-primary btn-full-width" type="button">
                                     Cancel
                                 </button>
                             </div>
@@ -203,6 +202,7 @@
             let id = $(this).val();
             arr = arr + id + '-';
         });
+
         if (arr != '') {
             $.ajax({
                 type: 'POST',
@@ -218,7 +218,13 @@
                         datatable.reload();
                     }
                     else {
-                        alert("please choose items having the require");
+                        if (typeof parseInt(result) == 'number') {
+                            let cateName = getCateName(result);
+                            alert(`Category ${cateName} contained product(s)`);
+                        }
+                        else {
+                            alert(result);
+                        }
                     }
                 },
                 error: function (err) {
@@ -231,14 +237,14 @@
     }
 
     function setRowClickEvent() {
-      
+
         datatable.on('click', 'td', function () {
             if ($(this).find('input[type=checkbox]').length ||
                 $(this).find('.kt-datatable__toggle-detail').length) {
                 return;
             }
             var id = $(this).parent().find('input[type=checkbox]').val();
-             var index = -1;
+            var index = -1;
             for (var i = 0; i < dataSet.length; i++) {
                 if (dataSet[i].ID == id) {
                     index = i;
@@ -253,10 +259,10 @@
                 $('#parentCate').val(dataSet[index].parentID);
                 $('#formHidden').attr('action', '/admin/updateCate');
                 $('#Catetogory').modal('show');
-              
+
             }
         });
-        
+
     }
     function cancel() {
         $('#titile').empty().html("Create/Add");
@@ -264,9 +270,18 @@
         $('#cateName').val('');
         $('#parentCate').val(0);
         $('#formHidden').attr('action', '/admin/createCate');
-         $('#Catetogory').modal('hide');
+        $('#Catetogory').modal('hide');
     }
-    
+    function getCateName(id) {
+        var index = -1;
+        for (var i = 0; i < dataSet.length; i++) {
+            if (dataSet[i].ID == id) {
+                index = i;
+                break;
+            }
+        }
+        return dataSet[index].Catname;
+    }
 
 </script>
 

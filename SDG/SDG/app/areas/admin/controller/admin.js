@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mUser = require('../../../models/user');
 const mCate = require('../../../models/category');
+const mProduct = require('../../../models/product');
 //If the data was sent as JSON
 router.use(express.json());
 //If the data was sent using Content-Type: application/x-www-form-urlencoded
@@ -11,6 +12,7 @@ router.get('/', async (req, res) => {
     res.render("account/admin/homepage",
         { layout: 'adminLayout' });
 });
+//User
 router.get('/user', async (req, res) => {
     res.render("account/admin/account_list",
         { layout: 'adminLayout' });
@@ -24,17 +26,16 @@ router.get('/getAllUser', async (req, res) => {
     datareq.field = 'id';
     datareq.sort = 'desc';
 
-    if (typeof req.query.pagination.total != 'undefined') { datareq.total = req.query.pagination.total;}
-    if (typeof req.query.sort != 'undefined') { datareq.sort = req.query.sort.sort;}
-    if (typeof req.query.sort != 'undefined') { datareq.field = req.query.sort.field;}
+    if (typeof req.query.pagination.total != 'undefined') { datareq.total = req.query.pagination.total; }
+    if (typeof req.query.sort != 'undefined') { datareq.sort = req.query.sort.sort; }
+    if (typeof req.query.sort != 'undefined') { datareq.field = req.query.sort.field; }
 
     //console.log(datareq);
     let querysearch = '';
-    if (req.query.query != '')
-    {
+    if (req.query.query != '') {
         querysearch = req.query.query.search;
     };
-    const uNameInfo = await mUser.getCustomer(datareq.page, datareq.perpage, querysearch,datareq.field,datareq.sort);
+    const uNameInfo = await mUser.getCustomer(datareq.page, datareq.perpage, querysearch, datareq.field, datareq.sort);
     datareq.total = uNameInfo.length;
     var meta = {};
     meta.page = datareq.page;
@@ -48,7 +49,7 @@ router.get('/getAllUser', async (req, res) => {
     result.data = uNameInfo;
     //console.log(result);
     res.json(result);
-}); 
+});
 router.post('/updateRole', async (req, res) => {
     const data = JSON.parse(JSON.stringify(req.body));
     var arr = data.data.split('-');
@@ -73,17 +74,18 @@ router.post('/updateRole', async (req, res) => {
             const data = await mUser.responseUpdateRole(entity);
             console.log(data);
         }
-       
+
     })
-   
+
     res.json('successfull');
 });
+//category
 router.get('/cate', async (req, res) => {
     const data = await mCate.getParentCate();
     res.render("account/admin/cate_list",
         {
             layout: 'adminLayout',
-           data
+            data
         });
 });
 router.get('/getAllCategory', async (req, res) => {
@@ -122,11 +124,24 @@ router.get('/getAllCategory', async (req, res) => {
 router.post('/delCate', async (req, res) => {
     const data = JSON.parse(JSON.stringify(req.body));
     var arr = data.data.split('-');
+    let count = 0;
     console.log(arr);
     arr.forEach(async p => {
-        const status = await mCate.delByID(parseInt(p));
+        const products = await mProduct.getProductOfCate(parseInt(p));
+        if (products.length > 0) {
+           let CateFail = parseInt(p);
+            console.log(CateFail);
+            res.json(CateFail);
+        }
+        else {
+            const status = mCate.delByID(parseInt(p)).then(function () {
+                count = count + 1;
+                if (count == arr.length) {
+                    res.json('successfull');
+                }})
+                .catch(function (err) { res.json(err)});
+        }
     })
-    res.json('successfull');
 })
 router.post('/updateCate', async (req, res) => {
     const data = JSON.parse(JSON.stringify(req.body));
@@ -160,5 +175,6 @@ router.post('/createCate', async (req, res) => {
         .then(res.redirect('/admin/cate'))
         .catch();
 })
+//product
 
 module.exports = router;
