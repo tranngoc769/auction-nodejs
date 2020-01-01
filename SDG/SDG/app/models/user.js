@@ -41,7 +41,7 @@ module.exports = {
                      WHERE a.id_role!=1 AND isDeleted=0
                             AND (i.fullName like '%${query_search}%' ||a.username like '%${query_search}%' 
                                  || i.phone like  '%${query_search}%' || i.email like  '%${query_search}%'
-                                   || a.wantToUpdate like  '%${query_search}%')
+                                  )
                      ORDER BY ${field} ${sort}
                      LIMIT ${start_index} , ${perpage}`;
         //console.log(sql);

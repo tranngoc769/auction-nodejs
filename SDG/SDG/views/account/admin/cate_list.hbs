@@ -25,11 +25,11 @@
                 <button class="btn btn-primary" data-toggle="modal" data-target="#Catetogory">
                     <a style="color:white">
                         <i class="fas fa-plus"></i>
-                        Create/Add new Category
+                        New
                     </a>
                 </button>
                 <button class="btn btn-primary" onclick="delCate()">
-                    <a> <i class="fas fa-user-lock"></i>Delete</a>
+                    <a> <i class="far fa-trash-alt"></i>Delete</a>
                 </button>
             </div>
         </div>
@@ -116,8 +116,7 @@
     var dataSet = [];
 
     $(document).ready(function () {
-        $('#total').html(total);
-
+      
         var options = {
             // datasource definition
             data: {
@@ -128,6 +127,9 @@
                         method: 'GET',
                         map: function (raw) {
                             dataSet = raw;
+                            if (typeof raw.meta !== 'undefined') {
+                                $('#total').html(raw.meta.total);
+                            }
                             if (typeof raw.data !== 'undefined') {
                                 dataSet = raw.data;
                             }

@@ -3,22 +3,23 @@ const db = require('../utils/db');
 const tb_product = 'product';
 const tb_category = 'category';
 const tb_info = 'user_info';
+const tb_account = 'user_account';
 const idField = 'ID';
 
 module.exports = {
     getAllProduct: async (page, perpage, query_search, field, sort) => {
         const start_index = (page - 1) * perpage;
-        const sql = `SELECT  *
+        const sql = `SELECT  p.ID,p.ProName,p.sellNowPrice,p.pubDate,p.endDate,p.ImagePro,p.Describle,p.reservePrice,c.Catname,a.username
                      FROM ${tb_product} p INNER JOIN ${tb_category}  c
                                            ON p.catId=c.ID
-                                            INNER JOIN ${tb_info} i
-                                            ON p.sellerID=i.accountID
+                                            INNER JOIN ${tb_account} a
+                                            ON p.sellerID=a.id
                      WHERE  (p.ProName like '%${query_search}%' ||p.Describle like '%${query_search}%' )
                      ORDER BY ${field} ${sort}
                      LIMIT ${start_index} , ${perpage}`;
         console.log(sql);
         const rows = await db.load(sql);
-        console.log("token:", rows);
+        //console.log("token:", rows);
         return rows;
     },
     delByID: async id => {

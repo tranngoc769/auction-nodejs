@@ -176,5 +176,59 @@ router.post('/createCate', async (req, res) => {
         .catch();
 })
 //product
+router.get('/product', async (req, res) => {
+    res.render("account/admin/product_list",
+        {
+            layout: 'adminLayout'
+        });
+});
+router.get('/getAllProduct', async (req, res) => {
+    var datareq = {};
+    datareq.page = parseInt(req.query.pagination.page);
+    datareq.perpage = parseInt(req.query.pagination.perpage);
+    datareq.pages = 0;
+    datareq.total = 0;
+    datareq.field = 'ID';
+    datareq.sort = 'desc';
 
+    if (typeof req.query.pagination.total != 'undefined') { datareq.total = req.query.pagination.total; }
+    if (typeof req.query.sort != 'undefined') { datareq.sort = req.query.sort.sort; }
+    if (typeof req.query.sort != 'undefined') { datareq.field = req.query.sort.field; }
+
+    console.log(datareq);
+    let querysearch = '';
+    if (req.query.query != '') {
+        querysearch = req.query.query.search;
+    };
+    const Info = await mProduct.getAllProduct(datareq.page, datareq.perpage, querysearch, datareq.field, datareq.sort);
+    datareq.total = Info.length;
+    var meta = {};
+    meta.page = datareq.page;
+    meta.perpage = datareq.perpage;
+    meta.pages = Math.ceil(datareq.total / datareq.perpage);
+    meta.total = datareq.total;
+    meta.field = datareq.field;
+    meta.sort = datareq.sort;
+    var result = {};
+    result.meta = meta;
+    result.data = Info;
+    console.log(result);
+    res.json(result);
+})
+router.post('/delProduct', async (req, res) => {
+    const data = JSON.parse(JSON.stringify(req.body));
+    var arr = data.data.split('-');
+    let count = 0;
+    console.log(arr);
+    arr.forEach(async p => {
+        const status = mProduct.delByID(parseInt(p)).then(function () {
+            count = count + 1;
+            if (count == arr.length) {
+                res.json('successfull');
+            }
+        })
+            .catch(function (err) { res.json(err) });
+    }
+    )
+})
 module.exports = router;

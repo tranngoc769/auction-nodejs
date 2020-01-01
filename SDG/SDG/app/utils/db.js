@@ -40,6 +40,7 @@ exports.del = (tbName, idField, id) => {
         let sql = 'delete from ?? where ?? = ?';
         const params = [tbName, idField, id];
         sql = mysql.format(sql, params);
+        console.log(sql);
         con.query(sql, (error, results, fields) => {
             if (error) {
                 reject(error);
