@@ -104,30 +104,30 @@
       <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
     </div>
     <div class="col-md-8">
-<form accept-charset="UTF-8" action="https://getform.io/f/d709b72b-d30b-4316-9cc1-4d1d33778a8b" method="POST" enctype="multipart/form-data" target="_blank">
+<form accept-charset="UTF-8" action="/seller/multiple-upload" method="POST" enctype="multipart/form-data" >
 <div class="form-group">
 <label for="productName" required="required">Product Name</label>
-<input type="text" name="pName" class="form-control" id="pname" placeholder="Product Name">
+<input value="Quang" t type="text" name="pName" class="form-control" id="ippname" placeholder="Product Name">
 </div>
 <div class="form-group">
 <label for="startPrice">Start Price</label>
-<input type="number" name="sPrice" class="form-control" id="sPrice" placeholder="Start Price" required="required">
+<input value="1" t type="number" name="sPrice" class="form-control" id="ipsPrice" placeholder="Start Price" required="required">
 </div>
 <div class="form-group">
 <label for="stepPrice">Step Price</label>
-<input type="number" name="stPrice" class="form-control" id="stPrice" placeholder="Step Price" required="required">
+<input value="1" type="number" name="stPrice" class="form-control" id="ipstPrice" placeholder="Step Price" required="required">
 </div>
 <div class="form-group">
 <label for="sellNowPrice">Sell Now Price</label>
-<input type="number" name="snPrice" class="form-control" id="snPrice" placeholder="Sell Now Price" required="required">
+<input value="1" t type="number" name="snPrice" class="form-control" id="ipsnPrice" placeholder="Sell Now Price" required="required">
 </div>
 <div class="form-group">
 <label for="sellNowPrice">Sell Now Price</label>
-<input type="number" name="snPrice" class="form-control" id="snPrice" placeholder="Sell Now Price" required="required">
+<input value="1" t type="number" name="snPrice" class="form-control" id="ipsnPrice" placeholder="Sell Now Price" required="required">
 </div>
 <div class="form-group">
 <label for="isExtension">Extension ?</label>
-<select class="form-control" id="isExt" name="isExt" required="required">
+<select  class="form-control" id="ipisExt" name="isExt" required="required">
 <option>Yes</option>
 <option>No</option>
 </select>
@@ -141,10 +141,10 @@
   </div>
   
 <hr>
-<div class="form-group mt-3">
-<label class="mr-2">Upload your CV:</label>
-<input type="file" name="file">
-</div>
+<div class="form-group">
+                        <label for="input-file"> </label>
+                        <input type="file" name="many-files" multiple id="input-many-files" class=" form-control-file">
+                    </div>
 <hr>
 <button type="submit" class="btn btn-sm">Submit</button>
 </form>
@@ -245,5 +245,26 @@ var gaProperty = 'UA-120201777-1';var disableStr = 'ga-disable-' + gaProperty;if
 function gaOptout(){document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2045 23:59:59 UTC; path=/';window[disableStr] = true;alert('Google Tracking has been deactivated');}
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-120201777-1', 'auto');ga('set', 'anonymizeIp', true);ga('send', 'pageview');
 </script>
-
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Multiple images preview in browser - trungquandev.com
+            let imagesPreview = function(input, placeToInsertImagePreview) {
+                if (input.files) {
+                    let filesAmount = input.files.length;
+                    for (i = 0; i < filesAmount; i++) {
+                        let reader = new FileReader();
+                        reader.onload = function(event) {
+                            $($.parseHTML("<img>")).attr("src", event.target.result).appendTo(placeToInsertImagePreview);
+                        }
+                        reader.readAsDataURL(input.files[i]);
+                    }
+                }
+            };
+            $("#input-many-files").on("change", function() {
+                imagesPreview(this, "div.preview-images");
+            });
+        });
+    </script>
 </body>

@@ -30,7 +30,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(async function(req, res, next) {
     if (typeof req.cookies.jwt == "string") {
         const data = await auth.verifyToken(req.cookies.jwt)
@@ -45,7 +44,6 @@ app.use(async function(req, res, next) {
 
 })
 
-// app.use('/', require('./app/areas/seller/controller/seller'));
 app.use('/', require('./app/home/controller/home'));
 app.use('/user', require('./app/home/controller/account'));
 app.use('/admin', middleware.isAdmin, require('./app/areas/admin/controller/admin'));
