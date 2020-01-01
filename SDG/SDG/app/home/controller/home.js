@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const mUser = require('../../models/user');
-const mRole = require('../../models/role');
 const mProduct = require('../../models/product');
 const mReview = require('../../models/review');
 const mCate = require('../../models/category');
@@ -33,8 +32,8 @@ router.get('/', async (req, res) => {
         }
     }
     else {
-        const payload = await auth.verifyToken(token);
-        const uNameInfo = await mUser.getUserInfo(payload.uID);
+        //const payload = await auth.verifyToken(token);
+        //const uNameInfo = await mUser.getUserInfo(payload.uID);
         res.render('home/homepage');
         
     }
@@ -54,7 +53,7 @@ router.get('/product/:proID', async (req, res) => {
         const numberOfGoodReview = await mReview.getNumberOfGoodReview(payload.uID)
         bidderCanBid = numberOfGoodReview >= numberOfGoodReviewBidderRequried ? true : false
         console.log(bidderCanBid)
-        res.render('product/product', {'product': product[0], 'cate': cate[0], 'subImg': subImg, 'bidderCanBid': bidderCanBid})
+        res.render('product/product', {'product': product[0], 'cate': cate[0], 'subImg': subImg, 'bidderCanBid': bidderCanBid, 'recommendPrice': product[0].curPrice + product[0].stepPrice})
     }
     else {
         res.render('home/homepage');

@@ -21,6 +21,7 @@ exports.load = sql => {
         });
         con.query(sql, (error, results, fields) => {
             if (error) {
+                console.log(error)
                 reject(error);
             }
             resolve(results);

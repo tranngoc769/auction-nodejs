@@ -46,7 +46,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<a href="#"><img src="../assets{{product.ImagePro}}" alt=""></a>
 						</div>
 						<div class="col-md-3">
-							<a href="#" style="margin-bottom:20px"><i class="fa fa-plus-square p-5"></i>Add to wishlist</a>
+							<a href="/bidder/watchlist/{{product.ID}}" style="margin-bottom:20px"><i class="fa fa-plus-square p-5"></i>Add to wishlist</a>
 							<div class="blog-cate">
 								<h3>Categories</h3>
 								<ul>
@@ -66,10 +66,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							</div>
 							<div class="blog-post">
 								{{#if bidderCanBid}}
-								<form onsubmit="event.preventDefault(); return bid();">
-									<small class="form-text text-success">You are good to bid.</small>
+								<form action="/bidder/bid/{{product.ID}}" method="POST">
+									<small class="form-text text-success">You are good to bid. Recommend price to bid: {{recommendPrice}}</small>
 									<div class="form-inline row">
-										<input type="munber" class="form-control" id="bidPriceInput"
+										<input type="munber" name="price" class="form-control" id="bidPriceInput"
 											placeholder="Enter your price to bid">
 										<button type="submit" class="btn btn-primary ml-5">BID NOW</button>
 									</div>
