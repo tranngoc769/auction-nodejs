@@ -16,5 +16,14 @@ module.exports = {
     const sql = `SELECT ID FROM category WHERE Catname = '${Catname}'`;
     const row = await db.load(sql);
     return row;
-    }
+    },
+    getOnebyId: async (id) => {
+        const sql = `SELECT  *
+                     FROM category 
+                     WHERE id = ${id}`;
+        //console.log(sql);
+        const rows = await db.load(sql);
+        console.log("token:", rows);
+        return rows;
+    },
 };
