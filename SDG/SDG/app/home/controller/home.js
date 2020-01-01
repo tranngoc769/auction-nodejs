@@ -12,23 +12,36 @@ router.use(express.json());
 //If the data was sent using Content-Type: application/x-www-form-urlencoded
 router.use(express.urlencoded({ extended: false }));
 //
-router.get('/', async (req, res) => {
-    ////console.log(req.cookies.jwt);
+
+router.get('/', async(req, res) => {
     const token = req.cookies.jwt;
-    ////console.log(token);
+
+    //load cho sideBar
+    const parentCat = await mCat.getParentCategory();
+    //const matrixChildCat = await mPro.getAllCatChild();
+
+
+    const listParDM = await mCat.getParentCategory();
+    const data = JSON.parse(JSON.stringify(listParDM));
+    var matrixChildCat = [];
+    for (var i = 0; i < data.length; i++) {
+        const listCDM = await mCat.getChildCategory(data[i].ID);
+        const data2 = JSON.parse(JSON.stringify(listCDM));
+        matrixChildCat.push(data2);
+
+    }
+
     if (typeof token == "string") {
         const payload = await auth.verifyToken(token);
-        //console.log("Abc" + JSON.stringify(payload));
-        //const role = await mRole.getOnebyId(payload.roleID);
         if (payload.roleName == "admin") {
             res.redirect(`/${payload.roleName}`);
-        }
-        else {
-            //console.log(payloa
-         const payload = await auth.verifyToken(token);
-         console.log(" aaaaaaaaaaaaaaa : "+ payload.uID);
-         
-            res.render('home/homepage');
+        } else {
+            const payload = await auth.verifyToken(token);
+
+            res.render('home/homepage', {
+                parentCat: parentCat,
+                matrixChildCat: matrixChildCat
+            });
         }
     }
     else {
@@ -60,7 +73,7 @@ router.get('/product/:proID', async (req, res) => {
         res.render('product/product', {'product': product[0], 'cate': cate[0], 'subImg': subImg, 'bidderCanBid': bidderCanBid})
     }
 });
-router.post('/login', async (req, res) => {
+router.post('/login', async(req, res) => {
     const data = JSON.parse(JSON.stringify(req.body));
     const resLogin = await mUser.resLogin(data.uname, data.passwd);
     //console.log(resLogin);
@@ -76,8 +89,7 @@ router.post('/login', async (req, res) => {
         //console.log(token);
         res.cookie('jwt', token);
         res.redirect('/');
-    }
-    else {
+    } else {
         res.render('error');
     }
 

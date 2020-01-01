@@ -18,7 +18,7 @@ const exphbs = require('express-handlebars');
 //app.set('view engine', 'pug');
 const hbs = exphbs.create({ /*config */
     extname: 'hbs',
-    defaultLayout: 'layout'
+    defaultLayout: 'layout',
 });
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
