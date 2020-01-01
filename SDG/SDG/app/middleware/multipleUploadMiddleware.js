@@ -5,6 +5,10 @@
 const util = require("util");
 const path = require("path");
 const multer = require("multer");
+var fs = require('fs');
+function getList() {
+  return listImg; 
+}
 let storage = multer.diskStorage({
   // where to save
   destination: (req, file, callback) => {
@@ -17,10 +21,16 @@ let storage = multer.diskStorage({
       return callback(errorMess, null);
     }
     let filename = `${Date.now()}-tranngoc-${file.originalname}`;
+
+    var logger = fs.createWriteStream('listImage.txt', {
+      flags: 'a' // 'a' means appending (old data will be preserved)
+    })
+    logger.write(filename+'\n');
+    logger.close();
     callback(null, filename);
   }
 });
 
-let uploadManyFiles = multer({storage: storage}).array("many-files", 17);
+let uploadManyFiles = multer({storage: storage}).array("many-files", 20);
 let multipleUploadMiddleware = util.promisify(uploadManyFiles);
 module.exports = multipleUploadMiddleware;
