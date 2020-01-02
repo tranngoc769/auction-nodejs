@@ -113,5 +113,28 @@ module.exports = {
     VALUES (${id},${img})`;
         const row = await db.load(sql);
         return row;
+    },
+    getProTopBestBegCount: async() => {
+        const sqlQuery = `SELECT * FROM ${tb_product} ORDER BY countBidder DESC LIMIT 0,5`;
+        const rows = await db.load(sqlQuery);
+        return rows;
+    },
+    getRemainProduct: async(endDate) => {
+        const sql = `SELECT product.ID, ProName, curPrice, product.HighestBidderID,user_info.fullName, countBidder, pubDate, endDate, ImagePro, isExtension FROM product INNER JOIN user_info ON product.HighestBidderID = user_info.accountID WHERE endDate >= '${endDate}'`;
+        const rows = await db.load(sql);
+        return rows;
+    },
+    getProTopHightestPrice: async(endDate) => {
+
+        const sqlQuery = `SELECT * FROM ${tb_product} WHERE endDate >= '${endDate}' ORDER BY curPrice DESC LIMIT 5`;
+        const rows = await db.load(sqlQuery);
+        return rows;
+    },
+    getProTopEndDate: async(endDate) => {
+
+        const sql = `SELECT * FROM ${tb_product} WHERE endDate >= '${endDate}' ORDER BY endDate DESC LIMIT 5`;
+        const rows = await db.load(sql);
+        return rows;
     }
+
 };
