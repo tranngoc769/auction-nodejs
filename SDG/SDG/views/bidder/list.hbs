@@ -1,0 +1,47 @@
+
+<section id="cart_items">
+  <div class="container">
+    <div class="review-payment">
+      <h2>{{title}}</h2>
+    </div>
+    <div class="table-responsive cart_info">
+      <table class="table table-condensed">
+        <thead>
+          <tr class="cart_menu">
+            <td scope="col" class="row image"></td>
+            <td  scope="col" class="description">Product</td>
+            <td  scope="col" class="price">Giá Hiện Tại</td>
+            <td  scope="col" class="quantity">Bạn là người giữ giá?</td>
+            <td  scope="col" class="total">Tổng Lượt Ra Giá</td><td></td>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each products}}
+          <tr>
+            <td  scope="col" class="cart_product"><img height="200px" width="200px" src="../assets/photos/{{ImagePro}}" alt=""></td>
+            
+            <td  scope="col" class="cart_description"><h4><a href="/product/{{ID}}">{{ProName}}</a><p></p>
+            </h3><p>Ngày đăng : {{pubDate}}</p></h3><p>Ngày kết thúc : {{endDate}}</p></td>
+            <td  scope="col" class="cart_price"><p>{{curPrice}}</p></td>
+            <td  scope="col" class="cart_quantity">
+                <h4><a href="#">
+                  {{#if isPriceKeeper}}
+                    ✅
+                  {{else}}
+                    ❌
+                  {{/if}}
+                </a></h4>
+            </td>
+            <td  scope="col" class="cart_total"><p class="cart_total_price">{{countBidder}}</p></td>
+            <td  scope="col"> 
+              <a href="/seller/myproduct/{{ID}}"><img height="32px" width="32px" src="../assets/images/document.png" alt="">
+              </a></td>
+          </tr>
+            
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+</section>
