@@ -1,0 +1,85 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="product-details">
+          <div class="col-sm-5">
+            <div class="view-product"><img src="../../assets/photos/{{product.ImagePro}}" alt="image details">
+            </div>
+			<br>
+              <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+						 {{#each page }} 
+                        <li data-target="#slider-carousel" data-slide-to="{{value}}" class=""></li>
+						{{/each}}
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="item active">
+                                <img src="../../assets/photos/{{IMG.0.image}}" class="girl img-responsive" alt="website template image">
+                        </div>
+						{{#each IMG}}
+                        <div class="item">
+                                <img src="../../assets/photos/{{image}}" class="girl img-responsive" alt="website template image">
+                        </div>
+						{{/each}}
+                    </div>
+                    <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev"><i class="fa fa-angle-left"></i></a> <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next"><i class="fa fa-angle-right"></i></a>
+                </div>
+              
+          </div>
+          <div class="col-sm-7">
+            <div class="product-information"><img src="../../assets/images/new.png" class="newarrival" alt="image details">
+              <h3>{{product.ProName}}</h3>
+            <span> <span>{{product.sellNowPrice}}đ</span>
+                            </span>
+              <p><b>Current Price:</b> {{product.curPrice}}</p>
+              <p><b>Sell Now:</b> {{product.sellNowPrice}}</p>
+              <a><b>Public date:</b> {{product.pubDate}}</a><br/>
+			  <a><b>End date:</b> {{product.endDate}}</a>
+              </hr>
+			  <div class="blog-post">
+								{{{product.Describle}}}
+							</div>
+			   </div>
+          </div>
+        </div>
+        <div class="category-tab shop-details-tab">
+          <div class="col-sm-12">
+            <ul class="nav nav-tabs">
+              <li><a href="#companyprofile" data-toggle="tab">Recommend Products</a></li>
+            </ul>
+          </div>
+          <div class="tab-content">
+            <div class="tab-pane fade" id="companyprofile">
+              {{#each bidder }} 
+              <div class="col-sm-3" >
+                <div class="product-image-wrapper" style="
+    border: 1px solid #fe980f;
+    border-radius: 10px;
+    ">
+                  <div class="single-products" >
+                      <h4 style="text-align: center;">{{fullName}}</h4>
+                    <div class="productinfo text-center">
+                      <h2>{{price}}đ</h2>
+                      <p>{{dateBid}}</p>
+                      <form id="x" method="POST" action="/seller/bannedPost">
+                      <button type="submit" class="btn btn-default add-to-cart"><i class="fa fa-bomb"></i>Cấm</button>
+                      <input value="{{proID}}" type="hidden" name="pID">
+                      <input value="{{accountID}}" type="hidden" name="uID">
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{/each }} 
+            </div>
+
+          </div>
+        </div>
+      
+	  </div>
+    </div>
+  </div>
+  
+</section>

@@ -1,9 +1,6 @@
 <section id="cart_items">
   <div class="container">
     
-    
-    
-    
     {{!-- SAN PHAM DANG DAU GIA --}}
     <div class="review-payment">
       <h2>Danh Sách Sản Phẩm Còn Hạn Đang Đấu Giá</h2>
@@ -20,6 +17,7 @@
           </tr>
         </thead>
         <tbody>
+          {{!-- San pham con han --}}
           {{#each products}}
           <tr>
             <td  scope="col" class="cart_product"><a href="/seller/detail/{{ID}}"><img height="200px" width="200px" src="../assets/photos/{{ImagePro}}" alt=""></a></td>
@@ -28,10 +26,11 @@
             </h3><p>Ngày đăng : {{pubDate}}</p></h3><p>Ngày kết thúc : {{endDate}}</p></td>
             <td  scope="col" class="cart_price"><p>{{curPrice}}</p></td>
             <td  scope="col" class="cart_quantity">
-                <h4><a href="#">{{fullName}}</a>
+                {{fullName}}</a>
             </td>
             <td  scope="col" class="cart_total"><p class="cart_total_price">{{countBidder}}</p></td>
             <td  scope="col">
+              {{!-- Chinh sua mo ta --}}
               <a href="/seller/myproduct/{{ID}}"><img height="32px" width="32px" src="../assets/images/document.png" alt="">
               </a></td>
           </tr>
@@ -57,6 +56,7 @@
           </tr>
         </thead>
         <tbody>
+          {{!-- San pham da ban --}}
           {{#each soldProducts}}
           <tr>
             <td  scope="col" class="cart_product"><a href="/seller/detail/{{ID}}"><img height="200px" width="200px" src="../assets/photos/{{ImagePro}}" alt=""></a></td>
@@ -68,9 +68,8 @@
                 <h4><a href="/seller/bidder/{{HighestBidderID}}">{{fullName}}</a>
             </td>
             <td  scope="col" class="cart_total"><p class="cart_total_price">{{countBidder}}</p></td>
-            <td  scope="col">
-              <a href="/seller/myproduct/{{ID}}"><img height="32px" width="32px" src="../assets/images/document.png" alt="">
-              </a></td>
+            <td  scope="col"><img height="32px" width="32px" src="../assets/images/document.png" alt="">
+             </td>
           </tr>
             
           {{/each}}

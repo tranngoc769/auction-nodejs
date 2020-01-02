@@ -6,6 +6,8 @@ const auth = require('../../../utils/auth');
 const mPro = require('../../../models/product');
 const mCat = require('../../../models/category');
 const mRe = require('../../../models/review');
+const mHis = require('../../../models/history');
+const mban = require('../../../models/ban');
 var moment = require('moment');
 
 var fs = require('fs');
@@ -139,6 +141,23 @@ router.post('/cancelSell', async(req, res) => {
     }
 });
 
+router.post('/bannedPost', async(req, res) => {
+    try {
+        
+        const data = JSON.parse(JSON.stringify(req.body));
+        var userID = data.uID;
+        var proID = data.pID;
+        console.log(data);
+        const sql = await mban.banProfromUser(userID,proID);
+        res.render('seller/Success', {
+            body: `Hủy giao dịch thành công`
+        });
+    } catch (error) {
+        res.render('seller/Success', {
+            body: '<b> Quang</b>' + error
+        });
+    }
+});
 router.post('/editPost', async(req, res) => {
     try {
         const data = JSON.parse(JSON.stringify(req.body));
@@ -210,16 +229,34 @@ router.get('/bidder/:id', async(req, res) => {
 });
 router.get('/detail/:id', async(req, res) => {
     const proID = parseInt(req.params.id);
-    // const proID = parseInt(req.params.id);
-    // const detail = await mPro.getOnebyId(proID);
-    // detail[0].pubDate = moment().format("HH:mm:ss DD-MM-YYYY");
-    // detail[0].endDate = moment().format("HH:mm:ss DD-MM-YYYY");
-    // const catname = await mCat.getCatNamebyID(detail[0].catId);
-    // Co ID san pham
-    res.render("seller/biddereview",
+
+    const token = req.cookies.jwt;
+    const payload = await auth.verifyToken(token);
+    var uID = payload.uID;
+    const product = await mPro.getOnebyId(proID);
+    
+    product[0].pubDate = moment().format("HH:mm:ss DD-MM-YYYY");
+    product[0].endDate = moment().format("HH:mm:ss DD-MM-YYYY");
+    const subImg = await mPro.getSubImage(proID);
+    var page = [];
+    for (var i = 1;i<=subImg.length-1;i++)
     {
-        ID: bidderID
+        page.push(i);
+    }
+    // XEM NGUOI BIT
+    const whoBid = await mHis.findBidderbyProID(proID);
+    whoBid.forEach(element => {
+        element.dateBid = moment().format("HH:mm:ss DD-MM-YYYY");
+    });
+    res.render("seller/detail",
+    {
+       product :   product[0],
+       IMG : subImg,
+       page : page,
+       bidder: whoBid
     });
     //   return app.use("/", router);
 });
+
+
 module.exports = router;
