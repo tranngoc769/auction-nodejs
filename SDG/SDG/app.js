@@ -13,6 +13,7 @@ const middleware = require('./app/middleware/security');
 const auth = require('./app/utils/auth');
 var app = express();
 const exphbs = require('express-handlebars');
+
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));
 //app.set('view engine', 'pug');

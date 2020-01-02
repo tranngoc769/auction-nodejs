@@ -38,31 +38,15 @@ module.exports = {
         //console.log("token:", rows);
         return rows;
     },
-    addProDuct: async(
-        ProName,
-        curPrice,
-        catId,
-        sellNowPrice,
-        stepPrice,
-        countBidder,
-        pubDate,
-        endDate,
-        Describle,
-        sellerID,
-        isExtension,
-        ImagePro,
-        startPrice
-    ) => {
-        const sql = `INSERT INTO product(ProName, curPrice, catId, sellNowPrice, stepPrice, countBidder, pubDate, endDate, Describle, sellerID, isExtension,ImagePro,startPrice)
-        VALUES (${ProName},${curPrice},${catId},${sellNowPrice},${stepPrice},${countBidder},${pubDate},${endDate},${Describle},${sellerID},${isExtension},${ImagePro},${startPrice})`; ////console.log(sql);
+    addProDuct: async(ProName, curPrice, catId, sellNowPrice, stepPrice, countBidder, pubDate, endDate, Describle, sellerID, isExtension, ImagePro, startPrice) => {
+        const sql = `INSERT INTO product(ProName,curPrice,catId,sellNowPrice,stepPrice,countBidder,pubDate,endDate,Describle,sellerID,isExtension,ImagePro,startPrice) VALUES (${ProName},${curPrice},${catId},${sellNowPrice},${stepPrice},${countBidder},${pubDate},${endDate},${Describle},${sellerID},${isExtension},${ImagePro},${startPrice})`;
+        console.log(sql);
         const rows = await db.load(sql);
         return;
     },
-    getOnebyId: async(id) => {
-        const sql = `SELECT  *
-                     FROM ${tb_product} 
-                     WHERE id = ${id}`;
-        //console.log(sql);
+    getOnebyId: async id => {
+        const sql = `SELECT  *  FROM ${tb_product} WHERE id = ${id}`;
+        console.log(sql);
         const rows = await db.load(sql);
         console.log("token:", rows);
         return rows;
@@ -135,6 +119,20 @@ module.exports = {
         const sql = `SELECT * FROM ${tb_product} WHERE endDate >= '${endDate}' ORDER BY endDate DESC LIMIT 5`;
         const rows = await db.load(sql);
         return rows;
+    },
+    getRemainProduct: async(endDate) => {
+        const sql = `SELECT product.ID, ProName, curPrice, product.HighestBidderID,user_info.fullName, countBidder, pubDate, endDate, ImagePro, isExtension FROM product INNER JOIN user_info ON product.HighestBidderID = user_info.accountID WHERE endDate >= '${endDate}'`;
+
+        console.log(sql);
+        const rows = await db.load(sql);
+        console.log(rows);
+        return rows;
+    },
+    updateProduct: async(ID, Describle) => {
+        const sql = `UPDATE product SET Describle = '${Describle}' WHERE ID=${ID}`;
+        console.log(sql);
+        const rows = await db.load(sql);
+        console.log(sql);
     }
 
 };

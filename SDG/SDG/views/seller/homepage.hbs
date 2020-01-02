@@ -9,19 +9,16 @@
     <div class="step-one">
       <h2 class="heading">Step1</h2>
     </div>
-    
     <div class="register-req">
       <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-12">
 <form accept-charset="UTF-8" action="/seller/multiple-upload" method="POST" enctype="multipart/form-data" >
 <div class="form-group">
 <label for="productName" required="required">Tên Sản Phẩm</label>
 <input value="Quang" t type="text" name="pName" class="form-control" id="ippname" placeholder="Product Name">
 </div>
 <div class="form-group">
-
-
 <label for="categoryname" required="required">Danh Mục Hàng</label>
 <select  class="form-control" id="ipCate" name="Cate" required="required">
    {{#each Cha}}
