@@ -244,6 +244,84 @@ router.get('/category/:ID/products', async(req, res) => {
     }
 
 
+
+});
+router.post('/search', async(req, res) => {
+    const data = JSON.parse(JSON.stringify(req.body));
+    const inputSearch = data.searchHere;
+
+    const token = req.cookies.jwt;
+    const curPrice = 'curPrice';
+    const DESC = 'DESC';
+
+    const id = parseInt(req.params.ID);
+    const page = parseInt(req.query.page) || 1;
+
+    const catDetail = await mCat.getCatbyID(id);
+
+    //load cho sideBar
+    const parentCat = await mCat.getParentCategory();
+    var matrixChildCat = [];
+    for (var i = 0; i < parentCat.length; i++) {
+        const listCDM = await mCat.getChildCategory(parentCat[i].ID);
+        const data2 = JSON.parse(JSON.stringify(listCDM));
+        matrixChildCat.push(data2);
+
+    }
+
+
+    //PHÂN TRANG
+    //catsFromDB[id - 1].isActive = true; // hien thi cho side bar
+    //san pham theo trang
+    const rs = await mProduct.getAllProduct(1, 5, 'áo', curPrice, DESC);
+
+    const pages = []; //luu mang cac trang hien len  |1|2|3|4|5|6|7|
+    for (let i = 1; i <= rs.pageTotal; i++) {
+        pages[i] = {
+            value: i,
+            active: (i) === page
+        };
+    }
+
+    const navs = {}; // nav co gia tri la gia tri truoc trang duoc queery trong tham so url, neu page query la 1, thi nav.prev= null
+    if (page > 1) {
+        navs.prev = page - 1; // khi nhan vao nut prev thi page can lay la bn
+    }
+    if (page < rs.pageTotal) {
+        navs.next = page + 1; // khi nhan vao nut next thi page can lay la bn
+    }
+
+
+    if (typeof token == "string") {
+        const payload = await auth.verifyToken(token);
+        if (payload.roleName == "admin") {
+            res.redirect(`/${payload.roleName}`);
+        } else {
+            const payload = await auth.verifyToken(token);
+
+            res.render('category/category', {
+                parentCat: parentCat,
+                catDetail: catDetail[0],
+                matrixChildCat: matrixChildCat,
+                list: rs.products,
+                pages: pages,
+                navs: navs,
+                title: "Category"
+            });
+        }
+    } else {
+        res.render('home/search', {
+            parentCat: parentCat,
+            catDetail: catDetail[0],
+            matrixChildCat: matrixChildCat,
+            list: rs.products,
+            pages: pages,
+            navs: navs,
+            title: "Category"
+        });
+
+    }
+
 });
 
 module.exports = router;

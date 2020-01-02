@@ -38,7 +38,9 @@
               <h4>{{cate.Catname}}</h4>
             <span> <span>{{product.sellNowPrice}}</span>
               
+			  {{#if bidderCanBid}}
 			  <a href="/bidder/addwatchlist/{{product.ID}}" style="margin-bottom:20px"><button type="button" class="btn btn-fefault cart"> <i class="fa fa-shopping-cart"></i> Add to wish list</button></a>
+			  {{/if}}
                             </span><br/>
               <a><b>Current Price:</b> {{product.curPrice}}</a><br/>
               <a><b>Sell Now Price:</b> {{product.sellNowPrice}}</a><br/><br/>

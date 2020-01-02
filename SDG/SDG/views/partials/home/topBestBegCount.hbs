@@ -19,7 +19,18 @@
                                  <h2>{{productsBestBegCount.0.countBidder}} Bidders</h2>
                                 <h3>{{productsBestBegCount.0.curPrice}}product 1</h3>
                                  </a>
-                                <button type="button" class="btn btn-default get">Get it now</button>
+                                
+                               {{#if isLogin}}
+                                    {{#if isBidder}}
+                                 <a href="/bidder/addwatchlist/{{product.ID}}">
+                                <button type="button" class="btn btn-default get">Add to watch list</button>
+                                </a>
+                                    {{/if}}
+                                {{else}}
+                                <a href="/login">
+                                <button type="button" class="btn btn-default get">Add to watch list</button>
+                                </a>
+                                {{/if}}
                             </div>
                             <div class="col-sm-6">
                                 <img src="../../assets/photos/{{productsBestBegCount.0.ImagePro}}" class="girl img-responsive" alt="website template image">
@@ -34,7 +45,17 @@
                                  <h2>{{productsBestBegCount.1.countBidder}} Bidders</h2>
                                 <h3>{{productsBestBegCount.1.curPrice}}product 2</h3>
                                 </a>
-                                <button type="button" class="btn btn-default get">Get it now</button>
+                                {{#if isLogin}}
+                                    {{#if isBidder}}
+                                 <a href="/bidder/addwatchlist/{{product.ID}}">
+                                <button type="button" class="btn btn-default get">Add to watch list</button>
+                                </a>
+                                    {{/if}}
+                                {{else}}
+                                <a href="/login">
+                                <button type="button" class="btn btn-default get">Add to watch list</button>
+                                </a>
+                                {{/if}}
                             </div>
                             <div class="col-sm-6">
                                 <img src="../../assets/photos/{{productsBestBegCount.1.ImagePro}}" class="girl img-responsive" alt="website template image">
@@ -49,7 +70,17 @@
                                  <h2>{{productsBestBegCount.2.countBidder}} Bidders</h2>
                                 <h3>{{productsBestBegCount.2.curPrice}}product 3</h3>
                                 </a>
-                                <button type="button" class="btn btn-default get">Get it now</button>
+                               {{#if isLogin}}
+                                    {{#if isBidder}}
+                                 <a href="/bidder/addwatchlist/{{product.ID}}">
+                                <button type="button" class="btn btn-default get">Add to watch list</button>
+                                </a>
+                                    {{/if}}
+                                {{else}}
+                                <a href="/login">
+                                <button type="button" class="btn btn-default get">Add to watch list</button>
+                                </a>
+                                {{/if}}
                             </div>
                             <div class="col-sm-6">
                                 <img src="../../assets/photos/{{productsBestBegCount.2.ImagePro}}" class="girl img-responsive" alt="website template image">
@@ -64,7 +95,17 @@
                                  <h2>{{productsBestBegCount.3.countBidder}} Bidders</h2>
                                 <h3>{{productsBestBegCount.3.curPrice}}product 4</h3>
                                 </a>
-                                <button type="button" class="btn btn-default get">Get it now</button>
+                                {{#if isLogin}}
+                                    {{#if isBidder}}
+                                 <a href="/bidder/addwatchlist/{{product.ID}}">
+                                <button type="button" class="btn btn-default get">Add to watch list</button>
+                                </a>
+                                    {{/if}}
+                                {{else}}
+                                <a href="/login">
+                                <button type="button" class="btn btn-default get">Add to watch list</button>
+                                </a>
+                                {{/if}}
                             </div>
                             <div class="col-sm-6">
                                 <img src="../../assets/photos/{{productsBestBegCount.3.ImagePro}}" class="girl img-responsive" alt="website template image">
@@ -79,7 +120,17 @@
                                  <h2>{{productsBestBegCount.4.countBidder}} Bidders</h2>
                                 <h3>{{productsBestBegCount.4.curPrice}}product 5</h3>
                                 </a>
-                                <button type="button" class="btn btn-default get">Get it now</button>
+                                {{#if isLogin}}
+                                    {{#if isBidder}}
+                                 <a href="/bidder/addwatchlist/{{product.ID}}">
+                                <button type="button" class="btn btn-default get">Add to watch list</button>
+                                </a>
+                                    {{/if}}
+                                {{else}}
+                                <a href="/login">
+                                <button type="button" class="btn btn-default get">Add to watch list</button>
+                                </a>
+                                {{/if}}
                             </div>
                             <div class="col-sm-6">
                                 <img src="../../assets/photos/{{productsBestBegCount.4.ImagePro}}" class="girl img-responsive" alt="website template image">
