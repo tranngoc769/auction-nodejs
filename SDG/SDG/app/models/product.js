@@ -11,7 +11,7 @@ const idField = 'ID';
 module.exports = {
     getAllProduct: async(page, perpage, query_search, field, sort) => {
         const start_index = (page - 1) * perpage;
-        const sql = `SELECT  p.ID,p.ProName,p.sellNowPrice,p.pubDate,p.endDate,p.ImagePro,p.Describle,p.reservePrice,c.Catname,a.username
+        const sql = `SELECT  p.ID,p.ProName,p.sellNowPrice,p.pubDate,p.endDate,p.ImagePro,p.Describle,p.startPrice,c.Catname,a.username
                      FROM ${tb_product} p INNER JOIN ${tb_category}  c
                                            ON p.catId=c.ID
                                             INNER JOIN ${tb_account} a
@@ -60,7 +60,7 @@ module.exports = {
         return rows;
     },
     getAllProducts: async() => {
-        const sqlQuery = `SELECT * FROM ${tb_product}`;
+        const sqlQuery = `SELECT * FROM ${tb_product} WHERE isDeleted=0`;
         const rows = await db.load(sqlQuery);
         return rows;
     },
