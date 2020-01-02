@@ -5,7 +5,7 @@ const multipleUploadMiddleware = require("../../../middleware/multipleUploadMidd
 const auth = require('../../../utils/auth');
 const mPro = require('../../../models/product');
 const mCat = require('../../../models/category');
-
+var moment = require('moment');
 
 var fs = require('fs');
 //If the data was sent as JSON
@@ -47,35 +47,35 @@ router.get('/', async (req, res) => {
 });
 router.post('/multiple-upload', async (req, res) => {
   try {
-    // thực hiện upload
     await multipleUploadMiddleware(req, res);
-    // Upload success ==> req.files
-    
     if (req.files.length < 3) {
       res.render('seller/Success', {
-        body: 'You must upload at least 3 picture'
+        body: '<b> Quang</b>'
     });
     }
     else
     {
     const data = JSON.parse(JSON.stringify(req.body));
+    console.log(data);
     const token = req.cookies.jwt;
     const payload = await auth.verifyToken(token);
      var uID =  payload.uID ;
     const temp = await mCat.getCatIDbyname(data.Cate);
     var catId = temp[0].ID;
     var isExtension = 1;
-    var note = `'${data.editor1}'`;
+    var time = moment();
+    time  = moment().format("DD-MM-YYYY HH:mm:ss ");
+    var section = `<hr /><p><strong><img alt="" src="http://vesinhvinas.com/edit.png" style="height:16px; width:16px" /><img alt="" src="assets/images/edit.png" />${time}</strong></p>`
+    var note = `'${section} ${data.editor1}'`;
     if (data.isExt=='Yes')
     {
-      isExtension = 0;
+      isExtension = 1;
     }
-
     try
     {
       var arrayImg = fs.readFileSync('listImage.txt').toString().split("\n");
       fs.unlinkSync('listImage.txt');
-      const ps = await mPro.addProDuct(`'${data.pName}'`, data.startPrice, catId, data.sellnowPrice, data.stepPrice,0,`'${data.pubTime}'`, `'${data.endTime}'`, note, uID, isExtension,`'${arrayImg[0]}'`);
+      const ps = await mPro.addProDuct(`'${data.pName}'`, data.startPrice, catId, data.sellnowPrice, data.stepPrice,0,`'${data.pubTime}'`, `'${data.endTime}'`, note, uID, isExtension,`'${arrayImg[0]}'`, data.startPrice);
       var row = await mPro.getProIDbyImg(arrayImg[0]);
       var proID = row[0].ID;
       //1--> n nhung hien thi n+1
@@ -83,12 +83,9 @@ router.post('/multiple-upload', async (req, res) => {
       {
         await mPro.addProSubImg(proID,`'${arrayImg[i]}'`)
       }
-      
     res.render('seller/Success', {
       body: `Thành Công Đã thêm sản phẩm vào danh sách đấu giá`});
     }
-
-
     catch(error)
     {
       res.render('seller/Success', {
@@ -105,13 +102,55 @@ router.post('/multiple-upload', async (req, res) => {
 });
 
 
+router.post('/editPost', async (req, res) => {
+    try
+    {
+      const data = JSON.parse(JSON.stringify(req.body));
+
+      var proID = data.ID;
+      var oldNote = data.editable;
+      var newNote = data.editor1;
+      var time = moment();
+      time  = moment().format("DD-MM-YYYY HH:mm:ss ");
+      var section = `<hr/><p><strong><img alt="" src="http://vesinhvinas.com/edit.png" style="height:16px; width:16px" /><img alt="" src="assets/images/edit.png" />${time}</strong></p>`
+      var newDes = oldNote+section+newNote;
+      
+      const sql = await mPro.updateProduct(proID,newDes);
+      
+      res.render('seller/Success', {
+        body: `Edit thành công`});
+    }
+    catch(error)
+    {
+      res.render('seller/Success', {
+        body: '<b> Quang</b>' + error
+      });
+    }
+});
 router.get('/myproduct', async (req, res) => {
   var curTime = new Date().toJSON();
-  const rows = mPro.getRemainProduct(curTime);
-  console.log(rows);
+  const rows = await mPro.getRemainProduct(curTime);
+  rows.forEach(element => {
+  element.pubDate  = moment().format("HH:mm:ss DD-MM-YYYY");
+  element.endDate  = moment().format("HH:mm:ss DD-MM-YYYY");
+  });
   res.render("seller/myproduct",
   {
     products : rows
+  });
+//   return app.use("/", router);
+});
+router.get('/myproduct/:id', async (req, res) => {
+  const proID = parseInt(req.params.id);
+  const detail = await mPro.getOnebyId(proID);
+  detail[0].pubDate  = moment().format("HH:mm:ss DD-MM-YYYY");
+  detail[0].endDate  = moment().format("HH:mm:ss DD-MM-YYYY");
+  const catname = await mCat.getCatNamebyID(detail[0].catId);
+  // Co ID san pham
+  res.render("seller/edit",
+  {
+    pro : detail[0],
+    cat : catname[0]
   });
 //   return app.use("/", router);
 });

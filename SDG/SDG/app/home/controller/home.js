@@ -56,7 +56,7 @@ router.get('/product/:proID', async (req, res) => {
     let {proID} = req.params
     const product = await mProduct.getOnebyId(proID);
     console.log('pro', product[0])
-    const cate = await mCate.getOnebyId(proID);
+    const cate = await mCat.getOnebyId(proID);
     const subImg = await mProduct.getSubImage(proID)
     const token = req.cookies.jwt
     let bidderCanBid = false
