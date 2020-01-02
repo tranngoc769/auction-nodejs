@@ -52,7 +52,7 @@ router.post('/multiple-upload', async(req, res) => {
         await multipleUploadMiddleware(req, res);
         if (req.files.length < 3) {
             res.render('seller/Success', {
-                body: '<b> Quang</b>'
+                mess: 'Bạn phải up tối thiếu 3 tấm hình'
             });
         } else {
             const data = JSON.parse(JSON.stringify(req.body));
@@ -81,18 +81,18 @@ router.post('/multiple-upload', async(req, res) => {
                     await mPro.addProSubImg(proID, `'${arrayImg[i]}'`)
                 }
                 res.render('seller/Success', {
-                    body: `Thành Công Đã thêm sản phẩm vào danh sách đấu giá`
+                    mess: `Thành Công Đã thêm sản phẩm vào danh sách đấu giá`
                 });
             } catch (error) {
                 res.render('seller/Success', {
-                    body: 'Add product failed' + error
+                    mess: 'Thêm sản phẩm thất bại\n' + error
                 });
             }
 
         }
     } catch (error) {
         res.render('seller/Success', {
-            body: 'Add product failed' + error
+            mess: 'Thêm sản phẩm thất bại\n' + error
         });
     }
 });
@@ -114,11 +114,11 @@ router.post('/reviewPost', async(req, res) => {
         const sql = await mRe.reviewBidder(bidderID,uID,star,`'${rev}'`);
 
         res.render('seller/Success', {
-            body: `Review thành công`
+            mess: `Review thành công`
         });
     } catch (error) {
         res.render('seller/Success', {
-            body: '<b> Quang</b>' + error
+            mess: 'Review thất bại\n' + error
         });
     }
 });
@@ -132,11 +132,11 @@ router.post('/cancelSell', async(req, res) => {
         var uID = payload.uID;
         const sql = await mRe.reviewBidder(bidderID,uID,0,`'${rev}'`);
         res.render('seller/Success', {
-            body: `Hủy giao dịch thành công`
+            mess: `Hủy giao dịch thành công`
         });
     } catch (error) {
         res.render('seller/Success', {
-            body: '<b> Quang</b>' + error
+            mess: 'Hủy giao dịch không thành công\n' + error
         });
     }
 });
@@ -150,11 +150,11 @@ router.post('/bannedPost', async(req, res) => {
         console.log(data);
         const sql = await mban.banProfromUser(userID,proID);
         res.render('seller/Success', {
-            body: `Hủy giao dịch thành công`
+            mess: `Cấm bidder thành công`
         });
     } catch (error) {
         res.render('seller/Success', {
-            body: '<b> Quang</b>' + error
+            mess: 'Cấm bidder không thành công\n' + error
         });
     }
 });
@@ -173,11 +173,11 @@ router.post('/editPost', async(req, res) => {
         const sql = await mPro.updateProduct(proID, newDes);
 
         res.render('seller/Success', {
-            body: `Edit thành công`
+            mess: `Cập nhật thành công`
         });
     } catch (error) {
         res.render('seller/Success', {
-            body: '<b> Quang</b>' + error
+            mess: `Cập nhật không thành công \n` + error
         });
     }
 });
@@ -243,9 +243,9 @@ router.get('/detail/:id', async(req, res) => {
     {
         page.push(i);
     }
-    // XEM NGUOI BIT
     const whoBid = await mHis.findBidderbyProID(proID);
     whoBid.forEach(element => {
+        
         element.dateBid = moment().format("HH:mm:ss DD-MM-YYYY");
     });
     res.render("seller/detail",
