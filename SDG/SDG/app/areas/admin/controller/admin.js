@@ -15,7 +15,10 @@ router.get('/', async (req, res) => {
 //User
 router.get('/user', async (req, res) => {
     res.render("account/admin/account_list",
-        { layout: 'adminLayout' });
+        {
+            layout: 'adminLayout',
+            tab: 'user'
+        });
 });
 router.get('/getAllUser', async (req, res) => {
     var datareq = {};
@@ -85,7 +88,8 @@ router.get('/cate', async (req, res) => {
     res.render("account/admin/cate_list",
         {
             layout: 'adminLayout',
-            data
+            data,
+            tab: 'common'
         });
 });
 router.get('/getAllCategory', async (req, res) => {
@@ -180,7 +184,8 @@ router.post('/createCate', async (req, res) => {
 router.get('/product', async (req, res) => {
     res.render("account/admin/product_list",
         {
-            layout: 'adminLayout'
+            layout: 'adminLayout',
+            tab: 'common'
         });
 });
 router.get('/getAllProduct', async (req, res) => {

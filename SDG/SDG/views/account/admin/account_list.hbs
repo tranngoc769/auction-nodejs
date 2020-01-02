@@ -45,15 +45,7 @@
     var dataSet = [];
 
     $(document).ready(function () {
-         $('ul li a').click(function () {
-                $('#clickActive ul li a').click(function () {
-                    $('ul li').removeClass('kt-menu__item--open kt-menu__item--here');
-                    $(this).addClass('kt-menu__item--bottom');
-                    $(this).parent().removeClass("kt-menu__item--bottom");
-                    $(this).parent().addClass('actkt-menu__item--open kt-menu__item--here');
-                });
-            });
-
+         
         var options = {
             // datasource definition
             data: {
