@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+
 function connectToSring() {
     return mysql.createConnection({
         host: 'localhost',
@@ -81,7 +82,7 @@ exports.add = (tbName, entity) => {
             //console.log("Connected!");
         });
         let sql = 'INSERT INTO ?? (Catname, parentID) VALUES (?,?)';
-        const params = [tbName,entity.Catname, entity.parentID];
+        const params = [tbName, entity.Catname, entity.parentID];
         sql = mysql.format(sql, params);
         con.query(sql, (error, results, fields) => {
             console.log(sql);

@@ -28,12 +28,12 @@ module.exports = {
     const sql = `SELECT  *
                      FROM category
                      WHERE id = ${id}`;
-    //console.log(sql);
-    const rows = await db.load(sql);
-    console.log("token:", rows);
-    return rows;
-  },
-    getAllCategory: async (page, perpage, query_search, field, sort) => {
+        //console.log(sql);
+        const rows = await db.load(sql);
+        console.log("token:", rows);
+        return rows;
+    },
+    getAllCategory: async(page, perpage, query_search, field, sort) => {
         const start_index = (page - 1) * perpage;
         const sql = `SELECT  c1.ID, c1.Catname , c2.catName as parentCate, c2.ID as parentID
                      FROM ${tb_category} c1 INNER JOIN ${tb_category} c2
@@ -59,12 +59,23 @@ module.exports = {
         console.log("token:", rows);
         return rows;
     },
-    UpdateCate: async (entity) => {
+    UpdateCate: async(entity) => {
         const rows = await db.update(tb_category, idField, entity);
         return rows;
     },
-    AddOneCate: async (entity) => {
-        const rows = await db.add(tb_category,entity);
+    getCatIDbyname: async(Catname) => {
+        const sql = `SELECT ID FROM category WHERE Catname = '${Catname}'`;
+        const row = await db.load(sql);
+        return row;
+    },
+    getCatbyID: async(catId) => {
+        const sql = `SELECT * FROM category WHERE ID = '${catId}'`;
+        const row = await db.load(sql);
+        console.log(row);
+        return row;
+    },
+    AddOneCate: async(entity) => {
+        const rows = await db.add(tb_category, entity);
         return rows;
     }
 };

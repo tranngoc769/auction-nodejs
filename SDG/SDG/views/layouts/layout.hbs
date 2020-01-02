@@ -2,22 +2,17 @@
 <html lang="vi">
 <head>
  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     {{!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="../../assets/js/jquery.twbsPagination.min.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script> --}}
     <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.min.css"/>
-    {{!-- <link rel="stylesheet" type="text/css" href="../../assets/css/font-awesome.min.css"/> --}}
-    {{!-- <link rel="stylesheet" type="text/css" href="../../assets/css/price-range.css"/> --}}
-    {{!-- <link rel="stylesheet" type="text/css" href="../../assets/css/animate.css"/> --}}
+    <link rel="stylesheet" type="text/css" href="../../assets/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../assets/css/price-range.css"/>
+    <link rel="stylesheet" type="text/css" href="../../assets/css/animate.css"/>
     <link rel="stylesheet" type="text/css" href="../../assets/css/main.css"/>
- <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
-{{!-- <script src="../../assets/js/analytics.js"></script>
-<script src="../../assets/js/bsa.js"></script>
-<script src="../../assets/js/bootstrap-datetimepicker.js"></script>
-<script src="../../assets/js/prettify-1.0.min.js"></script>
-<script src="../../assets/js/base.js"></script> --}}
+
     <style type="text/css">
     #freecssfooter{display:block;width:100%;padding:120px 0 20px;overflow:hidden;background-color:transparent;z-index:5000;text-align:center;}
     #freecssfooter div#fcssholder div{display:none;}
@@ -35,255 +30,7 @@
         }
     </style>
 </head>
-    {{!-- <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="../../assets/js/jquery-1.11.0.min.js"></script>
-    <!-- Custom Theme files -->
-    <link href="../../assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <link rel="stylesheet" href="../../assets/css/flexslider.css" type="text/css" media="screen" />
 
-    <!-- Custom Theme files -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="application/x-javascript">
-        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
-    </script>
-    <meta name="keywords" content="Auction Responsive web template, Bootstrap Web Templates, Flat Web Templates, AndriodCompatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-    <!--Google Fonts-->
-   
-    <!-- start-smoth-scrolling -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../../assets/js/move-top.js"></script>
-    <script type="text/javascript" src="../../assets/js/easing.js"></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function ($) {
-            $(".scroll").click(function (event) {
-                event.preventDefault();
-                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
-            });
-        });
-    </script>
-</head>
-<body>
-    <div class="header bg-dark">
-        <div class="container">
-            <div class="header-main">
-
-                <nav class="navbar navbar-expand-lg navbar-dark ">
-
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">
-                        <img src="http://www.bobmazzo.com/wp-content/uploads/2009/07/bobmazzoCD.jpg" width="30" height="30">
-                    </a>
-                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">eBay Auction <span class="sr-only">(current)</span></a>
-                            </li>
-                            {{#if isBidder}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">My Cart</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link " href="#">My Auction</a>
-                            </li>
-                            {{/if}}
-                            {{#if isSeller }}
-                            <li class="nav-item">
-                                <a class="nav-link" href="/seller">My Product</a>
-                            </li>
-                            {{/if}}
-                        </ul>
-                        {{#if isLogin}}
-                        <ul class="navbar-nav ">
-                            <!-- PROFILE DROPDOWN - scrolling off the page to the right -->
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" id="navDropDownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Hi, {{fullName}}
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navDropDownLink">
-                                    <a class="dropdown-item" href="/user/myprofile">My Profile</a>
-                                    <div class="dropdown-divider"></div>
-                                    {{#if isBidder}}
-                                    <a class="dropdown-item" href="/#">My Order</a>
-                                    <div class="dropdown-divider"></div>
-                                    {{/if}}
-
-                                    <a class="dropdown-item" href="/user/logout">Logout</a>
-                                </div>
-                            </li>
-                        </ul>
-                        {{else}}
-                        <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
-                            <li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>
-                            <li class="dropdown order-1">
-                                <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Login <span class="caret"></span></button>
-                                <ul class="dropdown-menu dropdown-menu-right mt-2">
-                                    <li class="px-3 py-2">
-                                        <form class="form" role="form" method="post" action='/login' name="login_form">
-                                            <div class="form-group">
-                                                <input id="uname" placeholder="username" name="uname" class="form-control form-control-sm" type="text" required="">
-                                            </div>
-                                            <div class="form-group">
-                                                <input id="passwordInput" placeholder="Password" name="passwd" class="form-control form-control-sm" type="password" required="">
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-primary btn-block">Login</button>
-                                            </div>
-                                            <div class="form-group text-center">
-                                                <small><a href="#" data-toggle="modal" data-target="#modalPassword">Forgot password?</a></small>
-                                            </div>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <a class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="modal" href="#myModal">Register</a>
-                        {{/if}}
-                        <!--<form id="searchForm" class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        </form>-->
-
-
-
-                    </div>
-
-
-                </nav>
-                <!--modal reset pass-->
-                <div id="modalPassword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3>Forgot password</h3>
-                                <button type="button" class="close font-weight-light" data-dismiss="modal" aria-hidden="true">×</button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Reset your password..</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                                <button class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--modal dang ki-->
-                <div class="modal fade" data-backdrop="false" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="modal-title" id="ModalTitle" style="color:firebrick; text-align:center">Login</h3>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form method="post" action='/home/login' name="login_form">
-                                    <p><input type="text" class="span3" name="uname" id="email" placeholder="Email"></p>
-                                    <p><input type="password" class="span3" name="passwd" placeholder="Password"></p>
-                                    <p>
-                                        <button type="submit" class="btn btn-primary">Sign Up</button>
-                                    </p>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{{body}}}
-
-    <!--clients start here-->
-    <div class="clients">
-        <div class="container">
-            <div class="clients-main">
-                <div class="clients-top">
-                    <h3><span class="clien-hding">Clients</span>Testimonials</h3>
-                    <p>Great design is about more than style, it’s about being yoursel</p>
-                </div>
-                <div class="clients-bottom">
-                    <section class="slider">
-                        <div class="flexslider">
-                            <ul class="slides">
-                                <li>
-                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi  occaecati cupiditate  similique sunt.</p>
-                                    <span class="heart-beet"> </span>
-                                    <h4>On the other hand, we denounce with righteous</h4>
-                                </li>
-                                <li>
-                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta.</p>
-                                    <span class="heart-beet"> </span>
-                                    <h4>Latin words, combined with a handful of model</h4>
-                                </li>
-                                <li>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
-                                    <span class="heart-beet"> </span>
-                                    <h4>The generated Lorem  therefore repetition</h4>
-                                </li>
-                                <li>
-                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
-                                    <span class="heart-beet"> </span>
-                                    <h4>On the other hand, we denounce with righteous</h4>
-                                </li>
-                                <li>
-                                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.rupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident fuga.</p>
-                                    <span class="heart-beet"> </span>
-                                    <h4>On the other hand, we denounce with righteous</h4>
-                                </li>
-                                <div class="clearfix"> </div>
-                            </ul>
-                        </div>
-                    </section>
-                </div>
-                <div class="clearfix">   </div>
-            </div>
-        </div>
-    </div>
-    <!-- FlexSlider -->
-    <script defer src="../../assets/js/jquery.flexslider.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            SyntaxHighlighter.all();
-        });
-        $(window).load(function () {
-            $('.flexslider').flexslider({
-                animation: "slide",
-                start: function (slider) {
-                    $('body').removeClass('loading');
-                }
-            });
-        });
-    </script>
-    <!-- FlexSlider -->
-    <!--clients end here-->
-    <!--purchase start here-->
-    <div class="purchase">
-        <div class="container">
-            <div class="purchase-main">
-                <div class="purchase-left">
-                    <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
-                    <a href="#"><p>Duis aute irure dolor in reprehenderit in voluptate cillum dolore pariatur</p></a>
-                </div>
-                <div class="purchase-right">
-                    <a href="#" class="hvr-shutter-out-horizontal">Learn More</a>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-    </div>
-    <!--purchase end here-->
-    <!--footer start here-->
-    <!--footer end here-->
-
-    </body> --}}
 
 <body style="">
 {{!-- <script type="text/javascript">
@@ -302,19 +49,19 @@
         <div class="col-sm-6">
           <div class="contactinfo">
             <ul class="nav nav-pills">
-              <li><a href="https://www.free-css.com/free-css-templates"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+              <li><a href="/"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
+              <li><a href="/"><i class="fa fa-envelope"></i> info@domain.com</a></li>
             </ul>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="social-icons pull-right">
             <ul class="nav navbar-nav">
-              <li><a href="https://www.free-css.com/free-css-templates"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="https://www.free-css.com/free-css-templates"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="https://www.free-css.com/free-css-templates"><i class="fa fa-linkedin"></i></a></li>
-              <li><a href="https://www.free-css.com/free-css-templates"><i class="fa fa-dribbble"></i></a></li>
-              <li><a href="https://www.free-css.com/free-css-templates"><i class="fa fa-google-plus"></i></a></li>
+              <li><a href="/"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="/"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="/"><i class="fa fa-linkedin"></i></a></li>
+              <li><a href="/"><i class="fa fa-dribbble"></i></a></li>
+              <li><a href="/"><i class="fa fa-google-plus"></i></a></li>
             </ul>
           </div>
         </div>
@@ -330,15 +77,15 @@
             <div class="btn-group">
               <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown"> USA <span class="caret"></span></button>
               <ul class="dropdown-menu">
-                <li><a href="https://www.free-css.com/free-css-templates">Canada</a></li>
-                <li><a href="https://www.free-css.com/free-css-templates">UK</a></li>
+                <li><a href="/">Canada</a></li>
+                <li><a href="/">UK</a></li>
               </ul>
             </div>
             <div class="btn-group">
               <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown"> DOLLAR <span class="caret"></span></button>
               <ul class="dropdown-menu">
-                <li><a href="https://www.free-css.com/free-css-templates">Canadian Dollar</a></li>
-                <li><a href="https://www.free-css.com/free-css-templates">Pound</a></li>
+                <li><a href="/">Canadian Dollar</a></li>
+                <li><a href="/">Pound</a></li>
               </ul>
             </div>
           </div>
@@ -464,7 +211,7 @@
           </div>
           <div class="mainmenu pull-left">
             <ul class="nav navbar-nav collapse navbar-collapse">
-              <li><a href="https://www.free-css.com/free-css-templates" class="active">Home</a></li>
+              <li><a href="/" class="active">Home</a></li>
               <li class="dropdown"><a href="javascript:void(0)">Shop<i class="fa fa-angle-down"></i></a>
                 <ul role="menu" class="sub-menu">
                   <li><a href="pages/shop.php">Products</a></li>
@@ -507,8 +254,12 @@
         </div>
         <div class="col-sm-7">
           <div class="col-sm-3">
-            <div class="video-gallery text-center"><a href="https://www.free-css.com/free-css-templates">
+
+            <div class="video-gallery text-center"><a href="/">
+
+
               {{!-- <div class="iframe-img"><img src="../../assets/images/iframe1.png" alt="website template image"></div> --}}
+
               <div class="overlay-icon"><i class="fa fa-play-circle-o"></i></div>
               </a>
               <p>Circle of Hands</p>
@@ -516,8 +267,10 @@
             </div>
           </div>
           <div class="col-sm-3">
-            <div class="video-gallery text-center"><a href="https://www.free-css.com/free-css-templates">
+
+            <div class="video-gallery text-center"><a href="/">
               {{!-- <div class="iframe-img"><img src="../../assets/images/iframe2.png" alt="website template image"></div> --}}
+
               <div class="overlay-icon"><i class="fa fa-play-circle-o"></i></div>
               </a>
               <p>Circle of Hands</p>
@@ -525,8 +278,11 @@
             </div>
           </div>
           <div class="col-sm-3">
-            <div class="video-gallery text-center"><a href="https://www.free-css.com/free-css-templates">
+
+            <div class="video-gallery text-center"><a href="/">
+
               {{!-- <div class="iframe-img"><img src="../../assets/images/iframe3.png" alt="website template image"></div> --}}
+
               <div class="overlay-icon"><i class="fa fa-play-circle-o"></i></div>
               </a>
               <p>Circle of Hands</p>
@@ -534,8 +290,11 @@
             </div>
           </div>
           <div class="col-sm-3">
-            <div class="video-gallery text-center"><a href="https://www.free-css.com/free-css-templates">
+
+            <div class="video-gallery text-center"><a href="/">
+
               {{!-- <div class="iframe-img"><img src="../../assets/images/iframe4.png" alt="website template image"></div> --}}
+
               <div class="overlay-icon"><i class="fa fa-play-circle-o"></i></div>
               </a>
               <p>Circle of Hands</p>
@@ -558,11 +317,11 @@
           <div class="single-widget">
             <h2>Service</h2>
             <ul class="nav nav-pills nav-stacked">
-              <li><a href="https://www.free-css.com/free-css-templates">Online Help</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates">Contact Us</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates">Order Status</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates">Change Location</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates">FAQ’s</a></li>
+              <li><a href="/">Online Help</a></li>
+              <li><a href="/">Contact Us</a></li>
+              <li><a href="/">Order Status</a></li>
+              <li><a href="/">Change Location</a></li>
+              <li><a href="/">FAQ’s</a></li>
             </ul>
           </div>
         </div>
@@ -570,11 +329,11 @@
           <div class="single-widget">
             <h2>Quock Shop</h2>
             <ul class="nav nav-pills nav-stacked">
-              <li><a href="https://www.free-css.com/free-css-templates">T-Shirt</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates">Mens</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates">Womens</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates">Gift Cards</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates">Shoes</a></li>
+              <li><a href="/">T-Shirt</a></li>
+              <li><a href="/">Mens</a></li>
+              <li><a href="/">Womens</a></li>
+              <li><a href="/">Gift Cards</a></li>
+              <li><a href="/">Shoes</a></li>
             </ul>
           </div>
         </div>
@@ -582,11 +341,11 @@
           <div class="single-widget">
             <h2>Policies</h2>
             <ul class="nav nav-pills nav-stacked">
-              <li><a href="https://www.free-css.com/free-css-templates">Terms of Use</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates">Privecy Policy</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates">Refund Policy</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates">Billing System</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates">Ticket System</a></li>
+              <li><a href="/">Terms of Use</a></li>
+              <li><a href="/">Privecy Policy</a></li>
+              <li><a href="/">Refund Policy</a></li>
+              <li><a href="/">Billing System</a></li>
+              <li><a href="/">Ticket System</a></li>
             </ul>
           </div>
         </div>
@@ -594,11 +353,11 @@
           <div class="single-widget">
             <h2>About Shopper</h2>
             <ul class="nav nav-pills nav-stacked">
-              <li><a href="https://www.free-css.com/free-css-templates">Company Information</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates">Careers</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates">Store Location</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates">Affillate Program</a></li>
-              <li><a href="https://www.free-css.com/free-css-templates">Copyright</a></li>
+              <li><a href="/">Company Information</a></li>
+              <li><a href="/">Careers</a></li>
+              <li><a href="/">Store Location</a></li>
+              <li><a href="/">Affillate Program</a></li>
+              <li><a href="/">Copyright</a></li>
             </ul>
           </div>
         </div>
