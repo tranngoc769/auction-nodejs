@@ -98,6 +98,24 @@ module.exports = {
         const row = await db.load(sql);
         return row;
     },
+    addProSubImg: async (id, img) => {
+        const sql = `INSERT INTO product_image(proID,image)
+    VALUES (${id},${img})`;
+        const row = await db.load(sql);
+        return row;
+    },
+    updateHighestBidder: async (userID, proID) => {
+        const sql = `UPDATE product SET HighestBidderID = ${userID} WHERE ID = ${proID}`
+        await db.load(sql)
+    },
+    getProductBidderInHistory: async (userID) => {
+        const sql = `select * 
+        from product
+        inner join history on  product.ID = history.proID
+        where history.userID = ${userID} and product.endDate > curdate() `
+        const row = await db.load(sql)
+        return row
+    },
     getProTopBestBegCount: async() => {
         const sqlQuery = `SELECT * FROM ${tb_product} ORDER BY countBidder DESC LIMIT 0,5`;
         const rows = await db.load(sqlQuery);

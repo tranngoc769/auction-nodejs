@@ -16,4 +16,13 @@ module.exports = {
             await db.load(sql);
         }
     },
+    getWatchList: async (userID) => {
+        //check if exist
+        const sql = `SELECT  *
+                     FROM ${tb} 
+                     WHERE userID = ${userID}`;
+        ////console.log(sql);
+        const rows = await db.load(sql);
+        return rows
+    },
 };

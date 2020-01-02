@@ -87,12 +87,14 @@ router.get('/product/:proID', async(req, res) => {
         const payload = await auth.verifyToken(token);
         console.log("Abc" + JSON.stringify(payload));
         const numberOfGoodReview = await mReview.getNumberOfGoodReview(payload.uID)
-        bidderCanBid = numberOfGoodReview >= numberOfGoodReviewBidderRequried ? true : false
+        let enoughGoodReview = numberOfGoodReview >= numberOfGoodReviewBidderRequried ? true : false
+        let notBanned = true
+        bidderCanBid = enoughGoodReview && notBanned
         console.log(bidderCanBid)
-        res.render('product/product', { 'product': product[0], 'cate': cate[0], 'subImg': subImg, 'bidderCanBid': bidderCanBid, 'recommendPrice': product[0].curPrice + product[0].stepPrice })
-    } else {
-        res.render('home/homepage');
-        res.render('product/product', { 'product': product[0], 'cate': cate[0], 'subImg': subImg, 'bidderCanBid': bidderCanBid })
+        res.render('product/product', {'product': product[0], 'cate': cate[0], 'subImg': subImg, 'bidderCanBid': bidderCanBid, 'recommendPrice': product[0].curPrice + product[0].stepPrice})
+    }
+    else {
+        res.render('product/product', {'product': product[0], 'cate': cate[0], 'subImg': subImg, 'bidderCanBid': bidderCanBid})
     }
 });
 router.post('/login', async(req, res) => {

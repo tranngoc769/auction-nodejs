@@ -20,7 +20,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	
 	<script src="../assets/js/jquery-1.11.0.min.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
 	<!-- Custom Theme files -->
 	<link href="../assets/css/blog.css" rel="stylesheet" type="text/css" media="all" />
 	<!-- Custom Theme files -->
@@ -31,6 +33,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				$('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
 			});
 		});
+		function confirmBid(){
+			let price = $('#bidPriceInput').val()
+			let isN = $.isNumeric(price)
+			if(isN && price > {{product.curPrice}}){
+				return window.confirm('Nhấn OK để xác nhận')
+			} else{
+				console.log('heere')
+				window.confirm('Hãy nhập số bid là một con số lớn hơn giá hiện tại')
+				return false
+			}
+		}
 	</script>
 </head>
 
@@ -43,30 +56,49 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="blog-grids">
 					<div class="row mb-5">
 						<div class="col-md-6">
-							<a href="#"><img src="../assets{{product.ImagePro}}" alt=""></a>
+							{{!-- <a href="#"><img src="../assets{{product.ImagePro}}" alt=""></a> --}}
+							<div id="myCarousel" class="carousel slide" data-ride="carousel">
+								<!-- Indicators -->
+								<ol class="carousel-indicators">
+									<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+									<li data-target="#myCarousel" data-slide-to="1"></li>
+									<li data-target="#myCarousel" data-slide-to="2"></li>
+								</ol>
+
+								<!-- Wrapper for slides -->
+								<div class="carousel-inner">
+									<div class="item active">
+									<img src="../assets{{product.ImagePro}}" alt="Los Angeles">
+									</div>
+
+									{{#each subImg}}
+									<div class="item">
+									<img src=".../assets{{subImg.image}}" alt="Chicago">
+									</div>
+									{{/each}}
+								</div>
+								<!-- Left and right controls -->
+								<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+									<span class="glyphicon glyphicon-chevron-left"></span>
+									<span class="sr-only">Previous</span>
+								</a>
+								<a class="right carousel-control" href="#myCarousel" data-slide="next">
+									<span class="glyphicon glyphicon-chevron-right"></span>
+									<span class="sr-only">Next</span>
+								</a>
+							</div>
 						</div>
 						<div class="col-md-3">
-							<a href="/bidder/watchlist/{{product.ID}}" style="margin-bottom:20px"><i class="fa fa-plus-square p-5"></i>Add to wishlist</a>
+							<a href="/bidder/addwatchlist/{{product.ID}}" style="margin-bottom:20px"><i class="fa fa-plus-square p-5"></i>Add to wishlist</a>
 							<div class="blog-cate">
 								<h3>Categories</h3>
 								<ul>
 									<li><a href="#">{{cate.Catname}}</a></li>
 								</ul>
 							</div>
-							<div class="blog-cate">
-								<h3>More images</h3>
-								<div class="ftr-gd4-img">
-									{{#each subImg}}
-									<div class="col-md-3 ftr-gd4-1"><a href=""><img src="../assets{{subImg.image}}"
-												alt=""></a>
-									</div>
-									{{/each}}
-									<div class="clearfix"> </div>
-								</div>
-							</div>
 							<div class="blog-post">
 								{{#if bidderCanBid}}
-								<form action="/bidder/bid/{{product.ID}}" method="POST">
+								<form action="/bidder/bid/{{product.ID}}" method="POST" onsubmit="return confirmBid();">
 									<small class="form-text text-success">You are good to bid. Recommend price to bid: {{recommendPrice}}</small>
 									<div class="form-inline row">
 										<input type="munber" name="price" class="form-control" id="bidPriceInput"
