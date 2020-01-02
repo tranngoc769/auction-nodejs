@@ -105,7 +105,36 @@ router.get("/bidding", async (req, res) => {
     if (payload.roleName == "bidder") {
       const payload = await auth.verifyToken(token);
       const userID = payload.uID;
-      const products = mProduct.getProductBidderInHistory(userID)
+      const products = await mProduct.getProductBidderInHistory(userID)
+      products.map(p => {
+        p.isPriceKeeper = (p.HighestBidderID === userID) ? true : false
+      })
+      res.render('bidder/list', {'userID': userID, 'products': products, 'title': 'Những sản phẩm bạn tham gia đấu giá'});
+      
+    } else {
+      res.render('error/error');
+    }
+  } else {
+    res.render('error/error');  
+  }
+});
+//
+router.get("/wonlist", async (req, res) => {
+  ////console.log(req.cookies.jwt);
+  const token = req.cookies.jwt;
+  ////console.log(token);
+  if (typeof token == "string") {
+    const payload = await auth.verifyToken(token);
+    //console.log("Abc" + JSON.stringify(payload));
+    //const role = await mRole.getOnebyId(payload.roleID);
+    if (payload.roleName == "bidder") {
+      const payload = await auth.verifyToken(token);
+      const userID = payload.uID;
+      const products = await mProduct.getBidderWonProduct(userID)
+      products.map(p => {
+        p.isPriceKeeper = (p.HighestBidderID === userID) ? true : false
+      })
+
       res.render('bidder/list', {'userID': userID, 'products': products, 'title': 'Những sản phẩm bạn tham gia đấu giá'});
       
     } else {

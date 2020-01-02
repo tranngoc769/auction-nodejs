@@ -1,415 +1,469 @@
 ﻿<!DOCTYPE html>
 <html lang="vi">
+
 <head>
- 
- <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    {{!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  {{!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="../../assets/js/jquery.twbsPagination.min.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script> --}}
-    <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/css/font-awesome.min.css"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/css/price-range.css"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/css/animate.css"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/css/main.css"/>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../assets/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../assets/css/price-range.css" />
+  <link rel="stylesheet" type="text/css" href="../../assets/css/animate.css" />
+  <link rel="stylesheet" type="text/css" href="../../assets/css/main.css" />
+  <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 
-    <style type="text/css">
-    #freecssfooter{display:block;width:100%;padding:120px 0 20px;overflow:hidden;background-color:transparent;z-index:5000;text-align:center;}
-    #freecssfooter div#fcssholder div{display:none;}
-    #freecssfooter div#fcssholder div:first-child{display:block;}
-    #freecssfooter div#fcssholder div:first-child a{float:none;margin:0 auto;}
-    </style>
-    <title>{{title}}</title>
-    <style>
-        button:focus {
-            outline: 0;
-        }
 
-        .navbar .dropdown-menu .form-control {
-            width: 200px;
-        }
-    </style>
+  <style type="text/css">
+    #freecssfooter {
+      display: block;
+      width: 100%;
+      padding: 120px 0 20px;
+      overflow: hidden;
+      background-color: transparent;
+      z-index: 5000;
+      text-align: center;
+    }
+
+    #freecssfooter div#fcssholder div {
+      display: none;
+    }
+
+    #freecssfooter div#fcssholder div:first-child {
+      display: block;
+    }
+
+    #freecssfooter div#fcssholder div:first-child a {
+      float: none;
+      margin: 0 auto;
+    }
+  </style>
+  <title>{{title}}</title>
+  <style>
+    button:focus {
+      outline: 0;
+    }
+
+    .navbar .dropdown-menu .form-control {
+      width: 200px;
+    }
+  </style>
+  <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }>
+</script>
+  <meta name="keywords"
+    content="Auction Responsive web template, Bootstrap Web Templates, Flat Web Templates, AndriodCompatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+  <!-- start-smoth-scrolling -->
+  <script type="text/javascript" src="../assets/js/move-top.js"></script>
+  <script type="text/javascript" src="../assets/js/easing.js"></script>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <script src="../assets/js/jquery-1.11.0.min.js"></script>
+  <script src="../assets/js/bootstrap.min.js"></script>
+  <!-- Custom Theme files -->
+  <link href="../assets/css/blog.css" rel="stylesheet" type="text/css" media="all" />
+  <!-- Custom Theme files -->
 </head>
 
 
 <body style="">
-{{!-- <script type="text/javascript">
-(function(){
-  var bsa = document.createElement('script');
-     bsa.type = 'text/javascript';
-     bsa.async = true;
-     bsa.src = '../../assets/myJs/bsa.js';
-  (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
-})();
-</script> --}}
-<header id="header">
-  <div class="header_top">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="contactinfo">
-            <ul class="nav nav-pills">
-              <li><a href="/"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-              <li><a href="/"><i class="fa fa-envelope"></i> info@domain.com</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="social-icons pull-right">
-            <ul class="nav navbar-nav">
-              <li><a href="/"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="/"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="/"><i class="fa fa-linkedin"></i></a></li>
-              <li><a href="/"><i class="fa fa-dribbble"></i></a></li>
-              <li><a href="/"><i class="fa fa-google-plus"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="header-middle">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-4">
-          {{!-- <div class="logo pull-left"><a href="https://www.free-css.com/free-css-templates"><img src="../../assets/images/logo.png" alt="website template image"></a></div> --}}
-          <div class="btn-group pull-right">
-            <div class="btn-group">
-              <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown"> USA <span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                <li><a href="/">Canada</a></li>
-                <li><a href="/">UK</a></li>
+  {{!-- <script type="text/javascript">
+    (function () {
+      var bsa = document.createElement('script');
+      bsa.type = 'text/javascript';
+      bsa.async = true;
+      bsa.src = '../../assets/myJs/bsa.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(bsa);
+    })();
+  </script> --}}
+  <header id="header">
+    <div class="header_top">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="contactinfo">
+              <ul class="nav nav-pills">
+                <li><a href="/"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
+                <li><a href="/"><i class="fa fa-envelope"></i> info@domain.com</a></li>
               </ul>
             </div>
-            <div class="btn-group">
-              <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown"> DOLLAR <span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                <li><a href="/">Canadian Dollar</a></li>
-                <li><a href="/">Pound</a></li>
+          </div>
+          <div class="col-sm-6">
+            <div class="social-icons pull-right">
+              <ul class="nav navbar-nav">
+                <li><a href="/"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="/"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="/"><i class="fa fa-linkedin"></i></a></li>
+                <li><a href="/"><i class="fa fa-dribbble"></i></a></li>
+                <li><a href="/"><i class="fa fa-google-plus"></i></a></li>
               </ul>
             </div>
           </div>
         </div>
-        <div class="col-sm-8">
-          <div class="shop-menu pull-right">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                            {{#if isBidder}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">My Cart</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link " href="/bidder/bidding">My Bidding</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link " href="/bidder/watchlist">My Watch List</a>
-                            </li>
-                            {{/if}}
-                            {{#if isSeller }}
-                            <li class="nav-item">
-                                <a class="nav-link" href="/seller">My Product</a>
-                            </li>
-                            {{/if}}
-                        </ul>
-            {{#if isLogin}}
-                        <ul class="navbar-nav ">
-                            <!-- PROFILE DROPDOWN - scrolling off the page to the right -->
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" id="navDropDownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Hi, {{fullName}}
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navDropDownLink">
-                                    <a class="dropdown-item" href="/user/myprofile">My Profile</a>
-                                    <div class="dropdown-divider"></div>
-                                    {{#if isBidder}}
-                                    <a class="dropdown-item" href="/#">My Order</a>
-                                    <div class="dropdown-divider"></div>
-                                    {{/if}}
+      </div>
+    </div>
+    <div class="header-middle">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            {{!-- <div class="logo pull-left"><a href="https://www.free-css.com/free-css-templates"><img src="../../assets/images/logo.png" alt="website template image"></a></div> --}}
+            <div class="btn-group pull-right">
+              <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown"> USA <span
+                    class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="/">Canada</a></li>
+                  <li><a href="/">UK</a></li>
+                </ul>
+              </div>
+              <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown"> DOLLAR <span
+                    class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="/">Canadian Dollar</a></li>
+                  <li><a href="/">Pound</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="shop-menu pull-right">
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                {{#if isBidder}}
+                <li class="nav-item">
+                  <a class="nav-link" href="/bidder/wonlist">My Won List</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " href="/bidder/bidding">My Bidding</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " href="/bidder/watchlist">My Watch List</a>
+                </li>
+                {{/if}}
+                {{#if isSeller }}
+                <li class="nav-item">
+                  <a class="nav-link" href="/seller">My Product</a>
+                </li>
+                {{/if}}
+              </ul>
+              {{#if isLogin}}
+              <ul class="navbar-nav ">
+                <!-- PROFILE DROPDOWN - scrolling off the page to the right -->
+                <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" id="navDropDownLink" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Hi, {{fullName}}
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navDropDownLink">
+                    <a class="dropdown-item" href="/user/myprofile">My Profile</a>
+                    <div class="dropdown-divider"></div>
+                    {{#if isBidder}}
+                    <a class="dropdown-item" href="/#">My Order</a>
+                    <div class="dropdown-divider"></div>
+                    {{/if}}
 
-                                    <a class="dropdown-item" href="/user/logout">Logout</a>
-                                </div>
-                            </li>
-                        </ul>
-                        {{else}}
-                        <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
-                            <li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>
-                            <li class="dropdown order-1">
-                                <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Login <span class="caret"></span></button>
-                                <ul class="dropdown-menu dropdown-menu-right mt-2">
-                                    <li class="px-3 py-2">
-                                        <form class="form" role="form" method="post" action='/login' name="login_form">
-                                            <div class="form-group">
-                                                <input id="uname" placeholder="username" name="uname" class="form-control form-control-sm" type="text" required="">
-                                            </div>
-                                            <div class="form-group">
-                                                <input id="passwordInput" placeholder="Password" name="passwd" class="form-control form-control-sm" type="password" required="">
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-primary btn-block">Login</button>
-                                            </div>
-                                            <div class="form-group text-center">
-                                                <small><a href="#" data-toggle="modal" data-target="#modalPassword">Forgot password?</a></small>
-                                            </div>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <a class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="modal" href="#myModal">Register</a>
-                        {{/if}}
-                        
+                    <a class="dropdown-item" href="/user/logout">Logout</a>
+                  </div>
+                </li>
+              </ul>
+              {{else}}
+              <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+                <li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings"><i
+                      class="fa fa-cog fa-fw fa-lg"></i></a></li>
+                <li class="dropdown order-1">
+                  <button type="button" id="dropdownMenu1" data-toggle="dropdown"
+                    class="btn btn-outline-secondary dropdown-toggle">Login <span class="caret"></span></button>
+                  <ul class="dropdown-menu dropdown-menu-right mt-2">
+                    <li class="px-3 py-2">
+                      <form class="form" role="form" method="post" action='/login' name="login_form">
+                        <div class="form-group">
+                          <input id="uname" placeholder="username" name="uname" class="form-control form-control-sm"
+                            type="text" required="">
+                        </div>
+                        <div class="form-group">
+                          <input id="passwordInput" placeholder="Password" name="passwd"
+                            class="form-control form-control-sm" type="password" required="">
+                        </div>
+                        <div class="form-group">
+                          <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        </div>
+                        <div class="form-group text-center">
+                          <small><a href="#" data-toggle="modal" data-target="#modalPassword">Forgot
+                              password?</a></small>
+                        </div>
+                      </form>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <a class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="modal"
+                href="#myModal">Register</a>
+              {{/if}}
 
-                                        <div id="modalPassword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3>Forgot password</h3>
-                                <button type="button" class="close font-weight-light" data-dismiss="modal" aria-hidden="true">×</button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Reset your password..</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                                <button class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
+
+              <div id="modalPassword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h3>Forgot password</h3>
+                      <button type="button" class="close font-weight-light" data-dismiss="modal"
+                        aria-hidden="true">×</button>
                     </div>
-                </div>
-                <!--modal dang ki-->
-                <div class="modal fade" data-backdrop="false" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="modal-title" id="ModalTitle" style="color:firebrick; text-align:center">Login</h3>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form method="post" action='/home/login' name="login_form">
-                                    <p><input type="text" class="span3" name="uname" id="email" placeholder="Email"></p>
-                                    <p><input type="password" class="span3" name="passwd" placeholder="Password"></p>
-                                    <p>
-                                        <button type="submit" class="btn btn-primary">Sign Up</button>
-                                    </p>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Close</button>
-                            </div>
-                        </div>
+                    <div class="modal-body">
+                      <p>Reset your password..</p>
                     </div>
+                    <div class="modal-footer">
+                      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                      <button class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div>
                 </div>
+              </div>
+              <!--modal dang ki-->
+              <div class="modal fade" data-backdrop="false" id="myModal" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h3 class="modal-title" id="ModalTitle" style="color:firebrick; text-align:center">Login</h3>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form method="post" action='/home/login' name="login_form">
+                        <p><input type="text" class="span3" name="uname" id="email" placeholder="Email"></p>
+                        <p><input type="password" class="span3" name="passwd" placeholder="Password"></p>
+                        <p>
+                          <button type="submit" class="btn btn-primary">Sign Up</button>
+                        </p>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        onclick="closeModal()">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="header-bottom">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-7">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
+    <div class="header-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-7">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span
+                  class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                <span class="icon-bar"></span></button>
+            </div>
+            <div class="mainmenu pull-left">
+              <ul class="nav navbar-nav collapse navbar-collapse">
+                <li><a href="/" class="active">Home</a></li>
+                <li class="dropdown"><a href="javascript:void(0)">Shop<i class="fa fa-angle-down"></i></a>
+                  <ul role="menu" class="sub-menu">
+                    <li><a href="pages/shop.php">Products</a></li>
+                    <li><a href="pages/product-details.php">Product Details</a></li>
+                    <li><a href="pages/checkout.php">Checkout</a></li>
+                    <li><a href="pages/cart.php">Cart</a></li>
+
+                  </ul>
+                </li>
+                <li class="dropdown"><a href="javascript:void(0)">Blog<i class="fa fa-angle-down"></i></a>
+                  <ul role="menu" class="sub-menu">
+                    <li><a href="pages/blog.php">Blog List</a></li>
+                    <li><a href="pages/blog-single.php">Blog Single</a></li>
+                  </ul>
+                </li>
+                <li><a href="pages/404.php">404</a></li>
+                <li><a href="pages/contact-us.php">Contact</a></li>
+              </ul>
+            </div>
           </div>
-          <div class="mainmenu pull-left">
-            <ul class="nav navbar-nav collapse navbar-collapse">
-              <li><a href="/" class="active">Home</a></li>
-              <li class="dropdown"><a href="javascript:void(0)">Shop<i class="fa fa-angle-down"></i></a>
-                <ul role="menu" class="sub-menu">
-                  <li><a href="pages/shop.php">Products</a></li>
-                  <li><a href="pages/product-details.php">Product Details</a></li>
-                  <li><a href="pages/checkout.php">Checkout</a></li>
-                  <li><a href="pages/cart.php">Cart</a></li>
-                  
-                </ul>
-              </li>
-              <li class="dropdown"><a href="javascript:void(0)">Blog<i class="fa fa-angle-down"></i></a>
-                <ul role="menu" class="sub-menu">
-                  <li><a href="pages/blog.php">Blog List</a></li>
-                  <li><a href="pages/blog-single.php">Blog Single</a></li>
-                </ul>
-              </li>
-              <li><a href="pages/404.php">404</a></li>
-              <li><a href="pages/contact-us.php">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-5">
-          <div class="search_box pull-right">
-            <input type="text" placeholder="Search">
+          <div class="col-sm-5">
+            <div class="search_box pull-right">
+              <input type="text" placeholder="Search">
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</header>
-{{{body}}}
-<footer id="footer">
-  <div class="footer-top">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-2">
-          <div class="companyinfo">
-            <h2><span>e</span>-shopper</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
+  </header>
+  {{{body}}}
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="companyinfo">
+              <h2><span>e</span>-shopper</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
+            </div>
           </div>
-        </div>
-        <div class="col-sm-7">
-          <div class="col-sm-3">
+          <div class="col-sm-7">
+            <div class="col-sm-3">
 
-            <div class="video-gallery text-center"><a href="/">
+              <div class="video-gallery text-center"><a href="/">
 
 
-              {{!-- <div class="iframe-img"><img src="../../assets/images/iframe1.png" alt="website template image"></div> --}}
+                  {{!-- <div class="iframe-img"><img src="../../assets/images/iframe1.png" alt="website template image"></div> --}}
 
-              <div class="overlay-icon"><i class="fa fa-play-circle-o"></i></div>
-              </a>
-              <p>Circle of Hands</p>
-              <h2>24 DEC 2014</h2>
+                  <div class="overlay-icon"><i class="fa fa-play-circle-o"></i></div>
+                </a>
+                <p>Circle of Hands</p>
+                <h2>24 DEC 2014</h2>
+              </div>
+            </div>
+            <div class="col-sm-3">
+
+              <div class="video-gallery text-center"><a href="/">
+                  {{!-- <div class="iframe-img"><img src="../../assets/images/iframe2.png" alt="website template image"></div> --}}
+
+                  <div class="overlay-icon"><i class="fa fa-play-circle-o"></i></div>
+                </a>
+                <p>Circle of Hands</p>
+                <h2>24 DEC 2014</h2>
+              </div>
+            </div>
+            <div class="col-sm-3">
+
+              <div class="video-gallery text-center"><a href="/">
+
+                  {{!-- <div class="iframe-img"><img src="../../assets/images/iframe3.png" alt="website template image"></div> --}}
+
+                  <div class="overlay-icon"><i class="fa fa-play-circle-o"></i></div>
+                </a>
+                <p>Circle of Hands</p>
+                <h2>24 DEC 2014</h2>
+              </div>
+            </div>
+            <div class="col-sm-3">
+
+              <div class="video-gallery text-center"><a href="/">
+
+                  {{!-- <div class="iframe-img"><img src="../../assets/images/iframe4.png" alt="website template image"></div> --}}
+
+                  <div class="overlay-icon"><i class="fa fa-play-circle-o"></i></div>
+                </a>
+                <p>Circle of Hands</p>
+                <h2>24 DEC 2014</h2>
+              </div>
             </div>
           </div>
           <div class="col-sm-3">
-
-            <div class="video-gallery text-center"><a href="/">
-              {{!-- <div class="iframe-img"><img src="../../assets/images/iframe2.png" alt="website template image"></div> --}}
-
-              <div class="overlay-icon"><i class="fa fa-play-circle-o"></i></div>
-              </a>
-              <p>Circle of Hands</p>
-              <h2>24 DEC 2014</h2>
-            </div>
-          </div>
-          <div class="col-sm-3">
-
-            <div class="video-gallery text-center"><a href="/">
-
-              {{!-- <div class="iframe-img"><img src="../../assets/images/iframe3.png" alt="website template image"></div> --}}
-
-              <div class="overlay-icon"><i class="fa fa-play-circle-o"></i></div>
-              </a>
-              <p>Circle of Hands</p>
-              <h2>24 DEC 2014</h2>
-            </div>
-          </div>
-          <div class="col-sm-3">
-
-            <div class="video-gallery text-center"><a href="/">
-
-              {{!-- <div class="iframe-img"><img src="../../assets/images/iframe4.png" alt="website template image"></div> --}}
-
-              <div class="overlay-icon"><i class="fa fa-play-circle-o"></i></div>
-              </a>
-              <p>Circle of Hands</p>
-              <h2>24 DEC 2014</h2>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-3">
-          {{!-- <div class="address"><img src="../../assets/images/map.png" alt="website template image">
+            {{!-- <div class="address"><img src="../../assets/images/map.png" alt="website template image">
             <p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
           </div> --}}
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="footer-widget">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-2">
-          <div class="single-widget">
-            <h2>Service</h2>
-            <ul class="nav nav-pills nav-stacked">
-              <li><a href="/">Online Help</a></li>
-              <li><a href="/">Contact Us</a></li>
-              <li><a href="/">Order Status</a></li>
-              <li><a href="/">Change Location</a></li>
-              <li><a href="/">FAQ’s</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="single-widget">
-            <h2>Quock Shop</h2>
-            <ul class="nav nav-pills nav-stacked">
-              <li><a href="/">T-Shirt</a></li>
-              <li><a href="/">Mens</a></li>
-              <li><a href="/">Womens</a></li>
-              <li><a href="/">Gift Cards</a></li>
-              <li><a href="/">Shoes</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="single-widget">
-            <h2>Policies</h2>
-            <ul class="nav nav-pills nav-stacked">
-              <li><a href="/">Terms of Use</a></li>
-              <li><a href="/">Privecy Policy</a></li>
-              <li><a href="/">Refund Policy</a></li>
-              <li><a href="/">Billing System</a></li>
-              <li><a href="/">Ticket System</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="single-widget">
-            <h2>About Shopper</h2>
-            <ul class="nav nav-pills nav-stacked">
-              <li><a href="/">Company Information</a></li>
-              <li><a href="/">Careers</a></li>
-              <li><a href="/">Store Location</a></li>
-              <li><a href="/">Affillate Program</a></li>
-              <li><a href="/">Copyright</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-3 col-sm-offset-1">
-          <div class="single-widget">
-            <h2>About Shopper</h2>
-            <form action="#" method="post" class="searchform">
-              <input type="text" placeholder="Your email address">
-              <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
-              <p>Get the most recent updates from<br>
-                our site and be updated your self...</p>
-            </form>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="container">
-      <div class="row">
-        <p class="pull-left">Copyright © E-SHOPPER Inc. All rights reserved.</p>
-       
+    <div class="footer-widget">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-2">
+            <div class="single-widget">
+              <h2>Service</h2>
+              <ul class="nav nav-pills nav-stacked">
+                <li><a href="/">Online Help</a></li>
+                <li><a href="/">Contact Us</a></li>
+                <li><a href="/">Order Status</a></li>
+                <li><a href="/">Change Location</a></li>
+                <li><a href="/">FAQ’s</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="single-widget">
+              <h2>Quock Shop</h2>
+              <ul class="nav nav-pills nav-stacked">
+                <li><a href="/">T-Shirt</a></li>
+                <li><a href="/">Mens</a></li>
+                <li><a href="/">Womens</a></li>
+                <li><a href="/">Gift Cards</a></li>
+                <li><a href="/">Shoes</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="single-widget">
+              <h2>Policies</h2>
+              <ul class="nav nav-pills nav-stacked">
+                <li><a href="/">Terms of Use</a></li>
+                <li><a href="/">Privecy Policy</a></li>
+                <li><a href="/">Refund Policy</a></li>
+                <li><a href="/">Billing System</a></li>
+                <li><a href="/">Ticket System</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="single-widget">
+              <h2>About Shopper</h2>
+              <ul class="nav nav-pills nav-stacked">
+                <li><a href="/">Company Information</a></li>
+                <li><a href="/">Careers</a></li>
+                <li><a href="/">Store Location</a></li>
+                <li><a href="/">Affillate Program</a></li>
+                <li><a href="/">Copyright</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-3 col-sm-offset-1">
+            <div class="single-widget">
+              <h2>About Shopper</h2>
+              <form action="#" method="post" class="searchform">
+                <input type="text" placeholder="Your email address">
+                <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+                <p>Get the most recent updates from<br>
+                  our site and be updated your self...</p>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
-<script src="../../assets/js/jquery.js"></script>
-<script src="../../assets/js/bootstrap.min.js"></script>
-{{!-- <script src="../../assets/js/jquery.scrollUp.min.js"></script> --}}
-{{!-- <script src="../../assets/js/price-range.js"></script> --}}
-{{!-- <script src="../../assets/js/main.js"></script> --}}
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="row">
+          <p class="pull-left">Copyright © E-SHOPPER Inc. All rights reserved.</p>
 
-<script type="text/javascript">
-var gaProperty = 'UA-120201777-1';var disableStr = 'ga-disable-' + gaProperty;if (document.cookie.indexOf(disableStr + '=true') > -1) {window[disableStr] = true;}
-function gaOptout(){document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2045 23:59:59 UTC; path=/';window[disableStr] = true;alert('Google Tracking has been deactivated');}
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-120201777-1', 'auto');ga('set', 'anonymizeIp', true);ga('send', 'pageview');
-</script>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../../assets/js/jquery.js"></script>
+  <script src="../../assets/js/bootstrap.min.js"></script>
+  {{!-- <script src="../../assets/js/jquery.scrollUp.min.js"></script> --}}
+  {{!-- <script src="../../assets/js/price-range.js"></script> --}}
+  {{!-- <script src="../../assets/js/main.js"></script> --}}
 
-<script>
-  hellohoho.oninput = function () {
-    if (this.value >= this.max) {
+  <script type="text/javascript">
+    var gaProperty = 'UA-120201777-1'; var disableStr = 'ga-disable-' + gaProperty; if (document.cookie.indexOf(disableStr + '=true') > -1) { window[disableStr] = true; }
+    function gaOptout() { document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2045 23:59:59 UTC; path=/'; window[disableStr] = true; alert('Google Tracking has been deactivated'); }
+    (function (i, s, o, g, r, a, m) { i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o), m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m) })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga'); ga('create', 'UA-120201777-1', 'auto'); ga('set', 'anonymizeIp', true); ga('send', 'pageview');
+  </script>
+
+  <script>
+    hellohoho.oninput = function () {
+      if (this.value >= this.max) {
         this.value = this.max;
+      }
     }
-}
-</script>
-<script>
+  </script>
+  <script>
     function formatNumber(num) {
-        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+      return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     }
 
-</script><a id="scrollUp" href="#top" style="display: none; position: fixed; z-index: 2147483647;"><i class="fa fa-angle-up"></i></a></body>
+  </script><a id="scrollUp" href="#top" style="display: none; position: fixed; z-index: 2147483647;"><i
+      class="fa fa-angle-up"></i></a></body>
+
 </html>

@@ -153,6 +153,15 @@ module.exports = {
         //console.log(sql);
         const rows = await db.load(sql);
         //console.log(sql);
+    },
+    getBidderWonProduct: async(userID) => {
+        const sql = `select * 
+        from product
+        inner join history on  product.ID = history.proID
+        where history.userID = ${userID} and product.endDate > curdate() and product.HighestBidderID = history.userID`;
+        //console.log(sql);
+        const rows = await db.load(sql);
+        return rows
     }
 
 };

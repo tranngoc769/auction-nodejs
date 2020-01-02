@@ -90,7 +90,6 @@ router.get('/product/:proID', async(req, res) => {
         let enoughGoodReview = numberOfGoodReview >= numberOfGoodReviewBidderRequried ? true : false
         let notBanned = true
         bidderCanBid = enoughGoodReview && notBanned
-        console.log(bidderCanBid)
         res.render('product/product', {'product': product[0], 'cate': cate[0], 'subImg': subImg, 'bidderCanBid': bidderCanBid, 'recommendPrice': product[0].curPrice + product[0].stepPrice})
     }
     else {

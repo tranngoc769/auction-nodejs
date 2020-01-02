@@ -1,181 +1,152 @@
-<!--Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-<!DOCTYPE HTML>
-<html>
-
-<head>
-	<title>Single page</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }>
-</script>
-	<meta name="keywords"
-		content="Auction Responsive web template, Bootstrap Web Templates, Flat Web Templates, AndriodCompatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-	<!-- start-smoth-scrolling -->
-	<script type="text/javascript" src="../assets/js/move-top.js"></script>
-	<script type="text/javascript" src="../assets/js/easing.js"></script>
-
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	
-	<script src="../assets/js/jquery-1.11.0.min.js"></script>
-	<script src="../assets/js/bootstrap.min.js"></script>
-	<!-- Custom Theme files -->
-	<link href="../assets/css/blog.css" rel="stylesheet" type="text/css" media="all" />
-	<!-- Custom Theme files -->
-	<script type="text/javascript">
-		jQuery(document).ready(function ($) {
-			$(".scroll").click(function (event) {
-				event.preventDefault();
-				$('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
-			});
+<script>
+	console.log("HIDFO")
+	jQuery(document).ready(function ($) {
+		$(".scroll").click(function (event) {
+			event.preventDefault();
+			$('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
 		});
-		function confirmBid(){
-			let price = $('#bidPriceInput').val()
-			let isN = $.isNumeric(price)
-			if(isN && price > {{product.curPrice}}){
-				return window.confirm('Nhấn OK để xác nhận')
-			} else{
-				console.log('heere')
-				window.confirm('Hãy nhập số bid là một con số lớn hơn giá hiện tại')
-				return false
-			}
+	});
+	function confirmBid() {
+		let price = $('#bidPriceInput').val()
+		let isN = $.isNumeric(price)
+		if (isN && price > {{ product.curPrice }}) {
+		return window.confirm('Nhấn OK để xác nhận')
+	} else {
+		window.alert('Hãy nhập số bid là một con số lớn hơn giá hiện tại')
+		return false
 		}
-	</script>
-</head>
+	}
+</script>
 
-<body>
-	<!-- //end-smoth-scrolling -->
-	<!--blog start here-->
-	<div class="blog">
-		<div class="container">
-			<div class="blog-main">
-				<div class="blog-grids">
-					<div class="row mb-5">
-						<div class="col-md-6">
-							{{!-- <a href="#"><img src="../assets{{product.ImagePro}}" alt=""></a> --}}
-							<div id="myCarousel" class="carousel slide" data-ride="carousel">
-								<!-- Indicators -->
-								<ol class="carousel-indicators">
-									<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-									<li data-target="#myCarousel" data-slide-to="1"></li>
-									<li data-target="#myCarousel" data-slide-to="2"></li>
-								</ol>
 
-								<!-- Wrapper for slides -->
-								<div class="carousel-inner">
-									<div class="item active">
+<div class="blog">
+	<div class="container">
+		<div class="blog-main">
+			<div class="blog-grids">
+				<div class="row mb-5">
+					<div class="col-md-6">
+						{{!-- <a href="#"><img src="../assets{{product.ImagePro}}" alt=""></a> --}}
+						<div id="myCarousel" class="carousel slide" data-ride="carousel">
+							<!-- Indicators -->
+							<ol class="carousel-indicators">
+								<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+								<li data-target="#myCarousel" data-slide-to="1"></li>
+								<li data-target="#myCarousel" data-slide-to="2"></li>
+							</ol>
+
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner">
+								<div class="item active">
 									<img src="../assets{{product.ImagePro}}" alt="Los Angeles">
-									</div>
-
-									{{#each subImg}}
-									<div class="item">
-									<img src=".../assets{{subImg.image}}" alt="Chicago">
-									</div>
-									{{/each}}
 								</div>
-								<!-- Left and right controls -->
-								<a class="left carousel-control" href="#myCarousel" data-slide="prev">
-									<span class="glyphicon glyphicon-chevron-left"></span>
-									<span class="sr-only">Previous</span>
-								</a>
-								<a class="right carousel-control" href="#myCarousel" data-slide="next">
-									<span class="glyphicon glyphicon-chevron-right"></span>
-									<span class="sr-only">Next</span>
-								</a>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<a href="/bidder/addwatchlist/{{product.ID}}" style="margin-bottom:20px"><i class="fa fa-plus-square p-5"></i>Add to wishlist</a>
-							<div class="blog-cate">
-								<h3>Categories</h3>
-								<ul>
-									<li><a href="#">{{cate.Catname}}</a></li>
-								</ul>
-							</div>
-							<div class="blog-post">
-								{{#if bidderCanBid}}
-								<form action="/bidder/bid/{{product.ID}}" method="POST" onsubmit="return confirmBid();">
-									<small class="form-text text-success">You are good to bid. Recommend price to bid: {{recommendPrice}}</small>
-									<div class="form-inline row">
-										<input type="munber" name="price" class="form-control" id="bidPriceInput"
-											placeholder="Enter your price to bid">
-										<button type="submit" class="btn btn-primary ml-5">BID NOW</button>
-									</div>
-								</form>
-								{{else}}
-								<p class="text-danger">You are not allow to bid, you must sign in and have 80% good
-									review to bid or contact
-									seller for permission</p>
-								{{/if}}
-							</div>
-						</div>
-					</div>
 
-					<div class="blog-detail" style="margin-top: 5px">
-						<a href="#">
-							<h3>{{product.ProName}}</h3>
-						</a>
-						<h4> in <span class="blog-clr">General</span> by Pexeto <span class="blog-clr"> march
-							</span> 3,2015 <span class="blog-clr"> 4 </span><a href="#">Comments</a></h4>
-						<div class="blog-para">
-							<p>{{product.Describle}}</p>
-						</div>
-						<div class="blog-btn"><a href="#">Read More</a></div>
-					</div>
-					<div class="data-line">
-						<ul>
-							<li><small class="calen"> </small><span class="calen">July 30, 2015</span></li>
-							<li><a href="#"><small class="admin"> </small><span class="calen">Admin</span></a></li>
-							<li><a href="#"><small class="comme"> </small><span class="calen">No comments</span></a>
-							</li>
-							<li><a href="#"><small class="post"> </small><span class="calen">View Posts</span></a>
-							</li>
-							<li><a href="#"><small class="link"> </small><span class="calen">Premalink</span></a>
-							</li>
-						</ul>
-					</div>
-					<div class="single-commemts">
-						<div class="col-md-2 user">
-							<a href="#"><img src="images/user.png" alt="" /></a>
-						</div>
-						<div class="col-md-10 user-comment">
-							<a href="#">
-								<h4>Bill Brown</h4>
-							</a>
-							<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-								laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore.</p>
-							<a class="comme" href="#">On December 14, 2014 18:05</a>
-							<div class="user-bwn">
-								<a href="#"> Relay</a>
+								{{#each subImg}}
+								<div class="item">
+									<img src=".../assets{{subImg.image}}" alt="Chicago">
+								</div>
+								{{/each}}
 							</div>
+							<!-- Left and right controls -->
+							<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+								<span class="glyphicon glyphicon-chevron-left"></span>
+								<span class="sr-only">Previous</span>
+							</a>
+							<a class="right carousel-control" href="#myCarousel" data-slide="next">
+								<span class="glyphicon glyphicon-chevron-right"></span>
+								<span class="sr-only">Next</span>
+							</a>
 						</div>
-						<div class="clearfix"> </div>
 					</div>
-					<div class="magsingle-contact">
-						<h3>Leave A Comment</h3>
-						<input type="text" value="Name" onfocus="this.value = '';"
-							onblur="if (this.value == '') {this.value = 'Name';}" />
-						<input type="text" class="no-mar" value="Email" onfocus="this.value = '';"
-							onblur="if (this.value == '') {this.value = 'Email';}" />
-						<textarea onfocus="this.value = '';"
-							onblur="if (this.value == '') {this.value = 'Message';}" />Message</textarea>
-						<input type="submit" value="Submit Comment" />
+					<div class="col-md-3">
+						<a href="/bidder/addwatchlist/{{product.ID}}" style="margin-bottom:20px"><i
+								class="fa fa-plus-square p-5"></i>Add to wishlist</a>
+						<div class="blog-cate">
+							<h3>Categories</h3>
+							<ul>
+								<li><a href="#">{{cate.Catname}}</a></li>
+							</ul>
+						</div>
+						<div class="blog-post">
+							{{#if bidderCanBid}}
+							<form action="/bidder/bid/{{product.ID}}" method="POST" onsubmit="return confirmBid();">
+								<small class="form-text text-success">You are good to bid. Recommend price to bid:
+									{{recommendPrice}}</small>
+								<div class="form-inline row">
+									<input type="munber" name="price" class="form-control" id="bidPriceInput"
+										placeholder="Enter your price to bid">
+									<button type="submit" class="btn btn-primary ml-5">BID NOW</button>
+								</div>
+							</form>
+							{{else if }}
+							<p class="text-danger">You are not allow to bid, you must sign in and have 80% good
+								review to bid or contact
+								seller for permission</p>
+							{{else}}
+							<p class="text-danger">You are not allow to bid, you must sign in and have 80% good
+								review to bid or contact
+								seller for permission</p>
+							{{/if}}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="clearfix"> </div>
-		</div>
-	</div>
-	<!--blog end here-->
-	<script>
-		function bid() {
-			console.log($('#bidPriceInput').val());
-		}
-	</script>
-</body>
 
-</html>
+				<div class="blog-detail" style="margin-top: 5px">
+					<a href="#">
+						<h3>{{product.ProName}}</h3>
+					</a>
+					<h4> in <span class="blog-clr">General</span> by Pexeto <span class="blog-clr"> march
+						</span> 3,2015 <span class="blog-clr"> 4 </span><a href="#">Comments</a></h4>
+					<div class="blog-para">
+						{{{product.Describle}}}
+					</div>
+					<div class="blog-btn"><a href="#">Read More</a></div>
+				</div>
+				<div class="data-line">
+					<ul>
+						<li><small class="calen"> </small><span class="calen">July 30, 2015</span></li>
+						<li><a href="#"><small class="admin"> </small><span class="calen">Admin</span></a></li>
+						<li><a href="#"><small class="comme"> </small><span class="calen">No comments</span></a>
+						</li>
+						<li><a href="#"><small class="post"> </small><span class="calen">View Posts</span></a>
+						</li>
+						<li><a href="#"><small class="link"> </small><span class="calen">Premalink</span></a>
+						</li>
+					</ul>
+				</div>
+
+
+				<div class="blog-detail" style="margin-top: 5px">
+
+				</div>
+				<div class="single-commemts">
+					<div class="col-md-2 user">
+						<a href="#"><img src="images/user.png" alt="" /></a>
+					</div>
+					<div class="col-md-10 user-comment">
+						<a href="#">
+							<h4>Bill Brown</h4>
+						</a>
+						<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+							laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore.</p>
+						<a class="comme" href="#">On December 14, 2014 18:05</a>
+						<div class="user-bwn">
+							<a href="#"> Relay</a>
+						</div>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="magsingle-contact">
+					<h3>Leave A Comment</h3>
+					<input type="text" value="Name" onfocus="this.value = '';"
+						onblur="if (this.value == '') {this.value = 'Name';}" />
+					<input type="text" class="no-mar" value="Email" onfocus="this.value = '';"
+						onblur="if (this.value == '') {this.value = 'Email';}" />
+					<textarea onfocus="this.value = '';"
+						onblur="if (this.value == '') {this.value = 'Message';}" />Message</textarea>
+					<input type="submit" value="Submit Comment" />
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"> </div>
+	</div>
+</div>
