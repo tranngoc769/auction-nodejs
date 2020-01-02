@@ -4,8 +4,7 @@ function connectToSring() {
         host: 'localhost',
         port: '3306',
         user: 'root',
-        password: '12121212',
-        database: 'auction'
+        database: 'myauction'
     });
 }
 
@@ -41,6 +40,7 @@ exports.del = (tbName, idField, id) => {
         let sql = 'delete from ?? where ?? = ?';
         const params = [tbName, idField, id];
         sql = mysql.format(sql, params);
+        console.log(sql);
         con.query(sql, (error, results, fields) => {
             if (error) {
                 reject(error);
@@ -62,11 +62,33 @@ exports.update = (tbName, idField, entity) => {
         const id = entity[idField];
         delete entity[idField];
         let sql = `update ${tbName} set ? where ${idField}=${id}`;
-        con.query(sql, (error, results, fields) => {
+        con.query(sql, entity, (error, results, fields) => {
             if (error) {
                 reject(error);
             }
             resolve(results.changedRows);
+        });
+        con.end();
+    })
+}
+exports.add = (tbName, entity) => {
+    return new Promise((resolve, reject) => {
+        const con = connectToSring();
+        con.connect(err => {
+            if (err) {
+                reject(err);
+            }
+            //console.log("Connected!");
+        });
+        let sql = 'INSERT INTO ?? (Catname, parentID) VALUES (?,?)';
+        const params = [tbName,entity.Catname, entity.parentID];
+        sql = mysql.format(sql, params);
+        con.query(sql, (error, results, fields) => {
+            console.log(sql);
+            if (error) {
+                reject(error);
+            }
+            resolve(results.affectedRows);
         });
         con.end();
     })

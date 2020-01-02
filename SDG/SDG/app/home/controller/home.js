@@ -3,7 +3,7 @@ const router = express.Router();
 const mUser = require('../../models/user');
 const mProduct = require('../../models/product');
 const mReview = require('../../models/review');
-const mCate = require('../../models/category');
+const mCat = require('../../models/category');
 const auth = require('../../utils/auth');
 //Number of good review for bidder to bid
 const numberOfGoodReviewBidderRequried = 1 // 1 for testing, correct is 5
