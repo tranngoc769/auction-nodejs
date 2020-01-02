@@ -69,7 +69,7 @@
       </div>
     </div>
   </div>
-  <div class="header-middle">
+  <div style="background: #fe980f;" class="header-middle">
     <div class="container">
       <div class="row">
         <div class="col-sm-4">
@@ -132,7 +132,6 @@
                         </ul>
                         {{else}}
                         <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
-                            <li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>
                             <li class="dropdown order-1">
                                 <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Login <span class="caret"></span></button>
                                 <ul class="dropdown-menu dropdown-menu-right mt-2">
@@ -155,7 +154,7 @@
                                 </ul>
                             </li>
                         </ul>
-                        <a class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="modal" href="#myModal">Register</a>
+                        <a class="btn btn-outline-success my-2 my-sm-0" href="/login" >Register</a>
                         {{/if}}
                         
 
@@ -177,7 +176,7 @@
                     </div>
                 </div>
                 <!--modal dang ki-->
-                <div class="modal fade" data-backdrop="false" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <!--<div class="modal fade" data-backdrop="false" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -187,7 +186,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form method="post" action='/home/login' name="login_form">
+                                <form method="post" action='/login' name="login_form">
                                     <p><input type="text" class="span3" name="uname" id="email" placeholder="Email"></p>
                                     <p><input type="password" class="span3" name="passwd" placeholder="Password"></p>
                                     <p>
@@ -200,7 +199,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
           </div>
         </div>
       </div>
@@ -209,7 +208,7 @@
   <div class="header-bottom">
     <div class="container">
       <div class="row">
-        <div class="col-sm-7">
+        <div class="col-sm-9">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
           </div>
@@ -218,29 +217,30 @@
               <li><a href="/" class="active">Home</a></li>
               <li class="dropdown"><a href="javascript:void(0)">Shop<i class="fa fa-angle-down"></i></a>
                 <ul role="menu" class="sub-menu">
-                  <li><a href="pages/shop.php">Products</a></li>
-                  <li><a href="pages/product-details.php">Product Details</a></li>
-                  <li><a href="pages/checkout.php">Checkout</a></li>
-                  <li><a href="pages/cart.php">Cart</a></li>
+                  <li><a href="/">Products</a></li>
+                  <li><a href="/">Product Details</a></li>
+                  <li><a href="/">Checkout</a></li>
+                  <li><a href="/">Cart</a></li>
                   
                 </ul>
               </li>
               <li class="dropdown"><a href="javascript:void(0)">Blog<i class="fa fa-angle-down"></i></a>
                 <ul role="menu" class="sub-menu">
-                  <li><a href="pages/blog.php">Blog List</a></li>
-                  <li><a href="pages/blog-single.php">Blog Single</a></li>
+                  <li><a href="/">Blog List</a></li>
+                  <li><a href="/">Blog Single</a></li>
                 </ul>
               </li>
-              <li><a href="pages/404.php">404</a></li>
-              <li><a href="pages/contact-us.php">Contact</a></li>
+              <li><a href="/">Contact</a></li>
             </ul>
           </div>
         </div>
-        <div class="col-sm-5">
-          <div class="search_box pull-right">
-            <input type="text" placeholder="Search">
+        <div class="col-sm-3 mainmenu pull-right"  style="margin-top: 0px;">
+          <div>
+            <form action="/search?page=1" method="post" class="searchform">
+              <input name="searchHere" type="text" placeholder="Search here">
+              <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+            </form>
           </div>
-        </div>
       </div>
     </div>
   </div>

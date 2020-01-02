@@ -10,7 +10,9 @@
                 <h4>{{ProName}}</h4><h5> {{curPrice}}</h5>
                 <p>Sell Now</p>
                 {{#if isLogin}}
-                  <a href="#"  style="background: #fb8c00; color:#fff" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart auction</a> 
+                {{#if isBidder}}
+                  <a href="/product/{{ID}}"  style="background: #fb8c00; color:#fff" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart auction</a> 
+                {{/if}}
                 {{else}}
                   <a href="/login"  style="background: #fb8c00; color:#fff" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to auction</a> 
                 {{/if}}
@@ -21,11 +23,13 @@
                   <h4 style="color: #f9a825;">{{ProName}}</h4><h5 style="color: #f9a825;"> {{curPrice}}</h5>
                   <p style="color: #f9a825;">Sell Now</p>
                     </a>
-                    {{#if isLogin}}
-                  <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to auction</a> 
-                    {{else}}
-                  <a href="/login" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to auction</a> 
-                    {{/if}}
+                     {{#if isLogin}}
+                {{#if isBidder}}
+                  <a href="/product/{{ID}}"  style="background: #fb8c00; color:#fff" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart auction</a> 
+                {{/if}}
+                {{else}}
+                  <a href="/login"  style="background: #fb8c00; color:#fff" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to auction</a> 
+                {{/if}}
                    
                 </div>
             </div>

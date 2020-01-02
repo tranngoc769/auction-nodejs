@@ -11,7 +11,9 @@
                             <h4>{{productsTopEndDate.0.curPrice}}</h4>
                             <p>{{productsTopEndDate.0.ProName}}</p>
                            {{#if isLogin}}
-                              <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart auction</a> 
+                           {{#if isBidder}}
+                              <a href="/bidder/addwatchlist/{{productsTopEndDate.0.ID}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart auction</a> 
+                          {{/if}}
                           {{else}}
                               <a href="/login"   class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to auction</a> 
                           {{/if}}
@@ -29,7 +31,9 @@
                             <h4>{{productsTopEndDate.1.curPrice}}</h4>
                             <p>{{productsTopEndDate.1.ProName}}</p>
                            {{#if isLogin}}
-                              <a href="#"  class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart auction</a> 
+                           {{#if isBidder}}
+                              <a href="/bidder/addwatchlist/{{productsTopEndDate.1.ID}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart auction</a> 
+                          {{/if}}
                           {{else}}
                               <a href="/login"   class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to auction</a> 
                           {{/if}}
@@ -49,7 +53,9 @@
                             <h4>{{productsTopEndDate.2.curPrice}}</h4>
                             <p>{{productsTopEndDate.2.ProName}}</p>
                            {{#if isLogin}}
-                              <a href="#"   class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart auction</a> 
+                           {{#if isBidder}}
+                              <a href="/bidder/addwatchlist/{{productsTopEndDate.2.ID}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart auction</a> 
+                          {{/if}}
                           {{else}}
                               <a href="/login"   class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to auction</a> 
                           {{/if}}
@@ -67,7 +73,9 @@
                             <h4>{{productsTopEndDate.3.curPrice}}</h4>
                             <p>{{productsTopEndDate.3.ProName}}</p>
                            {{#if isLogin}}
-                              <a href="#"   class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart auction</a> 
+                           {{#if isBidder}}
+                              <a href="/bidder/addwatchlist/{{productsTopEndDate.3.ID}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart auction</a> 
+                          {{/if}}
                           {{else}}
                               <a href="/login"   class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to auction</a> 
                           {{/if}}
@@ -85,7 +93,9 @@
                             <h4>{{productsTopEndDate.4.curPrice}}</h4>
                             <p>{{productsTopEndDate.4.ProName}}</p>
                            {{#if isLogin}}
-                              <a href="#"   class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart auction</a> 
+                           {{#if isBidder}}
+                              <a href="/bidder/addwatchlist/{{productsTopEndDate.4.ID}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart auction</a> 
+                          {{/if}}
                           {{else}}
                               <a href="/login"   class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to auction</a> 
                           {{/if}}

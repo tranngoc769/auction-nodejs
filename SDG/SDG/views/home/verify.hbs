@@ -1,0 +1,66 @@
+
+<style>
+    #container {
+        margin-left: 400px;
+        margin-top: 50px;
+    }
+
+    #to, #subject, #content {
+        font-family: "Segoe UI";
+        font-size: 18px;
+        width: 530px;
+    }
+
+    h1 {
+        font-family: "Segoe UI";
+        font-size: 40px;
+        color: #3b5998;
+    }
+
+    p {
+        color: green;
+    }
+
+    #send_email {
+        font-size: 15px;
+        font-family: "Segoe UI";
+    }
+
+    #message {
+        font-size: 18px;
+    }
+</style>
+<div id="container">
+    <h1>Email-verification System in Node.js</h1>
+    <input type="text" id="otp" placeholder="Enter OTP"><br/> <br />
+    <button id="send_otp" onclick="sendOTP()">Send OTP</button><br/>
+    <span id="message"></span>
+</div>
+<script>
+    function sendOTP() {
+        
+        let otp = $('#otp').val();
+        $.ajax({
+                type: 'POST',
+                url: '/verify',
+                data:
+                {
+                    otp: otp
+                },
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                    if (result == "successfull") {
+                        window.location = '/';
+                    }
+                    else {
+                       $("#message").empty().html("<p>Wrong OTP. Please check again !</p>");
+                    }
+                },
+                error: function (err) {
+
+                }
+            })
+
+    }
+</script>

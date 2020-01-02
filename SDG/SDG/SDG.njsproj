@@ -136,6 +136,12 @@
     <Content Include="views\error.hbs">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\home\login_register.hbs">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\home\verify.hbs">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\layouts\adminLayout.hbs">
       <SubType>Code</SubType>
     </Content>

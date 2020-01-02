@@ -10,30 +10,52 @@
             <div class="view-product"><img src="../assets/photos/{{product.ImagePro}}" alt="image details">
               <h3>ZOOM</h3>
             </div>
-            <div id="similar-product" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-                <div class="item active"><a href="https://www.free-css.com/free-css-templates"><img src="../assets/images/product-details/similar1.jpg" alt="image details"></a> <a href="https://www.free-css.com/free-css-templates"><img src="../assets/images/product-details/similar2.jpg" alt="image details"></a> <a href="https://www.free-css.com/free-css-templates"><img src="../assets/images/product-details/similar3.jpg" alt="image details"></a></div>
-                <div class="item"><a href="https://www.free-css.com/free-css-templates"><img src="../assets/images/product-details/similar1.jpg" alt="image details"></a> <a href="https://www.free-css.com/free-css-templates"><img src="../assets/images/product-details/similar2.jpg" alt="image details"></a> <a href="https://www.free-css.com/free-css-templates"><img src="../assets/images/product-details/similar3.jpg" alt="image details"></a></div>
-                <div class="item"><a href="https://www.free-css.com/free-css-templates"><img src="../assets/images/product-details/similar1.jpg" alt="image details"></a> <a href="https://www.free-css.com/free-css-templates"><img src="../assets/images/product-details/similar2.jpg" alt="image details"></a> <a href="https://www.free-css.com/free-css-templates"><img src="../assets/images/product-details/similar3.jpg" alt="image details"></a></div>
-              </div>
-              <a class="left item-control" href="#similar-product" data-slide="prev"><i class="fa fa-angle-left"></i></a> <a class="right item-control" href="#similar-product" data-slide="next"><i class="fa fa-angle-right"></i></a></div>
+			<br>
+              <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+						 {{#each pages }} 
+                        <li data-target="#slider-carousel" data-slide-to="{{value}}" class=""></li>
+						{{/each}}
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="item active">
+                                <img src="../assets/photos/{{subImg.0.image}}" class="girl img-responsive" alt="website template image">
+                        </div>
+						{{#each subImg2}}
+                        <div class="item">
+                                <img src="../../assets/photos/{{image}}" class="girl img-responsive" alt="website template image">
+                        </div>
+						{{/each}}
+                    </div>
+                    <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev"><i class="fa fa-angle-left"></i></a> <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next"><i class="fa fa-angle-right"></i></a>
+                </div>
+              
           </div>
           <div class="col-sm-7">
             <div class="product-information"><img src="../assets/images/new.png" class="newarrival" alt="image details">
-              <h2>{{product.ProName}}</h2>
-              <h3>{{cate.Catname}}</h3>
+              <h3>{{product.ProName}}</h3>
+              <h4>{{cate.Catname}}</h4>
             <span> <span>{{product.sellNowPrice}}</span>
               
+			  {{#if bidderCanBid}}
 			  <a href="/bidder/addwatchlist/{{product.ID}}" style="margin-bottom:20px"><button type="button" class="btn btn-fefault cart"> <i class="fa fa-shopping-cart"></i> Add to wish list</button></a>
-                            </span>
-              <p><b>Current Price:</b> {{product.curPrice}}</p>
-              <p><b>Sell Now:</b> {{product.sellNowPrice}}</p>
-              <a><b>Public date:</b> E-SHOPPER</a><br/>
-			  <a><b>End date:</b> E-SHOPPER</a>
+			  {{/if}}
+                            </span><br/>
+              <a><b>Current Price:</b> {{product.curPrice}}</a><br/>
+              <a><b>Sell Now Price:</b> {{product.sellNowPrice}}</a><br/><br/>
+              <p><b>Public date:</b> <small>{{product.pubDate}}</small></p>
+			  <p><b>End date:</b> <small>{{product.endDate}}</small></p><br/>
+			   <p><b>Seller:</b> {{seller.fullName}}</p>
+			   <p><b>Hightest bidder:</b> {{bidder.fullName}}</p>
+				<br>
+				<br>
+			  
 			  <div class="blog-post">
 								{{#if bidderCanBid}}
 								<form action="/bidder/bid/{{product.ID}}" method="POST" onsubmit="return confirmBid();">
-									<small class="form-text text-success">You are good to bid. Recommend price to bid: {{recommendPrice}}</small>
+									<small class="form-text text-success">You are good to bid. Recommend price to bid:
+										{{recommendPrice}}</small>
 									<div class="form-inline row">
 										<input type="munber" name="price" class="form-control" id="bidPriceInput"
 											placeholder="Enter your price to bid">
@@ -46,86 +68,94 @@
 									seller for permission</p>
 								{{/if}}
 							</div>
-			   </div>
-          </div>
-        </div>
-        <div class="category-tab shop-details-tab">
-          <div class="col-sm-12">
-            <ul class="nav nav-tabs">
-              <li  class="active"><a href="#details" data-toggle="tab">Seller</a></li>
-              <li><a href="#companyprofile" data-toggle="tab">Highest Bidder</a></li>
-              <li><a href="#reviews" data-toggle="tab">Details</a></li>
-            </ul>
-          </div>
-          <div class="tab-content">
-            <div class="tab-pane fade active in" id="details">
-              <div class="col-sm-12 my-5">
-   
-                 
-      
-              </div>
-            </div>
-            <div class="tab-pane fade" id="companyprofile">
-              <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                  <div class="single-products">
-                    <div class="productinfo text-center"><img src="../assets/images/home/gallery1.jpg" alt="image details">
-                      <h2>$56</h2>
-                      <p>Easy Polo Black Edition</p>
-                      <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                  <div class="single-products">
-                    <div class="productinfo text-center"><img src="../assets/images/home/gallery3.jpg" alt="image details">
-                      <h2>$56</h2>
-                      <p>Easy Polo Black Edition</p>
-                      <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                  <div class="single-products">
-                    <div class="productinfo text-center"><img src="../assets/images/home/gallery2.jpg" alt="image details">
-                      <h2>$56</h2>
-                      <p>Easy Polo Black Edition</p>
-                      <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="product-image-wrapper">
-                  <div class="single-products">
-                    <div class="productinfo text-center"><img src="../assets/images/home/gallery4.jpg" alt="image details">
-                      <h2>$56</h2>
-                      <p>Easy Polo Black Edition</p>
-                      <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+							<br>
 
-            <div class="tab-pane fade" id="reviews">
-              <div class="col-sm-12">
-                <ul>
-                  <li><a href="https://www.free-css.com/free-css-templates"><i class="fa fa-user"></i>EUGEN</a></li>
-                  <li><a href="https://www.free-css.com/free-css-templates"><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-                  <li><a href="https://www.free-css.com/free-css-templates"><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-                </ul>
-                 <p>{{{product.Describle}}}</p>
-				 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
+							<div class="blog-post">
+								{{#if bidderCanBid}}
+								<button type="submit" class="btn btn-primary ml-5">REVIEW SELLER</button>
+								{{/if}}
+								{{#if isSeller}}
+								<button type="submit" class="btn btn-primary ml-5">REVIEW ALL BIDDERS</button>
+								{{/if}}
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="category-tab shop-details-tab">
+					<div class="col-sm-12">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#reviews" data-toggle="tab">Details</a></li>
+							<li><a href="#companyprofile" data-toggle="tab">Recommend Products</a></li>
+							<li><a href="#history" data-toggle="tab">Bid history</a></li>
+						</ul>
+					</div>
+					<div class="tab-content">
+						<div class="tab-pane fade" id="companyprofile">
+							{{#each recommendPro}}
+							<div class="col-sm-3">
+								<div class="product-image-wrapper">
+									<div class="single-products">
+										<div class="productinfo text-center"><img src="../assets/photos/{{ImagePro}}"
+												alt="image details">
+											<a href="/product/{{ID}}">
+												<h2>{{SellNowPrice}}</h2>
+												<p>{{ProName}}</p>
+											</a>
+											{{#if isLogin}}
+											<a href="#" class="btn btn-default add-to-cart"><i
+													class="fa fa-shopping-cart"></i>Add to cart auction</a>
+											{{else}}
+											<a href="/login" class="btn btn-default add-to-cart"><i
+													class="fa fa-shopping-cart"></i>Add to auction</a>
+											{{/if}}
+										</div>
+									</div>
+								</div>
+							</div>
+							{{/each}}
+
+						</div>
+
+						<div class="tab-pane fade active in" id="reviews">
+							<div class="col-sm-12">
+								<ul>
+									<li><a><i class="fa fa-user"></i>{{seller.fullName}}</a></li><br>
+									<li><a><i class="fa fa-clock-o"></i>{{product.pubDate}}</a></li>
+									<li><a><i class="fa fa-calendar-o"></i>{{product.pubDate}}</a></li>
+								</ul>
+								<p>{{{product.Describle}}}</p>
+
+							</div>
+						</div>
+						<div class="tab-pane fade active in" id="history">
+							<div class="col-sm-12">
+								<table class="table">
+									<thead>
+										<tr>
+											<th scope="col">Thời điểm</th>
+											<th scope="col">Người mua</th>
+											<th scope="col">Giá</th>
+										</tr>
+									</thead>
+									<tbody>
+										{{#each history}}
+											<tr>
+												<td>{{dateBid}}</td>
+												<td>{{userName}}</td>
+												<td>{{price}}</td>
+											</tr>
+										{{/each}}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
 </section>

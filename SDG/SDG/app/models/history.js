@@ -9,6 +9,14 @@ module.exports = {
     console.log(sql)
     await db.load(sql);
   },
+  getHistoryByProductID: async (proID) => {
+    const sql = `select * 
+    from history
+    where history.proID = ${proID}`;
+    //console.log(sql);
+    const rows = await db.load(sql);
+    return rows
+  },
   findBidderbyProID: async (proID) => {
     
     const sql = `SELECT *  FROM history JOIN  user_info

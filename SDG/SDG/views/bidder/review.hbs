@@ -1,0 +1,21 @@
+
+<div style="margin:30px">
+    <h3>Những đánh giá với seller</h3>
+    {{#each reviews}}
+        <h5>The bidder: {{comment}}</h5>
+    {{/each}}
+</div>
+<div style="margin:30px">
+    <h3>
+        Đánh giá seller
+    </h3>
+    <form class="m-5" action="/bidder/{{proID}}/reviewseller/{{sellerID}}" method="POST">
+        <div class="form-group">
+            <label for="comment" class="col-sm-2 col-form-label"></label>Ý kiến của bạn với seller sản phẩm này</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="comment" placeholder="comment" name="your comment">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

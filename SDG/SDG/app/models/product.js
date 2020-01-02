@@ -19,14 +19,15 @@ module.exports = {
                      WHERE  (p.ProName like '%${query_search}%' ||p.Describle like '%${query_search}%' ) && p.isDeleted=0
                      ORDER BY ${field} ${sort}
                      LIMIT ${start_index} , ${perpage}`;
-        console.log(sql);
+        //console.log(sql);
         const rows = await db.load(sql);
-        //console.log("token:", rows);
+        console.log("ddddddđ" + sql)
+        console.log("token:", rows);
         return rows;
     },
     delByID: async entity => {
         const nr = await db.update(tb_product, idField, entity);
-        console.log(nr);
+        //console.log(nr);
         return nr;
     },
     getProductOfCate: async id => {
@@ -40,15 +41,15 @@ module.exports = {
     },
     addProDuct: async(ProName, curPrice, catId, sellNowPrice, stepPrice, countBidder, pubDate, endDate, Describle, sellerID, isExtension, ImagePro, startPrice) => {
         const sql = `INSERT INTO product(ProName,curPrice,catId,sellNowPrice,stepPrice,countBidder,pubDate,endDate,Describle,sellerID,isExtension,ImagePro,startPrice) VALUES (${ProName},${curPrice},${catId},${sellNowPrice},${stepPrice},${countBidder},${pubDate},${endDate},${Describle},${sellerID},${isExtension},${ImagePro},${startPrice})`;
-        console.log(sql);
+        //console.log(sql);
         const rows = await db.load(sql);
         return;
     },
     getOnebyId: async id => {
         const sql = `SELECT  *  FROM ${tb_product} WHERE id = ${id}`;
-        console.log(sql);
+        //console.log(sql);
         const rows = await db.load(sql);
-        console.log("token:", rows);
+        //console.log("token:", rows);
         return rows;
     },
     getSubImage: async id => {
@@ -56,7 +57,34 @@ module.exports = {
         FROM product_image
         WHERE proID = ${id}`;
         const rows = await db.load(sql);
-        console.log("token:", rows);
+        //console.log("token:", rows);
+        return rows;
+    },
+    getSubImageAfterFirst: async id => {
+        const sql = `SELECT  *
+        FROM product_image
+        WHERE proID = ${id}`;
+        const rows = await db.load(sql);
+        rows.splice(0, 1);
+        //console.log("token:", rows);
+        return rows;
+    },
+    getSellerByProID: async id => {
+        const sql = `SELECT B.fullName FROM product A JOIN user_info B ON A.sellerID =B.ID WHERE A.ID = ${id}`;
+        const rows = await db.load(sql);
+        return rows;
+    },
+    getHightestBidderByProID: async id => {
+        const sql = `SELECT B.fullName FROM product A JOIN user_info B ON A.HighestBidderID =B.ID WHERE A.ID = ${id}`;
+        const rows = await db.load(sql);
+        return rows;
+    },
+    getTop4OnebyId: async id => {
+
+        const sql = `SELECT  *  FROM ${tb_product} WHERE CatID = ${id} LIMIT 4`;
+        const rows = await db.load(sql);
+        //rows.splice(0, 2);
+
         return rows;
     },
     getAllProducts: async() => {
@@ -71,7 +99,7 @@ module.exports = {
         const rs = await db.load(sql);
 
         const totalP = rs[0].total;
-        console.log(totalP);
+        //console.log(totalP);
 
         const pageTotal = Math.floor(totalP / pageSize);
         if (totalP % pageSize != 0)
@@ -98,17 +126,17 @@ module.exports = {
         const row = await db.load(sql);
         return row;
     },
-    addProSubImg: async (id, img) => {
+    addProSubImg: async(id, img) => {
         const sql = `INSERT INTO product_image(proID,image)
     VALUES (${id},${img})`;
         const row = await db.load(sql);
         return row;
     },
-    updateHighestBidder: async (userID, proID) => {
+    updateHighestBidder: async(userID, proID) => {
         const sql = `UPDATE product SET HighestBidderID = ${userID} WHERE ID = ${proID}`
         await db.load(sql)
     },
-    getProductBidderInHistory: async (userID) => {
+    getProductBidderInHistory: async(userID) => {
         const sql = `select * 
         from product
         inner join history on  product.ID = history.proID
@@ -152,6 +180,15 @@ module.exports = {
         //console.log(sql);
         const rows = await db.load(sql);
         //console.log(sql);
-    }
+    },
+    getBidderWonProduct: async(userID) => {
+        const sql = `select * 
+        from product
+        inner join history on  product.ID = history.proID
+        where history.userID = ${userID} and product.endDate > curdate() and product.HighestBidderID = history.userID`;
+        //console.log(sql);
+        const rows = await db.load(sql);
+        return rows
+    },
 
 };
