@@ -3,7 +3,7 @@ const router = express.Router();
 const mUser = require('../../models/user');
 const mProduct = require('../../models/product');
 const mReview = require('../../models/review');
-const mCate = require('../../models/category');
+const mCat = require('../../models/category');
 const auth = require('../../utils/auth');
 var moment = require('moment');
 
@@ -19,15 +19,13 @@ router.get('/', async(req, res) => {
     const token = req.cookies.jwt;
 
     //load cho sideBar
-    const parentCat = await mCate.getParentCategory();
-    //const matrixChildCat = await mPro.getAllCatChild();
+    const parentCat = await mCat.getParentCategory();
 
-
-    const listParDM = await mCate.getParentCategory();
+    const listParDM = await mCat.getParentCategory();
     const data = JSON.parse(JSON.stringify(listParDM));
     var matrixChildCat = [];
     for (var i = 0; i < data.length; i++) {
-        const listCDM = await mCate.getChildCategory(data[i].ID);
+        const listCDM = await mCat.getChildCategory(data[i].ID);
         const data2 = JSON.parse(JSON.stringify(listCDM));
         matrixChildCat.push(data2);
 

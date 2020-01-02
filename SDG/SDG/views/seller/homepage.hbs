@@ -13,101 +13,106 @@
       <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
     </div>
     <div class="col-md-12">
-<form accept-charset="UTF-8" action="/seller/multiple-upload" method="POST" enctype="multipart/form-data" >
-<div class="form-group">
-<label for="productName" required="required">Tên Sản Phẩm</label>
-<input value="Quang" t type="text" name="pName" class="form-control" id="ippname" placeholder="Product Name">
-</div>
-<div class="form-group">
-<label for="categoryname" required="required">Danh Mục Hàng</label>
-<select  class="form-control" id="ipCate" name="Cate" required="required">
-   {{#each Cha}}
-             <optgroup value="10.00.00" label="{{Catname}}">
-                    {{#with (lookup ../Matrix @index)}}
-                     {{#each this}}
-                    <option>{{Catname}}</option>
-                     {{/each}}
-                    {{/with}}
-             </optgroup>
+      <form accept-charset="UTF-8" action="/seller/multiple-upload" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="productName" required="required">Tên Sản Phẩm</label>
+          <input value="Quang" t type="text" name="pName" class="form-control" id="ippname" placeholder="Product Name">
+        </div>
+        <div class="form-group">
+          <label for="categoryname" required="required">Danh Mục Hàng</label>
+          <select class="form-control" id="ipCate" name="Cate" required="required">
+            {{#each Cha}}
+            <optgroup value="10.00.00" label="{{Catname}}">
+              {{#with (lookup ../Matrix @index)}}
+              {{#each this}}
+              <option>{{Catname}}</option>
+              {{/each}}
+              {{/with}}
+            </optgroup>
             {{/each}}
-</select>
+          </select>
 
-</div>
-<div class="form-group">
-<label>Giá Khởi Điểm</label>
-<input value="1" t type="number" name="startPrice" class="form-control" id="ipsPrice" placeholder="Start Price" required="required">
-</div>
-<div class="form-group">
-<label>Bước Giá</label>
-<input value="1" type="number" name="stepPrice" class="form-control" id="ipstPrice" placeholder="Step Price" required="required">
-</div>
-<div class="form-group">
-<label>Giá Bán Ngay</label>
-<input value="1" t type="number" name="sellnowPrice" class="form-control" id="ipsnPrice" placeholder="Sell Now Price" required="required">
-</div>
-<div class="form-group">
-    <label >Thời Gian Bắt Đầu</label>
-  <input value="2020-02-01T19:30" type="datetime-local" name="pubTime" class="form-control" id="siTime" placeholder="Thời Gian Bắt Đầu" required="required">
-</div>
-<div class="form-group">
-    <label for="timepicker">Thời Gian Kết Thúc</label>
-  <input value="2020-02-11T19:30" type="datetime-local" name="endTime" class="form-control" id="enTime" placeholder="Thời Gian Kết Thúc" required="required">
-</div>
-<div class="form-group">
-<label for="isExtension">Extension ?</label>
-<select  class="form-control" id="ipisExt" name="isExt" required="required">
-<option>Yes</option>
-<option>No</option>
-</select>
+        </div>
+        <div class="form-group">
+          <label>Giá Khởi Điểm</label>
+          <input value="1" t type="number" name="startPrice" class="form-control" id="ipsPrice"
+            placeholder="Start Price" required="required">
+        </div>
+        <div class="form-group">
+          <label>Bước Giá</label>
+          <input value="1" type="number" name="stepPrice" class="form-control" id="ipstPrice" placeholder="Step Price"
+            required="required">
+        </div>
+        <div class="form-group">
+          <label>Giá Bán Ngay</label>
+          <input value="1" t type="number" name="sellnowPrice" class="form-control" id="ipsnPrice"
+            placeholder="Sell Now Price" required="required">
+        </div>
+        <div class="form-group">
+          <label>Thời Gian Bắt Đầu</label>
+          <input value="2020-02-01T19:30" type="datetime-local" name="pubTime" class="form-control" id="siTime"
+            placeholder="Thời Gian Bắt Đầu" required="required">
+        </div>
+        <div class="form-group">
+          <label for="timepicker">Thời Gian Kết Thúc</label>
+          <input value="2020-02-11T19:30" type="datetime-local" name="endTime" class="form-control" id="enTime"
+            placeholder="Thời Gian Kết Thúc" required="required">
+        </div>
+        <div class="form-group">
+          <label for="isExtension">Extension ?</label>
+          <select class="form-control" id="ipisExt" name="isExt" required="required">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
 
-</div>
+        </div>
 
-<div class="form-group">
-  <textarea name="editor1"></textarea>
-  <script>
-          CKEDITOR.replace( 'editor1' );
-  </script>
-  </div>
-  
-<hr>
-<div class="form-group">
-  <label for="input-file"> </label>
-    <input type="file" name="many-files" multiple id="input-many-files" class=" form-control-file">
-  </div>
-<hr>
+        <div class="form-group">
+          <textarea name="editor1"></textarea>
+          <script>
+            CKEDITOR.replace('editor1');
+          </script>
+        </div>
 
-<button type="submit" class="btn btn-wide">Submit</button>
-</form>
-</div>
-    
-    
-    
+        <hr>
+        <div class="form-group">
+          <label for="input-file"> </label>
+          <input type="file" name="many-files" multiple id="input-many-files" class=" form-control-file">
+        </div>
+        <hr>
+
+        <button type="submit" class="btn btn-wide">Submit</button>
+      </form>
+    </div>
+
+
+
   </div>
 </section>
 </section>
- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Multiple images preview in browser - trungquandev.com
-            let imagesPreview = function(input, placeToInsertImagePreview) {
-                if (input.files) {
-                    let filesAmount = input.files.length;
-                    for (i = 0; i < filesAmount; i++) {
-                        let reader = new FileReader();
-                        reader.onload = function(event) {
-                            $($.parseHTML("<img>")).attr("src", event.target.result).appendTo(placeToInsertImagePreview);
-                        }
-                        reader.readAsDataURL(input.files[i]);
-                    }
-                }
-            };
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Multiple images preview in browser - trungquandev.com
+    let imagesPreview = function (input, placeToInsertImagePreview) {
+      if (input.files) {
+        let filesAmount = input.files.length;
+        for (i = 0; i < filesAmount; i++) {
+          let reader = new FileReader();
+          reader.onload = function (event) {
+            $($.parseHTML("<img>")).attr("src", event.target.result).appendTo(placeToInsertImagePreview);
+          }
+          reader.readAsDataURL(input.files[i]);
+        }
+      }
+    };
 
-            $("#input-many-files").on("change", function() {
-                imagesPreview(this, "div.preview-images");
-            });
-        });
-    </script>
+    $("#input-many-files").on("change", function () {
+      imagesPreview(this, "div.preview-images");
+    });
+  });
+</script>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/jquery.scrollUp.min.js"></script>
