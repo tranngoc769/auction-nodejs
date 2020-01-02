@@ -5,6 +5,8 @@ const mProduct = require('../../models/product');
 const mReview = require('../../models/review');
 const mCat = require('../../models/category');
 const auth = require('../../utils/auth');
+var moment = require('moment');
+
 //Number of good review for bidder to bid
 const numberOfGoodReviewBidderRequried = 1 // 1 for testing, correct is 5
     //If the data was sent as JSON
@@ -29,14 +31,20 @@ router.get('/', async(req, res) => {
 
     }
 
+    var time = moment();
+    time = moment().format("DD-MM-YYYY HH:mm:ss ");
+
     //get Top 5 sản phẩm có nhiều lượt ra giá nhất(dung allProducts)
+    const productsBestBegCount = await mProduct.getProTopBestBegCount();
+
 
 
 
     //Top 5 sản phẩm gần kết thúc (sắp xếp theo thời gian kết thúc giảm dần)
+    const productsTopEndDate = await mProduct.getProTopEndDate(time);
 
     //get Top 5 sản phẩm chưa kết thúc có giá cao nhất//get all sản phẩm(đang thay chỗ cho cái giá cao nhất)
-    const allProducts = await mProduct.getAllProducts();
+    const productsTopHightestPrice = await mProduct.getProTopHightestPrice(time);
 
     if (typeof token == "string") {
         const payload = await auth.verifyToken(token);
@@ -48,7 +56,9 @@ router.get('/', async(req, res) => {
             res.render('home/homepage', {
                 parentCat: parentCat,
                 matrixChildCat: matrixChildCat,
-                allProducts: allProducts,
+                productsBestBegCount: productsBestBegCount,
+                productsTopEndDate: productsTopEndDate,
+                productsTopHightestPrice: productsTopHightestPrice,
                 title: "Homepage"
             });
         }
@@ -56,7 +66,9 @@ router.get('/', async(req, res) => {
         res.render('home/homepage', {
             parentCat: parentCat,
             matrixChildCat: matrixChildCat,
-            allProducts: allProducts,
+            productsBestBegCount: productsBestBegCount,
+            productsTopEndDate: productsTopEndDate,
+            productsTopHightestPrice: productsTopHightestPrice,
             title: "Homepage"
         });
 

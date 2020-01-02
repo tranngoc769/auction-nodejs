@@ -101,6 +101,7 @@ module.exports = {
     getProTopBestBegCount: async() => {
         const sqlQuery = `SELECT * FROM ${tb_product} ORDER BY countBidder DESC LIMIT 0,5`;
         const rows = await db.load(sqlQuery);
+        //console.log(rows[0]);
         return rows;
     },
     getRemainProduct: async(endDate) => {
@@ -112,6 +113,7 @@ module.exports = {
 
         const sqlQuery = `SELECT * FROM ${tb_product} WHERE endDate >= '${endDate}' ORDER BY curPrice DESC LIMIT 5`;
         const rows = await db.load(sqlQuery);
+        console.log(rows);
         return rows;
     },
     getProTopEndDate: async(endDate) => {
@@ -123,16 +125,16 @@ module.exports = {
     getRemainProduct: async(endDate) => {
         const sql = `SELECT product.ID, ProName, curPrice, product.HighestBidderID,user_info.fullName, countBidder, pubDate, endDate, ImagePro, isExtension FROM product INNER JOIN user_info ON product.HighestBidderID = user_info.accountID WHERE endDate >= '${endDate}'`;
 
-        console.log(sql);
+        //console.log(sql);
         const rows = await db.load(sql);
-        console.log(rows);
+        //console.log(rows);
         return rows;
     },
     updateProduct: async(ID, Describle) => {
         const sql = `UPDATE product SET Describle = '${Describle}' WHERE ID=${ID}`;
-        console.log(sql);
+        //console.log(sql);
         const rows = await db.load(sql);
-        console.log(sql);
+        //console.log(sql);
     }
 
 };

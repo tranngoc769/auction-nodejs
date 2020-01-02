@@ -2,10 +2,11 @@ const mysql = require('mysql');
 
 function connectToSring() {
     return mysql.createConnection({
-        host: 'localhost',
+        host: '45.252.248.16',
         port: '3306',
-        user: 'root',
-        database: 'auction'
+        user: 'vesinhv1_tranngoc769',
+        password: 'tranngocquang7699',
+        database: 'vesinhv1_auction'
     });
 }
 
