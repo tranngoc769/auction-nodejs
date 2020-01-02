@@ -18,7 +18,7 @@ const exphbs = require('express-handlebars');
 //app.set('view engine', 'pug');
 const hbs = exphbs.create({ /*config */
     extname: 'hbs',
-    defaultLayout: 'layout'
+    defaultLayout: 'layout',
 });
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
@@ -45,10 +45,12 @@ app.use(async function(req, res, next) {
 })
 
 app.use('/', require('./app/home/controller/home'));
+app.use('/bidder', require('./app/areas/bidder/controller/bidder'));
 app.use('/user', require('./app/home/controller/account'));
 app.use('/admin', middleware.isAdmin, require('./app/areas/admin/controller/admin'));
 app.use('/seller', middleware.isSeller, require('./app/areas/seller/controller/seller'));
 //app.use('/users', users);
+/* Bidder action. */
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

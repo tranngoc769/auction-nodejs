@@ -43,7 +43,16 @@
     <Content Include="app\home\controller\home.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="app\middleware\handleError.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="app\middleware\security.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="app\models\category.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="app\models\product.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="app\models\role.js">
@@ -107,7 +116,13 @@
     <Content Include="public\assets\js\uisearch.js" />
     <Content Include="public\assets\js\__metronic-scripts.bundle.min.js" />
     <Content Include="views\account\admin\account_list.hbs" />
+    <Content Include="views\account\admin\cate_list.hbs">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\account\admin\homepage.hbs" />
+    <Content Include="views\account\admin\product_list.hbs">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\home\detail_product.hbs">
       <SubType>Code</SubType>
     </Content>

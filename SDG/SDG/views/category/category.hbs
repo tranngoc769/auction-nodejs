@@ -20,9 +20,10 @@
                             </div>
                             <div class="product-overlay">
                                 <div class="overlay-content">
-                                    <h4 style="color: #f9a825;">{{ProName}}</h4>
-                                    <h5 style="color: #f9a825;"> {{sellNowPrice}}</h5>
-                                    <p style="color: #f9a825;">Sell Now</p>
+                                   <a href="/product/{{ID}}" >
+                  <h4 style="color: #f9a825;">{{ProName}}</h4><h5 style="color: #f9a825;"> {{sellNowPrice}}</h5>
+                  <p style="color: #f9a825;">Sell Now</p>
+                    </a>
                                     {{#if isLogin}}
                                     <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to auction</a> {{else}}
                                     <a href="/login" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to auction</a> {{/if}}

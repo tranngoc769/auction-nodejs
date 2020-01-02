@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const mUser = require('../../models/user');
-const mRole = require('../../models/role');
-const auth = require('../../utils/auth');
-
-const mPro = require('../../models/product');
+const mProduct = require('../../models/product');
+const mReview = require('../../models/review');
 const mCat = require('../../models/category');
-
-
-//If the data was sent as JSON
+const auth = require('../../utils/auth');
+//Number of good review for bidder to bid
+const numberOfGoodReviewBidderRequried = 1 // 1 for testing, correct is 5
+    //If the data was sent as JSON
 router.use(express.json());
 //If the data was sent using Content-Type: application/x-www-form-urlencoded
 router.use(express.urlencoded({ extended: false }));
@@ -37,7 +36,7 @@ router.get('/', async(req, res) => {
     //Top 5 sản phẩm gần kết thúc (sắp xếp theo thời gian kết thúc giảm dần)
 
     //get Top 5 sản phẩm chưa kết thúc có giá cao nhất//get all sản phẩm(đang thay chỗ cho cái giá cao nhất)
-    const allProducts = await mPro.getAllProducts();
+    const allProducts = await mProduct.getAllProducts();
 
     if (typeof token == "string") {
         const payload = await auth.verifyToken(token);
@@ -63,6 +62,26 @@ router.get('/', async(req, res) => {
 
     }
 
+});
+router.get('/product/:proID', async(req, res) => {
+    let { proID } = req.params
+    const product = await mProduct.getOnebyId(proID);
+    console.log('pro', product[0])
+    const cate = await mCate.getOnebyId(proID);
+    const subImg = await mProduct.getSubImage(proID)
+    const token = req.cookies.jwt
+    let bidderCanBid = false
+    if (typeof token == "string") {
+        const payload = await auth.verifyToken(token);
+        console.log("Abc" + JSON.stringify(payload));
+        const numberOfGoodReview = await mReview.getNumberOfGoodReview(payload.uID)
+        bidderCanBid = numberOfGoodReview >= numberOfGoodReviewBidderRequried ? true : false
+        console.log(bidderCanBid)
+        res.render('product/product', { 'product': product[0], 'cate': cate[0], 'subImg': subImg, 'bidderCanBid': bidderCanBid, 'recommendPrice': product[0].curPrice + product[0].stepPrice })
+    } else {
+        res.render('home/homepage');
+        res.render('product/product', { 'product': product[0], 'cate': cate[0], 'subImg': subImg, 'bidderCanBid': bidderCanBid })
+    }
 });
 router.post('/login', async(req, res) => {
     const data = JSON.parse(JSON.stringify(req.body));
@@ -110,7 +129,7 @@ router.get('/category/:ID/products', async(req, res) => {
     //PHÂN TRANG
     //catsFromDB[id - 1].isActive = true; // hien thi cho side bar
     //san pham theo trang
-    const rs = await mPro.getProductsByCatIdPaging(id, page);
+    const rs = await mProduct.getProductsByCatIdPaging(id, page);
     console.log("tong page: " + rs.pageTotal);
 
     const pages = []; //luu mang cac trang hien len  |1|2|3|4|5|6|7|

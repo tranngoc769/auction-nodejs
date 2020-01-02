@@ -1,0 +1,293 @@
+
+<div class="kt-content kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+
+    <!-- begin:: Subheader -->
+    <div class="kt-subheader kt-grid__item" id="kt_subheader">
+        <div class="kt-container kt-container--fluid ">
+            <div class="kt-subheader__main">
+                <h3 class="kt-subheader__title">CateManagement</h3>
+
+                <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+
+                <span class="total-items kt-subheader__desc">Tong: <span id="total"></span></span>
+
+                <form class="kt-margin-l-20" id="kt_subheader_search_form">
+                    <div class="kt-input-icon kt-input-icon--right kt-subheader__search">
+                        <input type="text" class="form-control" placeholder="Search..."
+                               id="search">
+                        <span class="kt-input-icon__icon kt-input-icon__icon--right">
+                            <span><i class="fas fa-search"></i></span>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="kt-subheader__toolbar">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#Catetogory">
+                    <a style="color:white">
+                        <i class="fas fa-plus"></i>
+                        New
+                    </a>
+                </button>
+                <button class="btn btn-primary" onclick="delCate()">
+                    <a> <i class="far fa-trash-alt"></i>Delete</a>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- end:: Subheader -->
+    <!-- begin:: Content -->
+    <div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid">
+        <div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid">
+            <div class="kt-portlet kt-portlet--mobile">
+                <div class="kt-datatable"></div>
+            </div>
+        </div>
+    </div>
+    <!-- end:: Content -->
+</div>
+<div id="Catetogory" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form action="/admin/createCate" method="post" id="formHidden">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="titile">Create/Add</h5>
+                    <input id="cateID" name="cateID" type="number" hidden />
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="far fa-credit-card"></i>
+                                        </div>
+                                    </div>
+                                    <input id="cateName" name="cateName" type="text" class="form-control"
+                                           placeholder="Ten Danh Muc" autocomplete="off" />
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="col-xl-12">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="far fa-credit-card"></i>
+                                        </div>
+                                    </div>
+                                    <select id="parentCate" name="parentCateID" type="text" class="form-control">
+                                        <option value="0">--NULL--</option>
+                                        {{#each data}}
+                                        <option value="{{ID}}">{{Catname}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-2"></div>
+                            <div class="col-xl-4">
+                                <button type="submit" class="btn btn-primary btn-full-width">
+                                    OK
+                                </button>
+                            </div>
+                            <div class="col-xl-4">
+                                <button onclick="cancel()" class="btn btn-primary btn-full-width" type="button">
+                                    Cancel
+                                </button>
+                            </div>
+                            <div class="col-xl-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var datatable;
+    var dataSet = [];
+
+    $(document).ready(function () {
+      
+        var options = {
+            // datasource definition
+            data: {
+                type: 'remote',
+                source: {
+                    read: {
+                        url: '/admin/getAllCategory',
+                        method: 'GET',
+                        map: function (raw) {
+                            dataSet = raw;
+                            if (typeof raw.meta !== 'undefined') {
+                                $('#total').html(raw.meta.total);
+                            }
+                            if (typeof raw.data !== 'undefined') {
+                                dataSet = raw.data;
+                            }
+                            return dataSet;
+                        },
+                    },
+                },
+                pageSize: 10,
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true,
+            },
+            // layout definition
+            layout: {
+                scroll: true,
+                height: 500,
+
+            },
+            // column sorting
+            sortable: true,
+            pagination: true,
+            search: {
+                input: $('#search'),
+            },
+            // columns definition
+            columns: [{
+                field: 'ID',
+                title: '#',
+                width: 20,
+                type: 'number',
+                selector: {
+                    class: 'kt-checkbox--solid'
+                },
+                textAlign: 'center',
+                //responsive: { hidden: 'xl' },
+            }, {
+                field: 'Catname',
+                title: 'catName',
+                textAlign: 'center',
+                template: function (data) {
+                    return '<div class="">' +
+                        '<div class="kt-user-card-v2__details">' +
+                        '<span class="kt-user-card-v2__name" >' + (data['Catname'] ? data['Catname'] : '') + '</span>' +
+                        '</div>' +
+                        '</div>';
+                }
+            }, {
+                field: 'parentCate',
+                title: ' Parent Cate',
+                textAlign: 'center',
+            }]
+        };
+
+        datatable = $('.kt-datatable').KTDatatable(options);
+        datatable.on('kt-datatable--on-reloaded', function () {
+            setRowClickEvent();
+        });
+
+        datatable.reload();
+    });
+
+    function delCate() {
+        let chkCheckeds = datatable.find('input[type=checkbox]:checked');
+
+        if (chkCheckeds.length) {
+            if (!confirm('B?n ch?c ch?n mu?n m?/khóa tuy?n ???ng này?')) {
+                return;
+            }
+        }
+        var arr = '';
+        chkCheckeds.each(function () {
+            let id = $(this).val();
+            arr = arr + id + '-';
+        });
+
+        if (arr != '') {
+            $.ajax({
+                type: 'POST',
+                url: '/admin/delCate',
+                data:
+                {
+                    data: method(arr)
+                },
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                    if (result == "successfull") {
+                        datatable.reload();
+                    }
+                    else {
+                        if (typeof parseInt(result) == 'number') {
+                            let cateName = getCateName(result);
+                            alert(`Category ${cateName} contained product(s)`);
+                        }
+                        else {
+                            alert(result);
+                        }
+                    }
+                },
+                error: function (err) {
+
+                }
+            })
+        }
+        //session.setData('dataSet', JSON.stringify(dataSet));
+        //location.reload();
+    }
+
+    function setRowClickEvent() {
+
+        datatable.on('click', 'td', function () {
+            if ($(this).find('input[type=checkbox]').length ||
+                $(this).find('.kt-datatable__toggle-detail').length) {
+                return;
+            }
+            var id = $(this).parent().find('input[type=checkbox]').val();
+            var index = -1;
+            for (var i = 0; i < dataSet.length; i++) {
+                if (dataSet[i].ID == id) {
+                    index = i;
+                    break;
+                }
+            }
+            if (id) {
+                //session.setData('Id_acc', id);
+                $('#titile').empty().html("Update")
+                $('#cateID').val(dataSet[index].ID);
+                $('#cateName').val(dataSet[index].Catname);
+                $('#parentCate').val(dataSet[index].parentID);
+                $('#formHidden').attr('action', '/admin/updateCate');
+                $('#Catetogory').modal('show');
+
+            }
+        });
+
+    }
+    function cancel() {
+        $('#titile').empty().html("Create/Add");
+        $('#cateID').val('');
+        $('#cateName').val('');
+        $('#parentCate').val(0);
+        $('#formHidden').attr('action', '/admin/createCate');
+        $('#Catetogory').modal('hide');
+    }
+    function getCateName(id) {
+        var index = -1;
+        for (var i = 0; i < dataSet.length; i++) {
+            if (dataSet[i].ID == id) {
+                index = i;
+                break;
+            }
+        }
+        return dataSet[index].Catname;
+    }
+
+</script>
+
+
+
+
+

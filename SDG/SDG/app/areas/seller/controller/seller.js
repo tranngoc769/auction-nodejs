@@ -5,6 +5,9 @@ const multipleUploadMiddleware = require("../../../middleware/multipleUploadMidd
 const auth = require('../../../utils/auth');
 const mPro = require('../../../models/product');
 const mCat = require('../../../models/category');
+
+
+var fs = require('fs');
 //If the data was sent as JSON
 var app = express();
 exphbs = require('express-handlebars');
@@ -33,6 +36,8 @@ router.get('/', async (req, res) => {
     matrix.push(data2);
 
   }
+
+  
   res.render("seller/homepage",
   {
     Cha : listParDM,
@@ -46,33 +51,68 @@ router.post('/multiple-upload', async (req, res) => {
     await multipleUploadMiddleware(req, res);
     // Upload success ==> req.files
     
-    if (req.files.length <= -6) {
+    if (req.files.length < 3) {
       res.render('seller/Success', {
-        body: 'You must upload at least 1 picture'
+        body: 'You must upload at least 3 picture'
     });
     }
     else
     {
-      
     const data = JSON.parse(JSON.stringify(req.body));
-    console.log(stdout,data);
     const token = req.cookies.jwt;
     const payload = await auth.verifyToken(token);
      var uID =  payload.uID ;
-    const catId = await mCat.getCatIDbyname(data.Cate);
-    
-    const ps = await mPro.addProDuct(data.pName, curPrice, catId, sellNowPrice, stepPrice, HighestBidderID, countBidder, pubDate, endDate, ImagePro, Describle, sellerID, isExtension);
-    
+    const temp = await mCat.getCatIDbyname(data.Cate);
+    var catId = temp[0].ID;
+    var isExtension = 1;
+    var note = `'${data.editor1}'`;
+    if (data.isExt=='Yes')
+    {
+      isExtension = 0;
+    }
+
+    try
+    {
+      var arrayImg = fs.readFileSync('listImage.txt').toString().split("\n");
+      fs.unlinkSync('listImage.txt');
+      const ps = await mPro.addProDuct(`'${data.pName}'`, data.startPrice, catId, data.sellnowPrice, data.stepPrice,0,`'${data.pubTime}'`, `'${data.endTime}'`, note, uID, isExtension,`'${arrayImg[0]}'`);
+      var row = await mPro.getProIDbyImg(arrayImg[0]);
+      var proID = row[0].ID;
+      //1--> n nhung hien thi n+1
+      for ( var i = 1;i< arrayImg.length-1;i++)
+      {
+        await mPro.addProSubImg(proID,`'${arrayImg[i]}'`)
+      }
+      
     res.render('seller/Success', {
-      body: 'Add product successful'
-  });
+      body: `Thành Công Đã thêm sản phẩm vào danh sách đấu giá`});
+    }
+
+
+    catch(error)
+    {
+      res.render('seller/Success', {
+        body: 'Add product failed' + error
+    });
+    }
 
     }
   } catch (error) {
-    
     res.render('seller/Success', {
-      body: 'Add product failed'
+      body: 'Add product failed' + error
   });
   }
+});
+
+
+router.get('/myproduct', async (req, res) => {
+  var curTime = new Date().toJSON();
+  const rows = mPro.getRemainProduct(curTime);
+  console.log(rows);
+  res.render("seller/myproduct",
+  {
+    products : rows
+  });
+//   return app.use("/", router);
 });
 module.exports = router;
