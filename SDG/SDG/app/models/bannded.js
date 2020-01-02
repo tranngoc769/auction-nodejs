@@ -1,3 +1,4 @@
+const db = require('../utils/db');
 module.exports = {
     isBanned: async (userID, proID) => {
         const sql = `SELECT  *

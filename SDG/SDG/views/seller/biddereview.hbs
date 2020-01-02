@@ -1,0 +1,42 @@
+<section id="cart_items">
+  <div class="container">
+    <div class="row">
+      <div class=" col-md-pull-8">
+    <h1 style=" text-align: center;">Đánh Giá Người Bán</h1>
+<form method="POST" action="/seller/reviewPost" class=" form-group-marginless">
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Hãy cho điểm đánh giá</label>
+    <select required="required" class="form-control" name="star" id="reviewStar">
+      <option>+1</option>
+      <option>-1</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Bạn có nhận xét như thế nào về người mua</label>
+    <textarea required="required" class="form-control" name="review" id="reviewTxt"></textarea>
+  </div>
+  
+  <div class="row">
+    
+    <div class="col-md-4"><input value="{{ID}}" type="hidden" name="ID" class="form-control"></div>
+    <div class="col-md-8">
+<button style=" text-align:center;width:400px" type="submit" class="btn btn-wide">Đánh Giá</button>
+</div>
+</div>
+</form>
+
+<br>
+<form method="POST" action="/seller/cancelSell" class=" form-group-marginless">
+  <div class="row">
+    
+    <div class="col-md-4"><input value="{{ID}}" type="hidden" name="ID" class="form-control"></div>
+    <div class="col-md-8">
+<button style=" text-align:center;width:400px" type="submit" class="btn btn-wide">Hủy Giao Dịch</button>
+</div>
+</div>
+</form>
+<br>
+</div>
+    </div>
+</div>
+</section>

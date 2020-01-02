@@ -17,4 +17,13 @@ module.exports = {
     const rows = await db.load(sql);
     return rows
   },
+  findBidderbyProID: async (proID) => {
+    const sql = `SELECT *  FROM history JOIN  user_info
+    ON history.userID = user_info.accountID
+    WHERE proID = ${proID}
+    ORDER BY dateBid DESC`;
+    console.log(sql)
+    const rows = await db.load(sql);
+    return rows
+  },
 };

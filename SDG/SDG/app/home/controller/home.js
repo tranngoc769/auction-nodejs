@@ -89,23 +89,39 @@ router.get('/product/:proID', async(req, res) => {
     let { proID } = req.params
     const product = await mProduct.getOnebyId(proID);
     console.log('pro', product[0])
-    const cate = await mCat.getOnebyId(proID);
-    const subImg = await mProduct.getSubImage(proID)
+    const cate = await mCat.getOnebyId(product[0].catId);
+    product[0].pubDate = moment().format("HH:mm:ss DD-MM-YYYY");
+    product[0].endDate = moment().format("HH:mm:ss DD-MM-YYYY");
+    const subImg = await mProduct.getSubImage(proID);
+    const subImg2 = await mProduct.getSubImageAfterFirst(proID);
+    const seller = await mProduct.getSellerByProID(proID);
+    const bidder = await mProduct.getHightestBidderByProID(proID);
+    const recommendPro = await mProduct.getTop4OnebyId(product[0].catId);
     const his = await mHis.getHistoryByProductID(proID)
     await his.forEach(async h =>  {
         const pro = await mUser.getUserInfo(h.userID)
         const name = await pro[0].fullName.split(" ")
         const hideName = await  ("*****" + name[name.length - 1]).toString()
-        console.log(hideName)
         h.userName = hideName
     })
+
+
+
+    const pages = []; //luu mang cac trang hien len  |1|2|3|4|5|6|7|
+    for (let i = 1; i <= subImg2.length; i++) {
+        pages[i] = {
+            value: i
+        };
+    }
+
     const token = req.cookies.jwt
     let bidderCanBid = false
     if (typeof token == "string") {
         const payload = await auth.verifyToken(token);
-        const numberOfGoodReview = await mReview.getNumberOfGoodReview(payload.uID)
+        const userID = payload.uID
+        const numberOfGoodReview = await mReview.getNumberOfGoodReview(userID)
         let enoughGoodReview = numberOfGoodReview >= numberOfGoodReviewBidderRequried ? true : false
-        let notBanned = !mBanned.isBanned(payload.uID, proID)
+        let notBanned = !(await mBanned.isBanned(userID, proID))
         bidderCanBid = enoughGoodReview && notBanned
         console.log('his', his)
         res.render('product/product', {
@@ -117,7 +133,12 @@ router.get('/product/:proID', async(req, res) => {
             'bidderCanBid': bidderCanBid,
             'recommendPrice': product[0].curPrice + product[0].stepPrice,
             title: "Product details",
-            history: his
+            history: his,
+            subImg2: subImg2,
+            pages: pages,
+            seller: seller[0],
+            recommendPro: recommendPro,
+            bidder: bidder[0]
         })
     } else {
         res.render('product/product', {
@@ -128,7 +149,12 @@ router.get('/product/:proID', async(req, res) => {
             'subImg': subImg,
             'bidderCanBid': bidderCanBid,
             title: "Product details",
-            history: his
+            history: his,
+            subImg2: subImg2,
+            pages: pages,
+            seller: seller[0],
+            recommendPro: recommendPro,
+            bidder: bidder[0]
         })
     }
 });

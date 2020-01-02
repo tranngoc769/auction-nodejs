@@ -105,7 +105,8 @@
         </div>
       </div>
     </div>
-    <div class="header-middle">
+    </div>
+    <div style="background: #fe980f;" class="header-middle">
       <div class="container">
         <div class="row">
           <div class="col-sm-4">
@@ -145,8 +146,6 @@
                 <li class="nav-item">
                   <a class="nav-link " href="/bidder/profile">My Profile</a>
                 </li>
-                {{/if}}
-                {{#if isSeller }}
                 <li class="nav-item">
                   <a class="nav-link" href="/seller">My Product</a>
                 </li>
@@ -174,8 +173,6 @@
               </ul>
               {{else}}
               <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
-                <li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings"><i
-                      class="fa fa-cog fa-fw fa-lg"></i></a></li>
                 <li class="dropdown order-1">
                   <button type="button" id="dropdownMenu1" data-toggle="dropdown"
                     class="btn btn-outline-secondary dropdown-toggle">Login <span class="caret"></span></button>
@@ -224,31 +221,66 @@
                       <button class="btn btn-primary">Save changes</button>
                     </div>
                   </div>
-                </div>
-              </div>
-              <!--modal dang ki-->
-              <div class="modal fade" data-backdrop="false" id="myModal" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h3 class="modal-title" id="ModalTitle" style="color:firebrick; text-align:center">Login</h3>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                  </div>
+                  <div class="form-group text-center">
+                    <small><a href="#" data-toggle="modal" data-target="#modalPassword">Forgot
+                        password?</a></small>
+                  </div>
+                  </form>
+                  </li>
+                  </ul>
+                  </li>
+                  </ul>
+                  <a class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="modal"
+                    href="#myModal">Register</a>
+
+
+                  <div id="modalPassword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h3>Forgot password</h3>
+                          <button type="button" class="close font-weight-light" data-dismiss="modal"
+                            aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                          <p>Reset your password..</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                          <button class="btn btn-primary">Save changes</button>
+                        </div>
+                      </div>
                     </div>
-                    <div class="modal-body">
-                      <form method="post" action='/home/login' name="login_form">
-                        <p><input type="text" class="span3" name="uname" id="email" placeholder="Email"></p>
-                        <p><input type="password" class="span3" name="passwd" placeholder="Password"></p>
-                        <p>
-                          <button type="submit" class="btn btn-primary">Sign Up</button>
-                        </p>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        onclick="closeModal()">Close</button>
+                  </div>
+                  <!--modal dang ki-->
+                  <div class="modal fade" data-backdrop="false" id="myModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h3 class="modal-title" id="ModalTitle" style="color:firebrick; text-align:center">Login</h3>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form method="post" action='/home/login' name="login_form">
+                            <p><input type="text" class="span3" name="uname" id="email" placeholder="Email"></p>
+                            <p><input type="password" class="span3" name="passwd" placeholder="Password"></p>
+                            <p>
+                              <button type="submit" class="btn btn-primary">Sign Up</button>
+                            </p>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            onclick="closeModal()">Close</button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -256,48 +288,47 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="header-bottom">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-7">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span
-                  class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-                <span class="icon-bar"></span></button>
-            </div>
-            <div class="mainmenu pull-left">
-              <ul class="nav navbar-nav collapse navbar-collapse">
-                <li><a href="/" class="active">Home</a></li>
-                <li class="dropdown"><a href="javascript:void(0)">Shop<i class="fa fa-angle-down"></i></a>
-                  <ul role="menu" class="sub-menu">
-                    <li><a href="pages/shop.php">Products</a></li>
-                    <li><a href="pages/product-details.php">Product Details</a></li>
-                    <li><a href="pages/checkout.php">Checkout</a></li>
-                    <li><a href="pages/cart.php">Cart</a></li>
+        <div class="header-bottom">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-7">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span> <span
+                      class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span></button>
+                </div>
+                <div class="mainmenu pull-left">
+                  <ul class="nav navbar-nav collapse navbar-collapse">
+                    <li><a href="/" class="active">Home</a></li>
+                    <li class="dropdown"><a href="javascript:void(0)">Shop<i class="fa fa-angle-down"></i></a>
+                      <ul role="menu" class="sub-menu">
+                        <li><a href="pages/shop.php">Products</a></li>
+                        <li><a href="pages/product-details.php">Product Details</a></li>
+                        <li><a href="pages/checkout.php">Checkout</a></li>
+                        <li><a href="pages/cart.php">Cart</a></li>
 
+                      </ul>
+                    </li>
+                    <li class="dropdown"><a href="javascript:void(0)">Blog<i class="fa fa-angle-down"></i></a>
+                      <ul role="menu" class="sub-menu">
+                        <li><a href="pages/blog.php">Blog List</a></li>
+                        <li><a href="pages/blog-single.php">Blog Single</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="pages/404.php">404</a></li>
+                    <li><a href="pages/contact-us.php">Contact</a></li>
                   </ul>
-                </li>
-                <li class="dropdown"><a href="javascript:void(0)">Blog<i class="fa fa-angle-down"></i></a>
-                  <ul role="menu" class="sub-menu">
-                    <li><a href="pages/blog.php">Blog List</a></li>
-                    <li><a href="pages/blog-single.php">Blog Single</a></li>
-                  </ul>
-                </li>
-                <li><a href="pages/404.php">404</a></li>
-                <li><a href="pages/contact-us.php">Contact</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-sm-5">
-            <div class="search_box pull-right">
-              <input type="text" placeholder="Search">
+                </div>
+              </div>
+              <div class="col-sm-5">
+                <div class="search_box pull-right">
+                  <input type="text" placeholder="Search">
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
   </header>
   {{{body}}}
   <footer id="footer">
