@@ -52,9 +52,6 @@ router.post("/bid/:proID", async (req, res) => {
     if (payload.roleName == "bidder") {
       const payload = await auth.verifyToken(token);
       const userID = payload.uID;
-      const curDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    //   const date = mysqlDate(curDate)
-    console.log(curDate)
       const price = req.body.price;
         mHistory.addToHistory(userID, proID, price)
       res.redirect(`/product/${proID}`);
