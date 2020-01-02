@@ -103,4 +103,16 @@ router.post('/multiple-upload', async (req, res) => {
   });
   }
 });
+
+
+router.get('/myproduct', async (req, res) => {
+  var curTime = new Date().toJSON();
+  const rows = mPro.getRemainProduct(curTime);
+  console.log(rows);
+  res.render("seller/myproduct",
+  {
+    products : rows
+  });
+//   return app.use("/", router);
+});
 module.exports = router;
