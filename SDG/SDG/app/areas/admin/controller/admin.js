@@ -56,6 +56,7 @@ router.get('/getAllUser', async (req, res) => {
 router.post('/updateRole', async (req, res) => {
     const data = JSON.parse(JSON.stringify(req.body));
     var arr = data.data.split('-');
+    let count = 0;
     console.log(arr);
     arr.forEach(async p => {
         const status = await mUser.getWantToUpdate(parseInt(p));
@@ -74,13 +75,16 @@ router.post('/updateRole', async (req, res) => {
             }
         }
         else {
-            const data = await mUser.responseUpdateRole(entity);
-            console.log(data);
+            const data = mUser.responseUpdateRole(entity).then(function () {
+                count = count + 1;
+                if (count == arr.length) {
+                    res.json('successfull');
+                }
+            })
+                .catch(function (err) { res.json(err) });
         }
 
     })
-
-    res.json('successfull');
 });
 //category
 router.get('/cate', async (req, res) => {
@@ -229,8 +233,11 @@ router.post('/delProduct', async (req, res) => {
     var arr = data.data.split('-');
     let count = 0;
     console.log(arr);
+    var entity = {};
+    entity.isDeleted = 1;
     arr.forEach(async p => {
-        const status = mProduct.delByID(parseInt(p)).then(function () {
+        entity.ID = parseInt(p);
+        const status = mProduct.delByID(entity).then(function () {
             count = count + 1;
             if (count == arr.length) {
                 res.json('successfull');

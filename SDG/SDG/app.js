@@ -51,7 +51,7 @@ app.use('/user', require('./app/home/controller/account'));
 app.use('/admin', middleware.isAdmin, require('./app/areas/admin/controller/admin'));
 app.use('/seller', middleware.isSeller, require('./app/areas/seller/controller/seller'));
 //app.use('/users', users);
-/* Bidder action. */
+/* Bidder action. */ 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -68,7 +68,7 @@ if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
-            message: err.message,
+            message: err.status,
             error: err,
             layout: false
         });

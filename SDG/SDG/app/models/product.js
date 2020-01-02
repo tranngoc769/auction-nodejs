@@ -16,7 +16,7 @@ module.exports = {
                                            ON p.catId=c.ID
                                             INNER JOIN ${tb_account} a
                                             ON p.sellerID=a.id
-                     WHERE  (p.ProName like '%${query_search}%' ||p.Describle like '%${query_search}%' )
+                     WHERE  (p.ProName like '%${query_search}%' ||p.Describle like '%${query_search}%' ) && p.isDeleted=0
                      ORDER BY ${field} ${sort}
                      LIMIT ${start_index} , ${perpage}`;
         console.log(sql);
@@ -24,8 +24,8 @@ module.exports = {
         //console.log("token:", rows);
         return rows;
     },
-    delByID: async id => {
-        const nr = await db.del(tb_product, idField, id);
+    delByID: async entity => {
+        const nr = await db.update(tb_product, idField, entity);
         console.log(nr);
         return nr;
     },

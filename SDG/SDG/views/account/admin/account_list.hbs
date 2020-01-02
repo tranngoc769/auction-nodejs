@@ -45,7 +45,7 @@
     var dataSet = [];
 
     $(document).ready(function () {
-         
+
         var options = {
             // datasource definition
             data: {
@@ -165,7 +165,7 @@
     function updateRole() {
         let chkCheckeds = datatable.find('input[type=checkbox]:checked');
         if (chkCheckeds.length) {
-            if (!confirm('B?n ch?c ch?n mu?n m?/khóa tài kho?n này?')) {
+            if (!confirm('are you sure you want up/down this account?')) {
                 return;
             }
         }
@@ -202,7 +202,13 @@
                         datatable.reload();
                     }
                     else {
-                        alert("please choose items having the require");
+                        if (result == 'failure') {
+
+                            alert("please choose items having the require");
+                        }
+                        else {
+                            alert(result);
+                        }
                     }
                 },
                 error: function (err) {
