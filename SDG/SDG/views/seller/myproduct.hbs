@@ -20,24 +20,23 @@
           </tr>
         </thead>
         <tbody>
-          
+          {{#each products}}
           <tr>
-            <td  scope="col" class="cart_product"><img height="200px" width="200px" src="../assets/images/ex.jpg" alt=""></td>
-            {{#each products}}
-            asas
-            {{/each}}
-            <td  scope="col" class="cart_description"><h4><a href="#">xxx</a><p></p>
-            </h3><p>Ngày đăng : </p></h3><p>Ngày kết thúc : </p></td>
-            <td  scope="col" class="cart_price"><p>$59</p></td>
+            <td  scope="col" class="cart_product"><img height="200px" width="200px" src="../assets/photos/{{ImagePro}}" alt=""></td>
+            
+            <td  scope="col" class="cart_description"><h4><a href="#">{{ProName}}</a><p></p>
+            </h3><p>Ngày đăng : {{pubDate}}</p></h3><p>Ngày kết thúc : {{endDate}}</p></td>
+            <td  scope="col" class="cart_price"><p>{{curPrice}}</p></td>
             <td  scope="col" class="cart_quantity">
-                <h4><a href="#">Tên Người</a>
+                <h4><a href="#">{{fullName}}</a>
             </td>
-            <td  scope="col" class="cart_total"><p class="cart_total_price">$59</p></td>
+            <td  scope="col" class="cart_total"><p class="cart_total_price">{{countBidder}}</p></td>
             <td  scope="col">
-              <a href="/edit"><img height="32px" width="32px" src="../assets/images/document.png" alt="">
+              <a href="/seller/myproduct/{{ID}}"><img height="32px" width="32px" src="../assets/images/document.png" alt="">
               </a></td>
           </tr>
-          
+            
+          {{/each}}
         </tbody>
       </table>
     </div>

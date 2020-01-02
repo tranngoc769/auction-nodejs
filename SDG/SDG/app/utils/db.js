@@ -1,11 +1,12 @@
 const mysql = require('mysql');
+
 function connectToSring() {
     return mysql.createConnection({
-        host: 'localhost',
+        host: '45.252.248.16',
         port: '3306',
-        user: 'root',
-        database: 'auction',
-        password: '12121212'
+        user: 'vesinhv1_tranngoc769',
+        password: 'tranngocquang7699',
+        database: 'vesinhv1_auction'
     });
 }
 
@@ -82,7 +83,7 @@ exports.add = (tbName, entity) => {
             //console.log("Connected!");
         });
         let sql = 'INSERT INTO ?? (Catname, parentID) VALUES (?,?)';
-        const params = [tbName,entity.Catname, entity.parentID];
+        const params = [tbName, entity.Catname, entity.parentID];
         sql = mysql.format(sql, params);
         con.query(sql, (error, results, fields) => {
             console.log(sql);

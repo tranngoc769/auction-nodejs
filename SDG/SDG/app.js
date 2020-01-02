@@ -13,6 +13,7 @@ const middleware = require('./app/middleware/security');
 const auth = require('./app/utils/auth');
 var app = express();
 const exphbs = require('express-handlebars');
+
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));
 //app.set('view engine', 'pug');
@@ -50,7 +51,7 @@ app.use('/user', require('./app/home/controller/account'));
 app.use('/admin', middleware.isAdmin, require('./app/areas/admin/controller/admin'));
 app.use('/seller', middleware.isSeller, require('./app/areas/seller/controller/seller'));
 //app.use('/users', users);
-/* Bidder action. */
+/* Bidder action. */ 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -67,8 +68,9 @@ if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
-            message: err.message,
-            error: err
+            message: err.status,
+            error: err,
+            layout: false
         });
     });
 }

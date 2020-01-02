@@ -15,7 +15,10 @@ router.get('/', async (req, res) => {
 //User
 router.get('/user', async (req, res) => {
     res.render("account/admin/account_list",
-        { layout: 'adminLayout' });
+        {
+            layout: 'adminLayout',
+            tab: 'user'
+        });
 });
 router.get('/getAllUser', async (req, res) => {
     var datareq = {};
@@ -36,7 +39,7 @@ router.get('/getAllUser', async (req, res) => {
         querysearch = req.query.query.search;
     };
     const uNameInfo = await mUser.getCustomer(datareq.page, datareq.perpage, querysearch, datareq.field, datareq.sort);
-    datareq.total = uNameInfo.length;
+    datareq.total = (await mUser.getAllUser()).length;
     var meta = {};
     meta.page = datareq.page;
     meta.perpage = datareq.perpage;
@@ -53,6 +56,7 @@ router.get('/getAllUser', async (req, res) => {
 router.post('/updateRole', async (req, res) => {
     const data = JSON.parse(JSON.stringify(req.body));
     var arr = data.data.split('-');
+    let count = 0;
     console.log(arr);
     arr.forEach(async p => {
         const status = await mUser.getWantToUpdate(parseInt(p));
@@ -71,13 +75,16 @@ router.post('/updateRole', async (req, res) => {
             }
         }
         else {
-            const data = await mUser.responseUpdateRole(entity);
-            console.log(data);
+            const data = mUser.responseUpdateRole(entity).then(function () {
+                count = count + 1;
+                if (count == arr.length) {
+                    res.json('successfull');
+                }
+            })
+                .catch(function (err) { res.json(err) });
         }
 
     })
-
-    res.json('successfull');
 });
 //category
 router.get('/cate', async (req, res) => {
@@ -85,7 +92,8 @@ router.get('/cate', async (req, res) => {
     res.render("account/admin/cate_list",
         {
             layout: 'adminLayout',
-            data
+            data,
+            tab: 'common'
         });
 });
 router.get('/getAllCategory', async (req, res) => {
@@ -107,7 +115,7 @@ router.get('/getAllCategory', async (req, res) => {
         querysearch = req.query.query.search;
     };
     const Info = await mCate.getAllCategory(datareq.page, datareq.perpage, querysearch, datareq.field, datareq.sort);
-    datareq.total = Info.length;
+    datareq.total = (await mCate.getSencondaryCate()).length;
     var meta = {};
     meta.page = datareq.page;
     meta.perpage = datareq.perpage;
@@ -129,7 +137,7 @@ router.post('/delCate', async (req, res) => {
     arr.forEach(async p => {
         const products = await mProduct.getProductOfCate(parseInt(p));
         if (products.length > 0) {
-           let CateFail = parseInt(p);
+            let CateFail = parseInt(p);
             console.log(CateFail);
             res.json(CateFail);
         }
@@ -138,8 +146,9 @@ router.post('/delCate', async (req, res) => {
                 count = count + 1;
                 if (count == arr.length) {
                     res.json('successfull');
-                }})
-                .catch(function (err) { res.json(err)});
+                }
+            })
+                .catch(function (err) { res.json(err) });
         }
     })
 })
@@ -179,7 +188,8 @@ router.post('/createCate', async (req, res) => {
 router.get('/product', async (req, res) => {
     res.render("account/admin/product_list",
         {
-            layout: 'adminLayout'
+            layout: 'adminLayout',
+            tab: 'common'
         });
 });
 router.get('/getAllProduct', async (req, res) => {
@@ -198,10 +208,13 @@ router.get('/getAllProduct', async (req, res) => {
     console.log(datareq);
     let querysearch = '';
     if (req.query.query != '') {
-        querysearch = req.query.query.search;
+        if (typeof req.query.query.search != 'undefined') {
+
+            querysearch = req.query.query.search;
+        }
     };
     const Info = await mProduct.getAllProduct(datareq.page, datareq.perpage, querysearch, datareq.field, datareq.sort);
-    datareq.total = Info.length;
+    datareq.total = (await mProduct.getAllProducts()).length;
     var meta = {};
     meta.page = datareq.page;
     meta.perpage = datareq.perpage;
@@ -220,8 +233,11 @@ router.post('/delProduct', async (req, res) => {
     var arr = data.data.split('-');
     let count = 0;
     console.log(arr);
+    var entity = {};
+    entity.isDeleted = 1;
     arr.forEach(async p => {
-        const status = mProduct.delByID(parseInt(p)).then(function () {
+        entity.ID = parseInt(p);
+        const status = mProduct.delByID(entity).then(function () {
             count = count + 1;
             if (count == arr.length) {
                 res.json('successfull');
