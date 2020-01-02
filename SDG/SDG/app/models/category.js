@@ -15,6 +15,12 @@ module.exports = {
         const sql = `SELECT ID FROM category WHERE Catname = '${Catname}'`;
         const row = await db.load(sql);
         return row;
+    },
+    getCatbyID: async(catId) => {
+        const sql = `SELECT * FROM category WHERE ID = '${catId}'`;
+        const row = await db.load(sql);
+        console.log(row);
+        return row;
     }
 
 };
