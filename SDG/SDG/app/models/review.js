@@ -24,3 +24,18 @@ module.exports = {
         return rows.length;
     },
 };
+
+module.exports = {
+    
+reviewBidder: async (id,sellerID,Vote,comment) => {
+    const sql = `INSERT INTO sellerreviewtobidder(bidderID,sellerID, Vote, comment) VALUES (${id},${sellerID},${Vote},${comment})`;
+    console.log(sql);
+    const rows = await db.load(sql);
+    return rows;
+},
+};
+
+
+
+
+
