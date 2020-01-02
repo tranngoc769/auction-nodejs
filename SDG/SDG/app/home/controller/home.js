@@ -76,6 +76,14 @@ router.get('/', async(req, res) => {
 
 });
 router.get('/product/:proID', async(req, res) => {
+    const parentCat = await mCat.getParentCategory();
+    var matrixChildCat = [];
+    for (var i = 0; i < parentCat.length; i++) {
+        const listCDM = await mCat.getChildCategory(parentCat[i].ID);
+        const data2 = JSON.parse(JSON.stringify(listCDM));
+        matrixChildCat.push(data2);
+
+    }
     let { proID } = req.params
     const product = await mProduct.getOnebyId(proID);
     console.log('pro', product[0])
@@ -91,10 +99,26 @@ router.get('/product/:proID', async(req, res) => {
         let notBanned = true
         bidderCanBid = enoughGoodReview && notBanned
         console.log(bidderCanBid)
-        res.render('product/product', {'product': product[0], 'cate': cate[0], 'subImg': subImg, 'bidderCanBid': bidderCanBid, 'recommendPrice': product[0].curPrice + product[0].stepPrice})
-    }
-    else {
-        res.render('product/product', {'product': product[0], 'cate': cate[0], 'subImg': subImg, 'bidderCanBid': bidderCanBid})
+        res.render('product/product', {
+            'product': product[0],
+            parentCat: parentCat,
+            matrixChildCat: matrixChildCat,
+            'cate': cate[0],
+            'subImg': subImg,
+            'bidderCanBid': bidderCanBid,
+            'recommendPrice': product[0].curPrice + product[0].stepPrice,
+            title: "Product details"
+        })
+    } else {
+        res.render('product/product', {
+            'product': product[0],
+            parentCat: parentCat,
+            matrixChildCat: matrixChildCat,
+            'cate': cate[0],
+            'subImg': subImg,
+            'bidderCanBid': bidderCanBid,
+            title: "Product details"
+        })
     }
 });
 router.post('/login', async(req, res) => {
