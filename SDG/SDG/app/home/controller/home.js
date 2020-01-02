@@ -7,6 +7,16 @@ const mCat = require('../../models/category');
 const mHis = require('../../models/history');
 const auth = require('../../utils/auth');
 const mBanned = require("../../models/bannded");
+const sha = require('sha.js');
+const nodemailer = require("nodemailer");
+const smtpTransport = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+        user: "nghqquyen@gmail.com",
+        pass: "01668519884"
+    }
+});
+var rand, mailOptions;
 var moment = require('moment');
 
 //Number of good review for bidder to bid
@@ -158,28 +168,63 @@ router.get('/product/:proID', async(req, res) => {
         })
     }
 });
-router.post('/login', async(req, res) => {
+//router.post('/login', async(req, res) => {
+//    const data = JSON.parse(JSON.stringify(req.body));
+//    const resLogin = await mUser.resLogin(data.uname, data.passwd);
+//    //console.log(resLogin);
+
+//    if (resLogin.length) {
+//        const payload = {
+//            uID: resLogin[0].id,
+//            roleID: resLogin[0].id_role,
+//            fullName: resLogin[0].fullName,
+//            roleName: resLogin[0].byname,
+//        };
+//        const token = await auth.generateToken(payload);
+//        //console.log(token);
+//        res.cookie('jwt', token);
+//        res.redirect('/');
+//    } else {
+//        res.render('error');
+//    }
+
+//});
+router.post('/login', async (req, res) => {
+   
     const data = JSON.parse(JSON.stringify(req.body));
-    const resLogin = await mUser.resLogin(data.uname, data.passwd);
+    const uname = data.uname;
+    const pword = data.passwd;
+    const resLogin = await mUser.resLogin(uname);
     //console.log(resLogin);
 
     if (resLogin.length) {
-        const payload = {
-            uID: resLogin[0].id,
-            roleID: resLogin[0].id_role,
-            fullName: resLogin[0].fullName,
-            roleName: resLogin[0].byname,
-        };
-        const token = await auth.generateToken(payload);
-        //console.log(token);
-        res.cookie('jwt', token);
-        res.redirect('/');
+        const pswDb = resLogin[0].password;
+        const salt = pswDb.substring(64, pswDb.length);
+        const preHash = pword + salt;
+        const hash = sha('sha256').update(preHash).digest('hex');
+        const pwHash = hash + salt;
+        if (pswDb == pwHash) {
+            const payload = {
+                uID: resLogin[0].id,
+                roleID: resLogin[0].id_role,
+                fullName: resLogin[0].fullName,
+                roleName: resLogin[0].byname,
+                email: resLogin[0].EMAIL
+            };
+            const token = await auth.generateToken(payload);
+            //console.log(token);
+            res.cookie('jwt', token);
+            res.redirect('/');
+        }
+        else {
+            res.redirect('/login');
+        }
+        
     } else {
-        res.render('error');
+        res.redirect('/login');
     }
 
 });
-
 
 ///////////////////////////////////////////////////
 router.get('/category/:ID/products', async(req, res) => {
@@ -256,5 +301,103 @@ router.get('/category/:ID/products', async(req, res) => {
 
 
 });
+router.get('/login', async (req, res) => {
+    res.render('home/login_register');
+})
+router.post('/register', async (req, res) => {
+    const uname = req.body.uname;
+    const pword = req.body.pword;
+    const email = req.body.email;
+    const phone = req.body.phone;
+    const name = req.body.name;
+    const dob = req.body.dob;
 
+    //salt
+    const salt = Date.now().toString(16);
+    const preHash = pword + salt;
+    const hash = sha('sha256').update(preHash).digest('hex');
+    const pwHash = hash + salt;
+    const user = {
+        username: uname,
+        password: pwHash,
+        id_role: 2,
+        EMAIL: email,
+        isVerifyEmail:0
+    }
+    const info = {
+        fullName: name,
+        phone: phone,
+        DOB:dob
+    }
+    const uId = mUser.createAccount(user).then( async function (result) {
+        info.accountID = result;
+        const m = await mUser.createInfo(info);
+        const payload = {
+            uID: result,
+            roleID: 2,
+            fullName: name,
+            roleName: 'bidder',
+            email:email
+        };
+        const token = await auth.generateToken(payload);
+        //console.log(token);
+        res.cookie('jwt', token);
+        res.redirect('/send');
+    })
+        .catch();
+
+})
+router.get('/send', async function (req, res) {
+    rand = generateOTP();
+    const token = req.cookies.jwt;
+    let payload = {};
+    //console.log(token);
+    if (typeof token == "string") {
+        payload= await auth.verifyToken(token);
+    }
+    //host = req.get('host');
+    //link = "http://" + req.get('host') + "/verify?id=" + rand;
+    mailOptions = {
+        to: payload.email,
+        subject: "Please confirm your Email account",
+        html: "Hello,<br> Here is your OTP :" +rand 
+    }
+    console.log(mailOptions);
+    smtpTransport.sendMail(mailOptions, function (error, response) {
+        if (error) {
+            console.log(error);
+            res.end("error");
+        } else {
+            console.log("Message sent: " + response);
+            res.cookie('otp', 10000-rand);
+            res.render('home/verify');
+        }
+    });
+});
+router.post('/verify', function (req, res) {
+    const data = JSON.parse(JSON.stringify(req.body));
+    if (req.cookies.otp == 10000-data.otp) {
+        //update isverify
+        res.clearCookie("otp");
+        let entity = {};
+        entity.id = res.locals.id;
+        entity.isVerifyEmail = 1;
+        const a = mUser.veryfileEmail(entity);
+        res.json('successfull');
+    }
+    else {
+        res.json('failure');
+    }
+});
+function generateOTP() {
+
+    // Declare a digits variable  
+    // which stores all digits 
+    var digits = '0123456789';
+    let OTP = '';
+    for (let i = 0; i < 4; i++) {
+        OTP += digits[Math.floor(Math.random() * 10)];
+    }
+    return OTP;
+} 
 module.exports = router;

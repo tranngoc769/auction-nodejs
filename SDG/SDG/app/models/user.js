@@ -5,13 +5,13 @@ const tb_info = 'user_info';
 const tb_role = 'roles';
 
 module.exports = {
-    resLogin: async (username, password) => {
-        const sql = `SELECT  a.id, a.id_role , i.fullName ,r.byname
+    resLogin: async (username) => {
+        const sql = `SELECT  a.id, a.id_role , i.fullName ,r.byname ,a.password,a.EMAIL
                      FROM ${tb_account} a INNER JOIN ${tb_info} i 
                                            ON a.id = i.accountID
                                           INNER JOIN ${tb_role} r
                                            ON a.id_role = r.id
-                     WHERE username = '${username}' AND password = '${password}' AND isDeleted=0`;
+                     WHERE username = '${username}' AND isDeleted=0 AND isVerifyEmail=1`;
         ////console.log(sql);
         const rows = await db.load(sql);
         //console.log("token:", rows);
@@ -80,7 +80,19 @@ module.exports = {
     },
     updateUserPassword: async (userID, password) => {
         const sql = `UPDATE user_account SET password = ${password}
-        where id = ${userID}` ;
+        where id = ${userID}`;
         await db.load(sql);
+    },
+    createAccount: async (entity) => {
+        const rows = await db.add(tb_account, entity);
+        return rows;
+    },
+    createInfo: async (entity) => {
+        const rows = await db.add(tb_info, entity);
+        return rows;
+    },
+    veryfileEmail: async (entity) => {
+        const rows = await db.update(tb_account, idField, entity);
+        return rows;
     }
 };

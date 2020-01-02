@@ -1,0 +1,37 @@
+<section id="form">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-1">
+                <div class="login-form">
+                    <h2>Login to your account</h2>
+                    <form action="/login" method="post">
+                        <input id="uname" placeholder="username" name="uname" type="text" >
+                        <input id="passwordInput" placeholder="Password" name="passwd" type="password">
+                        <span>
+                            <input  type="checkbox" class="checkbox">
+                            Keep me signed in
+                        </span>
+                        <button type="submit" class="btn btn-default">Login</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <h2 class="or">OR</h2>
+            </div>
+            <div class="col-sm-4">
+                <div class="signup-form">
+                    <h2>New User Signup!</h2>
+                    <form action="/register" method="post">
+                        <input type="text" placeholder="Name" name="name" />
+                        <input type="text" placeholder="user name" name="uname">
+                        <input type="email" placeholder="Email Address" name="email">
+                        <input type="date" placeholder="DOB" name="dob"/>
+                        <input type="text" placeholder="Phone" name="phone">
+                        <input type="password" placeholder="Password" name="pword">
+                        <button type="submit" class="btn btn-default">Signup</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
