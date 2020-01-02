@@ -9,7 +9,7 @@
 
                 <span class="kt-subheader__separator kt-subheader__separator--v"></span>
 
-                <span class="total-items kt-subheader__desc">T?ng: <span id="total"></span></span>
+                <span class="total-items kt-subheader__desc">Summary: <span id="total"></span></span>
 
                 <form class="kt-margin-l-20" id="kt_subheader_search_form">
                     <div class="kt-input-icon kt-input-icon--right kt-subheader__search">
@@ -23,7 +23,7 @@
             </div>
             <div class="kt-subheader__toolbar">
                 <button class="btn btn-primary" onclick="updateRole()">
-                    <a> <i class="fas fa-user-lock"></i>Up/Down</a>
+                    <a> <i class="fas fa-wrench"></i>Up/Down</a>
                 </button>
             </div>
         </div>
@@ -45,7 +45,14 @@
     var dataSet = [];
 
     $(document).ready(function () {
-    
+         $('ul li a').click(function () {
+                $('#clickActive ul li a').click(function () {
+                    $('ul li').removeClass('kt-menu__item--open kt-menu__item--here');
+                    $(this).addClass('kt-menu__item--bottom');
+                    $(this).parent().removeClass("kt-menu__item--bottom");
+                    $(this).parent().addClass('actkt-menu__item--open kt-menu__item--here');
+                });
+            });
 
         var options = {
             // datasource definition
@@ -53,11 +60,11 @@
                 type: 'remote',
                 source: {
                     read: {
-                        url: 'admin/getAllUser',
+                        url: '/admin/getAllUser',
                         method: 'GET',
                         map: function (raw) {
                             dataSet = raw;
-                           if (typeof raw.meta !== 'undefined') {
+                            if (typeof raw.meta !== 'undefined') {
                                 $('#total').html(raw.meta.total);
                             }
                             if (typeof raw.data !== 'undefined') {
@@ -96,7 +103,7 @@
             }, {
                 field: 'username',
                 title: 'User Name',
-                    template: function (data) {
+                template: function (data) {
 
                     return '<div class="kt-user-card-v2">' +
                         '<div class="kt-user-card-v2__pic">' +
@@ -141,11 +148,12 @@
                 title: 'Upgrade',
                 textAlign: 'center',
                 template: function (data) {
+
                     if (data['wantToUpdate'] == 1) {
-                        return '<div class="StatusActiveBusowner" style="color:red" value="' + data['wantToUpdate'] + '">' + 'Waiting' + '</div>'
+                        return '<div class="kt-badge kt-badge--brand kt-badge--inline kt-badge--pill"  value="' + data['wantToUpdate'] + '">' + 'Waiting' + '</div>'
                     }
                     else {
-                        return '<div class="StatusActiveBusowner" value="' + data['id_role'] + '">' + '' + '</div>'
+                        return '<div class="" value="' + data['id_role'] + '">' + '' + '</div>'
                     }
                 }
             }
@@ -169,7 +177,7 @@
                 return;
             }
         }
-        var arr ='';
+        var arr = '';
         chkCheckeds.each(function () {
             //var index = -1;
             let id = $(this).val();
@@ -188,29 +196,29 @@
             arr = arr + id + '-';
         });
         if (arr != '') {
-             $.ajax({
-            type: 'POST',
-            url: '/admin/updateRole',
-            data:
-            {
-                data: method(arr)
-            },
-            dataType: "json",
-            success: function (result) {
-                console.log(result);
-                if (result == "successfull") {
-                    datatable.reload();
-                }
-                else {
-                    alert("please choose items having the require");
-                }
-            },
-            error: function (err) {
+            $.ajax({
+                type: 'POST',
+                url: '/admin/updateRole',
+                data:
+                {
+                    data: method(arr)
+                },
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                    if (result == "successfull") {
+                        datatable.reload();
+                    }
+                    else {
+                        alert("please choose items having the require");
+                    }
+                },
+                error: function (err) {
 
-            }
-        })
+                }
+            })
         }
-       
+
         //session.setData('dataSet', JSON.stringify(dataSet));
         //location.reload();
     }
@@ -229,5 +237,5 @@
         //    }
         //});
     }
-    
+
 </script>

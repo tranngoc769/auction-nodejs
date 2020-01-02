@@ -56,5 +56,13 @@ module.exports = {
     responseUpdateRole: async (entity) => {
         const rows = await db.update(tb_account, idField, entity);
         return rows;
+    },
+    getAllUser: async () => {
+        const sql = `SELECT *
+                     FROM ${tb_account} a              
+                     WHERE a.id_role != 1 and a.isDeleted=0` ;
+        const rows = await db.load(sql);
+        console.log("token:", rows);
+        return rows;
     }
 };

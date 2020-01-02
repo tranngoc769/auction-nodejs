@@ -44,6 +44,7 @@
     <link rel="stylesheet" href="../../assets/css/flaticon2.css" />
     <link rel="stylesheet" href="../../assets/css/app.css" />
 
+    <title>Quản lý tài khoản</title>
 </head>
 
 <!-- begin::Body -->
@@ -54,8 +55,8 @@
     <!-- begin:: Header Mobile -->
     <div id="kt_header_mobile" class="kt-header-mobile kt-header-mobile--fixed ">
         <div class="kt-header-mobile__logo">
-            <a href="/Home/Home">
-                <img class="img-fluid" style="width: 40px;" alt="Logo" src="/assets/images/logo.png" />
+            <a href="/">
+                <img class="img-fluid" style="width: 40px;" alt="Logo" src="../../assets/images/logo.png" />
             </a>
         </div>
         <div class="kt-header-mobile__toolbar">
@@ -79,7 +80,7 @@
                 <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
                     <div class="kt-aside__brand-logo">
                         <a href="/">
-                            <img class="img-fluid" alt="Logo" src="/assets/images/logo.png" />
+                            <img class="img-fluid" alt="Logo" src="../../assets/images/logo.png" />
                         </a>
                     </div>
                 </div>
@@ -89,102 +90,47 @@
                 <div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
                     <div id="kt_aside_menu" class="kt-aside-menu kt-aside-menu--dropdown " data-ktmenu-vertical="1"
                          data-ktmenu-dropdown="1" data-ktmenu-scroll="0">
-                        <ul class="kt-menu__nav ">
+                        <ul class="kt-menu__nav " id="clickActive">
                             <li class="kt-menu__item kt-menu__item--submenu kt-menu__item--submenu-fullheight kt-menu__item--open kt-menu__item--here"
-                                aria-haspopup="true" data-ktmenu-submenu-toggle="click"
-                                data-ktmenu-dropdown-toggle-class="kt-aside-menu-overlay--on">
-                                <a href="/Home/Home" class="kt-menu__link">
+                                aria-haspopup="true" data-ktmenu-submenu-toggle="click">
+                                <a href="/" class="kt-menu__link">
                                     <i class="fas fa-home"></i>
-                                    <span class="kt-menu__link-text">Admin Home</span>
+                                    <span class="kt-menu__link-text">Applications</span>
                                 </a>
                             </li>
-                            <li class="kt-menu__item kt-menu__item--submenu kt-menu__item--bottom" aria-haspopup="true"
-                                data-ktmenu-submenu-toggle="click" data-ktmenu-link-redirect="1">
-                                <a class="kt-menu__link kt-menu__toggle">
+                            <li class="kt-menu__item kt-menu__item--submenu" aria-haspopup="true"
+                                data-ktmenu-submenu-toggle="click"
+                                data-ktmenu-dropdown-toggle-class="kt-aside-menu-overlay--on">
+                                <a href="/admin/user" class="kt-menu__link">
                                     <i class="fas fa-user"></i>
-                                    <span class="kt-menu__link-text">Account</span>
+                                    <span class="kt-menu__link-text">Account Management</span>
                                 </a>
-                                <div class="kt-menu__submenu ">
-                                    <span class="kt-menu__arrow"></span>
-                                    <ul class="kt-menu__subnav">
-                                        <li class="kt-menu__item kt-menu__item--parent kt-menu__item--bottom"
-                                            aria-haspopup="true" data-ktmenu-link-redirect="1">
-                                            <span class="kt-menu__link">
-                                                <span class="kt-menu__link-text">Account</span>
-                                            </span>
-                                        </li>
-                                        <!--<li class="kt-menu__item " aria-haspopup="true" data-ktmenu-link-redirect="1">
-                                            <a href="/Account/AddAccount" class="kt-menu__link ">
-                                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Create Account</span>
-                                            </a>
-                                        </li>-->
-                                        <li class="kt-menu__item " aria-haspopup="true" data-ktmenu-link-redirect="1">
-                                            <a href="/admin/user" class="kt-menu__link ">
-                                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Account List</span>
-                                            </a>
-                                        </li>
-                                       
-                                      
-                                    </ul>
-                                </div>
                             </li>
                             <li class="kt-menu__item kt-menu__item--submenu kt-menu__item--bottom" aria-haspopup="true"
                                 data-ktmenu-submenu-toggle="click" data-ktmenu-link-redirect="1">
                                 <a class="kt-menu__link kt-menu__toggle">
-                                    <i class="fas fa-route"></i>
-                                    <span class="kt-menu__link-text">Category</span>
+                                    <i class="fas fa-cog"></i>
+                                    <span class="kt-menu__link-text">Management</span>
                                 </a>
                                 <div class="kt-menu__submenu ">
                                     <span class="kt-menu__arrow"></span>
                                     <ul class="kt-menu__subnav">
-
                                         <li class="kt-menu__item kt-menu__item--parent kt-menu__item--bottom"
                                             aria-haspopup="true" data-ktmenu-link-redirect="1">
                                             <span class="kt-menu__link">
-                                                <span class="kt-menu__link-text">Category</span>
+                                                <span class="kt-menu__link-text">Common Management</span>
                                             </span>
                                         </li>
-                                        <!--<li class="kt-menu__item " aria-haspopup="true" data-ktmenu-link-redirect="1">
-                                            <a href="/Route/AddRoute" class="kt-menu__link ">
-                                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Create Category</span>
-                                            </a>
-                                        </li>-->
                                         <li class="kt-menu__item " aria-haspopup="true" data-ktmenu-link-redirect="1">
                                             <a href="/admin/cate" class="kt-menu__link ">
-                                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Category List</span>
+                                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Category</span>
                                             </a>
                                         </li>
-                                       
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="kt-menu__item kt-menu__item--submenu kt-menu__item--bottom" aria-haspopup="true"
-                                data-ktmenu-submenu-toggle="click" data-ktmenu-link-redirect="1">
-                                <a class="kt-menu__link kt-menu__toggle">
-                                    <i class="fas fa-bus"></i>
-                                    <span class="kt-menu__link-text">Product</span>
-                                </a>
-                                <div class="kt-menu__submenu ">
-                                    <span class="kt-menu__arrow"></span>
-                                    <ul class="kt-menu__subnav">
-
-                                        <li class="kt-menu__item kt-menu__item--parent kt-menu__item--bottom"
-                                            aria-haspopup="true" data-ktmenu-link-redirect="1">
-                                            <span class="kt-menu__link">
-                                                <span class="kt-menu__link-text">Product</span>
-                                            </span>
-                                        </li>
-                                        <!--<li class="kt-menu__item " aria-haspopup="true" data-ktmenu-link-redirect="1">
-                                            <a href="/Account/AddAccount" class="kt-menu__link ">
-                                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Create Product</span>
-                                            </a>
-                                        </li>-->
                                         <li class="kt-menu__item " aria-haspopup="true" data-ktmenu-link-redirect="1">
                                             <a href="/admin/product" class="kt-menu__link ">
-                                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Product List</span>
+                                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Product</span>
                                             </a>
                                         </li>
-                                        
                                     </ul>
                                 </div>
                             </li>
@@ -208,7 +154,13 @@
                     </button>
                     <div class="kt-header-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_header_menu_wrapper">
                         <div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile kt-header-menu--layout- ">
-                            
+                            <ul class="kt-menu__nav ">
+                                <li class="kt-menu__item kt-menu__item--active " aria-haspopup="true">
+                                    <a href="/" class="kt-menu__link ">
+                                        <span class="kt-menu__link-text">Trang chủ</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
 
@@ -218,22 +170,22 @@
                         <!--begin: User bar -->
                         <div class="kt-header__topbar-item kt-header__topbar-item--user">
                             <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
-                                <img alt="Pic" src="/assets/images/user.png" />
+                                <img alt="Pic" src="../../assets/images/user.png" />
                             </div>
                             <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
 
                                 <!--begin: Head -->
                                 <div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
                                     <div class="kt-user-card__avatar">
-                                        <img alt="Pic" src="/assets/images/user.png" />
+                                        <img alt="Pic" src="../../assets/images/user.png" />
                                     </div>
                                     <div class="kt-user-card__name">
                                         Admin
                                     </div>
                                     <div class="kt-user-card__badge">
-                                        <a href="/Account/UserProfile">
+                                        <a href="/account/profile">
                                             <button class="btn btn-primary">
-                                                My Profile
+                                                Hồ sơ cá nhân
                                             </button>
                                         </a>
                                     </div>
@@ -241,16 +193,13 @@
 
                                 <!--end: Head -->
                                 <!--begin: Navigation -->
-                               
                                 <div class="kt-notification">
                                     <div class="kt-notification__custom kt-space-between">
-                                        <a class="btn btn-label btn-label-brand btn-sm btn-bold"
-                                           href="/user/logout">Log out</a>
-                                        <form id="logout-form" action="/client" method="POST" style="display: none;">
-                                            
-                                        </form>
+                                        <a href="/account/logout" target="_blank"
+                                           class="btn btn-label btn-label-brand btn-sm btn-bold">Đăng xuất</a>
                                     </div>
                                 </div>
+
                                 <!--end: Navigation -->
                             </div>
                         </div>
@@ -260,15 +209,15 @@
 
                     <!-- end:: Header Topbar -->
                 </div>
-                <!-- end:: Header -->
-               {{{body}}}
 
+                <!-- end:: Header -->
+                {{{body}}}
                 <!-- begin:: Footer -->
                 <div class="kt-footer kt-grid__item kt-grid kt-grid--desktop kt-grid--ver-desktop" id="kt_footer">
                     <div class="kt-container kt-container--fluid ">
                         <div class="kt-footer__copyright">
                             2020&nbsp;&copy;&nbsp;<a href="/" target="_blank"
-                                                     class="kt-link">Auction-Nodejs</a>
+                                                     class="kt-link">Aution-Nodejs</a>
                         </div>
                         <div class="kt-footer__menu">
                             <a href="https://www.bittosolution.vn/ve-chung-toi/" target="_blank"
@@ -291,6 +240,9 @@
     </div>
 
     <!-- end::Scrolltop -->
+
+    
+
     <!-- begin::Global Config(global config for global JS sciprts) -->
     <script>
         var KTAppOptions = {
@@ -328,7 +280,6 @@
     <script src="../../assets/js/metronic-scripts.bundle.min.js"></script>
     <script src="../../assets/js/storage.js"></script>
     <script src="../../assets/js/app.js"></script>
-    
 </body>
 
 <!-- end::Body -->

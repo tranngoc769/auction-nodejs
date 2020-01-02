@@ -36,7 +36,7 @@ router.get('/getAllUser', async (req, res) => {
         querysearch = req.query.query.search;
     };
     const uNameInfo = await mUser.getCustomer(datareq.page, datareq.perpage, querysearch, datareq.field, datareq.sort);
-    datareq.total = uNameInfo.length;
+    datareq.total = (await mUser.getAllUser()).length;
     var meta = {};
     meta.page = datareq.page;
     meta.perpage = datareq.perpage;
@@ -107,7 +107,7 @@ router.get('/getAllCategory', async (req, res) => {
         querysearch = req.query.query.search;
     };
     const Info = await mCate.getAllCategory(datareq.page, datareq.perpage, querysearch, datareq.field, datareq.sort);
-    datareq.total = Info.length;
+    datareq.total = (await mCate.getSencondaryCate()).length;
     var meta = {};
     meta.page = datareq.page;
     meta.perpage = datareq.perpage;
@@ -129,7 +129,7 @@ router.post('/delCate', async (req, res) => {
     arr.forEach(async p => {
         const products = await mProduct.getProductOfCate(parseInt(p));
         if (products.length > 0) {
-           let CateFail = parseInt(p);
+            let CateFail = parseInt(p);
             console.log(CateFail);
             res.json(CateFail);
         }
@@ -138,8 +138,9 @@ router.post('/delCate', async (req, res) => {
                 count = count + 1;
                 if (count == arr.length) {
                     res.json('successfull');
-                }})
-                .catch(function (err) { res.json(err)});
+                }
+            })
+                .catch(function (err) { res.json(err) });
         }
     })
 })
@@ -198,10 +199,13 @@ router.get('/getAllProduct', async (req, res) => {
     console.log(datareq);
     let querysearch = '';
     if (req.query.query != '') {
-        querysearch = req.query.query.search;
+        if (typeof req.query.query.search != 'undefined') {
+
+            querysearch = req.query.query.search;
+        }
     };
     const Info = await mProduct.getAllProduct(datareq.page, datareq.perpage, querysearch, datareq.field, datareq.sort);
-    datareq.total = Info.length;
+    datareq.total = (await mProduct.getAllProducts()).length;
     var meta = {};
     meta.page = datareq.page;
     meta.perpage = datareq.perpage;

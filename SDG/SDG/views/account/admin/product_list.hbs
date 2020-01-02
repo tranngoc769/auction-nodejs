@@ -1,46 +1,46 @@
 
 
-    <div class="kt-content kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+<div class="kt-content kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
 
-        <!-- begin:: Subheader -->
-        <div class="kt-subheader kt-grid__item" id="kt_subheader">
-            <div class="kt-container kt-container--fluid ">
-                <div class="kt-subheader__main">
-                    <h3 class="kt-subheader__title">ProductManagement</h3>
+    <!-- begin:: Subheader -->
+    <div class="kt-subheader kt-grid__item" id="kt_subheader">
+        <div class="kt-container kt-container--fluid ">
+            <div class="kt-subheader__main">
+                <h3 class="kt-subheader__title">ProductManagement</h3>
 
-                    <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+                <span class="kt-subheader__separator kt-subheader__separator--v"></span>
 
-                    <span class="total-items kt-subheader__desc">Tong: <span id="total"></span></span>
+                <span class="total-items kt-subheader__desc">Tong: <span id="total"></span></span>
 
-                    <form class="kt-margin-l-20" id="kt_subheader_search_form">
-                        <div class="kt-input-icon kt-input-icon--right kt-subheader__search">
-                            <input type="text" class="form-control" placeholder="Search..."
-                                   id="search">
-                            <span class="kt-input-icon__icon kt-input-icon__icon--right">
-                                <span><i class="fas fa-search"></i></span>
-                            </span>
-                        </div>
-                    </form>
-                </div>
-                <div class="kt-subheader__toolbar">
-                    <button class="btn btn-primary" onclick="DelProduct()">
-                        <a> <i class="far fa-trash-alt"></i>Delete</a>
-                    </button>
-                </div>
+                <form class="kt-margin-l-20" id="kt_subheader_search_form">
+                    <div class="kt-input-icon kt-input-icon--right kt-subheader__search">
+                        <input type="text" class="form-control" placeholder="Search..."
+                               id="search">
+                        <span class="kt-input-icon__icon kt-input-icon__icon--right">
+                            <span><i class="fas fa-search"></i></span>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="kt-subheader__toolbar">
+                <button class="btn btn-primary" onclick="DelProduct()">
+                    <a> <i class="far fa-trash-alt"></i>Delete</a>
+                </button>
             </div>
         </div>
-
-        <!-- end:: Subheader -->
-        <!-- begin:: Content -->
-        <div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid">
-            <div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid">
-                <div class="kt-portlet kt-portlet--mobile">
-                    <div class="kt-datatable"></div>
-                </div>
-            </div>
-        </div>
-        <!-- end:: Content -->
     </div>
+
+    <!-- end:: Subheader -->
+    <!-- begin:: Content -->
+    <div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid">
+        <div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid">
+            <div class="kt-portlet kt-portlet--mobile">
+                <div class="kt-datatable"></div>
+            </div>
+        </div>
+    </div>
+    <!-- end:: Content -->
+</div>
 <script>
     var datatable;
     var dataSet = [];
@@ -57,7 +57,7 @@
                         url: '/admin/getAllProduct',
                         method: 'GET',
                         map: function (raw) {
-                            var dataSet = raw;
+                            dataSet = raw;
                             if (typeof raw.meta !== 'undefined') {
                                 $('#total').html(raw.meta.total);
                             }
@@ -77,7 +77,16 @@
             layout: {
                 scroll: true,
                 height: 600,
-                footer: true
+                footer: true,
+                icon: {
+                    pagination: {
+                        next: 'la la-angle-right',
+                        prev: 'la la-angle-left',
+                        first: 'la la-angle-double-left',
+                        last: 'la la-angle-double-right',
+                        more: 'la la-ellipsis-h'
+                    }
+                }
             },
             // column sorting
             sortable: true,
@@ -156,7 +165,7 @@
             }
         }
 
-         var arr = '';
+        var arr = '';
         chkCheckeds.each(function () {
             let id = $(this).val();
             arr = arr + id + '-';
@@ -177,7 +186,7 @@
                         datatable.reload();
                     }
                     else {
-                            alert(result);
+                        alert(result);
                     }
                 },
                 error: function (err) {
