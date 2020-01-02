@@ -150,8 +150,15 @@ module.exports = {
         return rows;
     },
     getRemainProduct: async(endDate) => {
-        const sql = `SELECT product.ID, ProName, curPrice, product.HighestBidderID,user_info.fullName, countBidder, pubDate, endDate, ImagePro, isExtension FROM product INNER JOIN user_info ON product.HighestBidderID = user_info.accountID WHERE endDate >= '${endDate}'`;
+        const sql = `SELECT product.ID, ProName, curPrice, product.HighestBidderID,user_info.fullName, countBidder, pubDate, endDate, ImagePro, isExtension FROM product INNER JOIN user_info ON product.HighestBidderID = user_info.accountID WHERE endDate >= '${endDate}' and isSold = 0`;
+        console.log(sql);
         const rows = await db.load(sql);
+        return rows;
+    },
+    getSoldProduct: async() => {
+        const sql = `SELECT product.ID, ProName, curPrice, product.HighestBidderID,user_info.fullName, countBidder, pubDate, endDate, ImagePro, isExtension FROM product INNER JOIN user_info ON product.HighestBidderID = user_info.accountID WHERE isSold = 1`;
+        const rows = await db.load(sql);
+        console.log(sql);
         return rows;
     },
     getProTopHightestPrice: async(endDate) => {
@@ -165,14 +172,6 @@ module.exports = {
 
         const sql = `SELECT * FROM ${tb_product} WHERE endDate >= '${endDate}' ORDER BY endDate DESC LIMIT 5`;
         const rows = await db.load(sql);
-        return rows;
-    },
-    getRemainProduct: async(endDate) => {
-        const sql = `SELECT product.ID, ProName, curPrice, product.HighestBidderID,user_info.fullName, countBidder, pubDate, endDate, ImagePro, isExtension FROM product INNER JOIN user_info ON product.HighestBidderID = user_info.accountID WHERE endDate >= '${endDate}'`;
-
-        //console.log(sql);
-        const rows = await db.load(sql);
-        //console.log(rows);
         return rows;
     },
     updateProduct: async(ID, Describle) => {

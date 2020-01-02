@@ -8,5 +8,13 @@ module.exports = {
             (${userID}, ${proID}, curdate(), ${price})`;
     console.log(sql)
     await db.load(sql);
-  }
+  },
+  findBidderbyProID: async (proID) => {
+    const sql = `SELECT *  FROM history JOIN  user_info
+    ON history.userID = user_info.accountID
+    WHERE proID = ${proID}
+    ORDER BY dateBid DESC`;
+    console.log(sql)
+    await db.load(sql);
+  },
 };
