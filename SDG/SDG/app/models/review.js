@@ -11,9 +11,6 @@ module.exports = {
         console.log("token:", rows);
         return rows;
     },
-};
-
-module.exports = {
     getNumberOfGoodReview: async (id) => {
         const sql = `SELECT  *
                      FROM ${tb_account} 

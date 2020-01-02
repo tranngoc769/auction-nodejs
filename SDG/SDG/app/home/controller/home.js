@@ -4,7 +4,9 @@ const mUser = require('../../models/user');
 const mProduct = require('../../models/product');
 const mReview = require('../../models/review');
 const mCat = require('../../models/category');
+const mHis = require('../../models/history');
 const auth = require('../../utils/auth');
+const mBanned = require("../../models/bannded");
 var moment = require('moment');
 
 //Number of good review for bidder to bid
@@ -76,24 +78,58 @@ router.get('/', async(req, res) => {
 
 });
 router.get('/product/:proID', async(req, res) => {
+    const parentCat = await mCat.getParentCategory();
+    var matrixChildCat = [];
+    for (var i = 0; i < parentCat.length; i++) {
+        const listCDM = await mCat.getChildCategory(parentCat[i].ID);
+        const data2 = JSON.parse(JSON.stringify(listCDM));
+        matrixChildCat.push(data2);
+
+    }
     let { proID } = req.params
     const product = await mProduct.getOnebyId(proID);
     console.log('pro', product[0])
     const cate = await mCat.getOnebyId(proID);
     const subImg = await mProduct.getSubImage(proID)
+    const his = await mHis.getHistoryByProductID(proID)
+    await his.forEach(async h =>  {
+        const pro = await mUser.getUserInfo(h.userID)
+        const name = await pro[0].fullName.split(" ")
+        const hideName = await  ("*****" + name[name.length - 1]).toString()
+        console.log(hideName)
+        h.userName = hideName
+    })
     const token = req.cookies.jwt
     let bidderCanBid = false
     if (typeof token == "string") {
         const payload = await auth.verifyToken(token);
-        console.log("Abc" + JSON.stringify(payload));
         const numberOfGoodReview = await mReview.getNumberOfGoodReview(payload.uID)
         let enoughGoodReview = numberOfGoodReview >= numberOfGoodReviewBidderRequried ? true : false
-        let notBanned = true
+        let notBanned = !mBanned.isBanned(payload.uID, proID)
         bidderCanBid = enoughGoodReview && notBanned
-        res.render('product/product', {'product': product[0], 'cate': cate[0], 'subImg': subImg, 'bidderCanBid': bidderCanBid, 'recommendPrice': product[0].curPrice + product[0].stepPrice})
-    }
-    else {
-        res.render('product/product', {'product': product[0], 'cate': cate[0], 'subImg': subImg, 'bidderCanBid': bidderCanBid})
+        console.log('his', his)
+        res.render('product/product', {
+            'product': product[0],
+            parentCat: parentCat,
+            matrixChildCat: matrixChildCat,
+            'cate': cate[0],
+            'subImg': subImg,
+            'bidderCanBid': bidderCanBid,
+            'recommendPrice': product[0].curPrice + product[0].stepPrice,
+            title: "Product details",
+            history: his
+        })
+    } else {
+        res.render('product/product', {
+            'product': product[0],
+            parentCat: parentCat,
+            matrixChildCat: matrixChildCat,
+            'cate': cate[0],
+            'subImg': subImg,
+            'bidderCanBid': bidderCanBid,
+            title: "Product details",
+            history: his
+        })
     }
 });
 router.post('/login', async(req, res) => {

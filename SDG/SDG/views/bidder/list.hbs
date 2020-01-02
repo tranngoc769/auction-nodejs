@@ -8,7 +8,6 @@
       <table class="table table-condensed">
         <thead>
           <tr class="cart_menu">
-            <td scope="col" class="row image"></td>
             <td  scope="col" class="description">Product</td>
             <td  scope="col" class="price">Giá Hiện Tại</td>
             <td  scope="col" class="quantity">Bạn là người giữ giá?</td>
@@ -17,9 +16,7 @@
         </thead>
         <tbody>
           {{#each products}}
-          <tr>
-            <td  scope="col" class="cart_product"><img height="200px" width="200px" src="../assets/photos/{{ImagePro}}" alt=""></td>
-            
+          <tr>            
             <td  scope="col" class="cart_description"><h4><a href="/product/{{ID}}">{{ProName}}</a><p></p>
             </h3><p>Ngày đăng : {{pubDate}}</p></h3><p>Ngày kết thúc : {{endDate}}</p></td>
             <td  scope="col" class="cart_price"><p>{{curPrice}}</p></td>
