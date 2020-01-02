@@ -17,15 +17,15 @@ router.get('/', async(req, res) => {
     const token = req.cookies.jwt;
 
     //load cho sideBar
-    const parentCat = await mCat.getParentCategory();
+    const parentCat = await mCate.getParentCategory();
     //const matrixChildCat = await mPro.getAllCatChild();
 
 
-    const listParDM = await mCat.getParentCategory();
+    const listParDM = await mCate.getParentCategory();
     const data = JSON.parse(JSON.stringify(listParDM));
     var matrixChildCat = [];
     for (var i = 0; i < data.length; i++) {
-        const listCDM = await mCat.getChildCategory(data[i].ID);
+        const listCDM = await mCate.getChildCategory(data[i].ID);
         const data2 = JSON.parse(JSON.stringify(listCDM));
         matrixChildCat.push(data2);
 
