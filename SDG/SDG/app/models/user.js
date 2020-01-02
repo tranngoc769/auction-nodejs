@@ -5,13 +5,13 @@ const tb_info = 'user_info';
 const tb_role = 'roles';
 
 module.exports = {
-    resLogin: async (username, password) => {
-        const sql = `SELECT  a.id, a.id_role , i.fullName ,r.byname
+    resLogin: async (username) => {
+        const sql = `SELECT  a.id, a.id_role , i.fullName ,r.byname ,a.password,a.EMAIL
                      FROM ${tb_account} a INNER JOIN ${tb_info} i 
                                            ON a.id = i.accountID
                                           INNER JOIN ${tb_role} r
                                            ON a.id_role = r.id
-                     WHERE username = '${username}' AND password = '${password}' AND isDeleted=0`;
+                     WHERE username = '${username}' AND isDeleted=0 AND isVerifyEmail=1`;
         ////console.log(sql);
         const rows = await db.load(sql);
         //console.log("token:", rows);
@@ -19,8 +19,16 @@ module.exports = {
     },
     getUserInfo: async (id) => {
         const sql = `SELECT  *
-                     FROM ${tb_info} i              
-                     WHERE i.accountID= ${id}`;
+                     FROM ${tb_info} i     
+                     WHERE i.id= ${id}`;
+        const rows = await db.load(sql);
+        //console.log("token:", rows);
+        return rows;
+    },
+    getUserAccount: async (id) => {
+        const sql = `SELECT  *
+                     FROM user_account i       
+                     WHERE i.id= ${id}`;
         const rows = await db.load(sql);
         //console.log("token:", rows);
         return rows;
@@ -63,6 +71,28 @@ module.exports = {
                      WHERE a.id_role != 1 and a.isDeleted=0` ;
         const rows = await db.load(sql);
         console.log("token:", rows);
+        return rows;
+    },
+    updateUserInfo: async (userID, email, name, phone) => {
+        const sql = `UPDATE user_info SET fullName = '${name}', phone = '${phone}', email = '${email}'
+        where accountID = ${userID}` ;
+        await db.load(sql);
+    },
+    updateUserPassword: async (userID, password) => {
+        const sql = `UPDATE user_account SET password = ${password}
+        where id = ${userID}`;
+        await db.load(sql);
+    },
+    createAccount: async (entity) => {
+        const rows = await db.add(tb_account, entity);
+        return rows;
+    },
+    createInfo: async (entity) => {
+        const rows = await db.add(tb_info, entity);
+        return rows;
+    },
+    veryfileEmail: async (entity) => {
+        const rows = await db.update(tb_account, idField, entity);
         return rows;
     }
 };

@@ -34,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(async function(req, res, next) {
     if (typeof req.cookies.jwt == "string") {
         const data = await auth.verifyToken(req.cookies.jwt)
+        res.locals.id = data.uID;
         res.locals.fullName = data.fullName;
         res.locals.isLogin = true;
         res.locals.isAdmin = (data.roleName == "admin") ? true : false;
@@ -81,7 +82,8 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
-        error: {}
+        error: {},
+        layout: false
     });
 });
 

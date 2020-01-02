@@ -11,9 +11,6 @@ module.exports = {
         console.log("token:", rows);
         return rows;
     },
-};
-
-module.exports = {
     getNumberOfGoodReview: async (id) => {
         const sql = `SELECT  *
                      FROM ${tb_account} 
@@ -23,16 +20,12 @@ module.exports = {
         console.log("token:", rows);
         return rows.length;
     },
-};
-
-module.exports = {
-    
-reviewBidder: async (id,sellerID,Vote,comment) => {
-    const sql = `INSERT INTO sellerreviewtobidder(bidderID,sellerID, Vote, comment) VALUES (${id},${sellerID},${Vote},${comment})`;
-    console.log(sql);
-    const rows = await db.load(sql);
-    return rows;
-},
+    reviewBidder: async (id,sellerID,Vote,comment) => {
+        const sql = `INSERT INTO sellerreviewtobidder(bidderID,sellerID, Vote, comment) VALUES (${id},${sellerID},${Vote},${comment})`;
+        console.log(sql);
+        const rows = await db.load(sql);
+        return rows;
+    },
 };
 
 
