@@ -53,8 +53,8 @@ router.post("/bid/:proID", async (req, res) => {
       const payload = await auth.verifyToken(token);
       const userID = payload.uID;
       const price = req.body.price;
-      mHistory.addToHistory(userID, proID, price)
-      mProduct.updateHighestBidder(userID, proID)
+      await mHistory.addToHistory(userID, proID, price)
+      await mProduct.updateHighestBidder(userID, proID)
       
       res.redirect(`/product/${proID}`);
     } else {

@@ -22,6 +22,7 @@ module.exports = {
     const sql = `SELECT *  FROM history JOIN  user_info
     ON history.userID = user_info.accountID
     WHERE proID = ${proID}
+    
     ORDER BY dateBid DESC`;
     const rows = await db.load(sql);
     return rows;

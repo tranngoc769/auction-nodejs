@@ -40,7 +40,6 @@ router.get('/', async(req, res) => {
 
     }
 
-
     res.render("seller/homepage", {
         Cha: listParDM,
         Matrix: matrix

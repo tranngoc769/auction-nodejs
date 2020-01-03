@@ -1,7 +1,7 @@
 const db = require('../utils/db');
 
 const tb_product = 'product';
-const pageSize = 1;
+const pageSize = 3;
 const tb_category = 'category';
 const tb_info = 'user_info';
 const tb_account = 'user_account';
@@ -131,7 +131,7 @@ module.exports = {
         return row;
     },
     updateHighestBidder: async(userID, proID) => {
-        const sql = `UPDATE product SET HighestBidderID = ${userID} WHERE ID = ${proID}`
+        const sql = `UPDATE product SET product.HighestBidderID = ${userID}, product.countBidder = product.countBidder + 1 WHERE product.ID = ${proID}`
         await db.load(sql)
     },
     getProductBidderInHistory: async(userID) => {
