@@ -16,7 +16,7 @@ module.exports = {
                                            ON p.catId=c.ID
                                             INNER JOIN ${tb_account} a
                                             ON p.sellerID=a.id
-                     WHERE  (p.ProName like '%${query_search}%' ||p.Describle like '%${query_search}%' ) && p.isDeleted=0
+                     WHERE  (p.ProName like '%${query_search}%'|| c.Catname like '%${query_search}%' ||p.Describle like '%${query_search}%' ) && p.isDeleted=0
                      ORDER BY ${field} ${sort}
                      LIMIT ${start_index} , ${perpage}`;
         //console.log(sql);
