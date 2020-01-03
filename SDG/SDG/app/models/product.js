@@ -99,9 +99,9 @@ module.exports = {
         const totalP = rs[0].total;
         //console.log(totalP);
 
-        const pageTotal = Math.floor(totalP / pageSize);
+        var pageTotal = Math.floor(totalP / pageSize);
         if (totalP % pageSize != 0)
-            pageTotal = pageTotal = 1;
+            pageTotal = pageTotal + 1;
 
         const offset = (page - 1) * pageSize;
 

@@ -109,10 +109,10 @@ router.get('/product/:proID', async(req, res) => {
     const bidder = await mProduct.getHightestBidderByProID(proID);
     const recommendPro = await mProduct.getTop4OnebyId(product[0].catId);
     const his = await mHis.getHistoryByProductID(proID)
-    await his.forEach(async h =>  {
+    await his.forEach(async h => {
         const pro = await mUser.getUserInfo(h.userID)
         const name = await pro[0].fullName.split(" ")
-        const hideName = await  ("*****" + name[name.length - 1]).toString()
+        const hideName = await ("*****" + name[name.length - 1]).toString()
         h.userName = hideName
     })
 
@@ -190,8 +190,8 @@ router.get('/product/:proID', async(req, res) => {
 //    }
 
 //});
-router.post('/login', async (req, res) => {
-   
+router.post('/login', async(req, res) => {
+
     const data = JSON.parse(JSON.stringify(req.body));
     const uname = data.uname;
     const pword = data.passwd;
@@ -216,11 +216,10 @@ router.post('/login', async (req, res) => {
             //console.log(token);
             res.cookie('jwt', token);
             res.redirect('/');
-        }
-        else {
+        } else {
             res.redirect('/login');
         }
-        
+
     } else {
         res.redirect('/login');
     }
@@ -315,7 +314,7 @@ router.post('/search/:page', async(req, res) => {
     //const id = parseInt(req.params.ID);
     //const page = parseInt(req.query.page) || 1;
 
-    console.log("page"+page)
+    console.log("page" + page)
 
     //const catDetail = await mCat.getCatbyID(id);
 
@@ -334,10 +333,10 @@ router.post('/search/:page', async(req, res) => {
     //catsFromDB[id - 1].isActive = true; // hien thi cho side bar
     //san pham theo trang
     const rs = await mProduct.getAllProduct(page, 5, inputSearch, curPrice, DESC);
-    console.log(rs.length+"rrrrr");
-    const pageTotal = Math.floor(rs.length / 5);
-        if (rs.length % 5 != 0)
-            pageTotal = pageTotal = 1;
+    console.log(rs.length + "rrrrr");
+    var pageTotal = Math.floor(rs.length / 5);
+    if (rs.length % 5 != 0)
+        pageTotal = pageTotal + 1;
     const pages = []; //luu mang cac trang hien len  |1|2|3|4|5|6|7|
     for (let i = 1; i <= pageTotal; i++) {
         pages[i] = {
@@ -363,7 +362,7 @@ router.post('/search/:page', async(req, res) => {
             res.render('category/category', {
                 parentCat: parentCat,
                 matrixChildCat: matrixChildCat,
-                list: rs.products,
+                list: rs,
                 pages: pages,
                 navs: navs,
                 title: "Category"
@@ -382,10 +381,10 @@ router.post('/search/:page', async(req, res) => {
     }
 
 });
-router.get('/login', async (req, res) => {
+router.get('/login', async(req, res) => {
     res.render('home/login_register');
 })
-router.post('/register', async (req, res) => {
+router.post('/register', async(req, res) => {
     const uname = req.body.uname;
     const pword = req.body.pword;
     const email = req.body.email;
@@ -403,61 +402,61 @@ router.post('/register', async (req, res) => {
         password: pwHash,
         id_role: 2,
         EMAIL: email,
-        isVerifyEmail:0
+        isVerifyEmail: 0
     }
     const info = {
         fullName: name,
         phone: phone,
-        DOB:dob
+        DOB: dob
     }
-    const uId = mUser.createAccount(user).then( async function (result) {
-        info.accountID = result;
-        const m = await mUser.createInfo(info);
-        const payload = {
-            uID: result,
-            roleID: 2,
-            fullName: name,
-            roleName: 'bidder',
-            email:email
-        };
-        const token = await auth.generateToken(payload);
-        //console.log(token);
-        res.cookie('jwt', token);
-        res.redirect('/send');
-    })
+    const uId = mUser.createAccount(user).then(async function(result) {
+            info.accountID = result;
+            const m = await mUser.createInfo(info);
+            const payload = {
+                uID: result,
+                roleID: 2,
+                fullName: name,
+                roleName: 'bidder',
+                email: email
+            };
+            const token = await auth.generateToken(payload);
+            //console.log(token);
+            res.cookie('jwt', token);
+            res.redirect('/send');
+        })
         .catch();
 
 })
-router.get('/send', async function (req, res) {
+router.get('/send', async function(req, res) {
     rand = generateOTP();
     const token = req.cookies.jwt;
     let payload = {};
     //console.log(token);
     if (typeof token == "string") {
-        payload= await auth.verifyToken(token);
+        payload = await auth.verifyToken(token);
     }
     //host = req.get('host');
     //link = "http://" + req.get('host') + "/verify?id=" + rand;
     mailOptions = {
         to: payload.email,
         subject: "Please confirm your Email account",
-        html: "Hello,<br> Here is your OTP :" +rand 
+        html: "Hello,<br> Here is your OTP :" + rand
     }
     console.log(mailOptions);
-    smtpTransport.sendMail(mailOptions, function (error, response) {
+    smtpTransport.sendMail(mailOptions, function(error, response) {
         if (error) {
             console.log(error);
             res.end("error");
         } else {
             console.log("Message sent: " + response);
-            res.cookie('otp', 10000-rand);
+            res.cookie('otp', 10000 - rand);
             res.render('home/verify');
         }
     });
 });
-router.post('/verify', function (req, res) {
+router.post('/verify', function(req, res) {
     const data = JSON.parse(JSON.stringify(req.body));
-    if (req.cookies.otp == 10000-data.otp) {
+    if (req.cookies.otp == 10000 - data.otp) {
         //update isverify
         res.clearCookie("otp");
         let entity = {};
@@ -465,11 +464,11 @@ router.post('/verify', function (req, res) {
         entity.isVerifyEmail = 1;
         const a = mUser.veryfileEmail(entity);
         res.json('successfull');
-    }
-    else {
+    } else {
         res.json('failure');
     }
 });
+
 function generateOTP() {
 
     // Declare a digits variable  
@@ -480,5 +479,5 @@ function generateOTP() {
         OTP += digits[Math.floor(Math.random() * 10)];
     }
     return OTP;
-} 
+}
 module.exports = router;
