@@ -38,9 +38,8 @@
               <h4>{{cate.Catname}}</h4>
             <span> <span>{{product.sellNowPrice}}</span>
               
-			  {{#if bidderCanBid}}
 			  <a href="/bidder/addwatchlist/{{product.ID}}" style="margin-bottom:20px"><button type="button" class="btn btn-fefault cart"> <i class="fa fa-shopping-cart"></i> Add to wish list</button></a>
-			  {{/if}}
+			
                             </span><br/>
               <a><b>Current Price:</b> {{product.curPrice}}</a><br/>
               <a><b>Sell Now Price:</b> {{product.sellNowPrice}}</a><br/><br/>
@@ -70,13 +69,12 @@
 							</div>
 							<br>
 
-
 							<div class="blog-post">
 								{{#if bidderCanBid}}
-								<button type="submit" class="btn btn-primary ml-5">REVIEW SELLER</button>
+								<a href="bidder/review/{{product.id}}" class="btn btn-primary ml-5">REVIEW PRODUCT SELLER</a>
 								{{/if}}
 								{{#if isSeller}}
-								<button type="submit" class="btn btn-primary ml-5">REVIEW ALL BIDDERS</button>
+								<button class="btn btn-primary ml-5">REVIEW ALL BIDDERS</button>
 								{{/if}}
 							</div>
 

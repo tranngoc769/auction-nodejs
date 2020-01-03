@@ -1,0 +1,46 @@
+<div class="pagination-area">
+    <ul class="pagination">
+        {{!-- nut previous --}} 
+        {{#if navs.prev}}
+        <li class="page-item">
+            <a class="page-link" href="/search/{{ navs.prev }}">
+                <i class="fa fa-angle-double-left"></i>
+            </a>
+        </li>
+        {{else}}
+        <li class="page-item disabled">
+            <a class="page-link" tabindexs="-1" aria-disableds="true">
+                <i class="fa fa-angle-double-left"></i>
+            </a>
+        </li>
+        {{/if}} 
+
+        {{#each pages }} 
+        {{#if active}}
+        <li>
+            <a href="javascript:;" class="active">{{ value }}</a>
+        </li>
+        {{else}}
+        <li>
+            <a href="/search/{{ value }}"> {{ value }}</a>
+        </li>
+        {{/if}} 
+        {{/each}} 
+
+        {{#if navs.next}}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ navs.next }}">
+                <i class="fa fa-angle-double-right"></i>
+            </a>
+        </li>
+        {{else}}
+        <li class="page-item disabled">
+            <a class="page-link" tabindexs="-1" aria-disableds="true">
+                <i class="fa fa-angle-double-right"></i>
+            </a>
+        </li>
+        {{/if}}
+        
+    </ul>
+</div>
+

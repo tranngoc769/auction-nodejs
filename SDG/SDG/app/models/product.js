@@ -21,8 +21,6 @@ module.exports = {
                      LIMIT ${start_index} , ${perpage}`;
         //console.log(sql);
         const rows = await db.load(sql);
-        console.log("ddddddđ" + sql)
-        console.log("token:", rows);
         return rows;
     },
     delByID: async entity => {

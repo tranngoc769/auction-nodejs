@@ -5,7 +5,8 @@
         </div>
         <div class="col-sm-9 padding-right">
             <div class="recommended_items">
-                <h2 class="title text-center">{{catDetail.Catname}}</h2> {{#each list}}
+                <h2 class="title text-center">{{catDetail.Catname}}</h2> 
+                {{#each list}}
                 <div class="col-sm-4">
                     <div class="product-image-wrapper">
                         <div class="single-products">
@@ -39,7 +40,12 @@
                 </div>
                 {{/each}}
             </div>
-            {{>home/paging}}
+            {{>home/pagingSearch}}
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        console.log(`{{list}}`);
+    })
+</script>

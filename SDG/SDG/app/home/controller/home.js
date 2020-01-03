@@ -97,8 +97,9 @@ router.get('/product/:proID', async(req, res) => {
 
     }
     let { proID } = req.params
+    console.log('pro', proID)
     const product = await mProduct.getOnebyId(proID);
-    console.log('pro', product[0])
+    console.log('pro', product)
     const cate = await mCat.getOnebyId(product[0].catId);
     product[0].pubDate = moment().format("HH:mm:ss DD-MM-YYYY");
     product[0].endDate = moment().format("HH:mm:ss DD-MM-YYYY");
@@ -302,7 +303,8 @@ router.get('/category/:ID/products', async(req, res) => {
 
 
 });
-router.post('/search', async(req, res) => {
+router.post('/search/:page', async(req, res) => {
+    const page = parseInt(req.params.page);
     const data = JSON.parse(JSON.stringify(req.body));
     const inputSearch = data.searchHere;
 
@@ -310,10 +312,12 @@ router.post('/search', async(req, res) => {
     const curPrice = 'curPrice';
     const DESC = 'DESC';
 
-    const id = parseInt(req.params.ID);
-    const page = parseInt(req.query.page) || 1;
+    //const id = parseInt(req.params.ID);
+    //const page = parseInt(req.query.page) || 1;
 
-    const catDetail = await mCat.getCatbyID(id);
+    console.log("page"+page)
+
+    //const catDetail = await mCat.getCatbyID(id);
 
     //load cho sideBar
     const parentCat = await mCat.getParentCategory();
@@ -329,10 +333,13 @@ router.post('/search', async(req, res) => {
     //PHÂN TRANG
     //catsFromDB[id - 1].isActive = true; // hien thi cho side bar
     //san pham theo trang
-    const rs = await mProduct.getAllProduct(1, 5, 'áo', curPrice, DESC);
-
+    const rs = await mProduct.getAllProduct(page, 5, inputSearch, curPrice, DESC);
+    console.log(rs.length+"rrrrr");
+    const pageTotal = Math.floor(rs.length / 5);
+        if (rs.length % 5 != 0)
+            pageTotal = pageTotal = 1;
     const pages = []; //luu mang cac trang hien len  |1|2|3|4|5|6|7|
-    for (let i = 1; i <= rs.pageTotal; i++) {
+    for (let i = 1; i <= pageTotal; i++) {
         pages[i] = {
             value: i,
             active: (i) === page
@@ -346,8 +353,6 @@ router.post('/search', async(req, res) => {
     if (page < rs.pageTotal) {
         navs.next = page + 1; // khi nhan vao nut next thi page can lay la bn
     }
-
-
     if (typeof token == "string") {
         const payload = await auth.verifyToken(token);
         if (payload.roleName == "admin") {
@@ -357,7 +362,6 @@ router.post('/search', async(req, res) => {
 
             res.render('category/category', {
                 parentCat: parentCat,
-                catDetail: catDetail[0],
                 matrixChildCat: matrixChildCat,
                 list: rs.products,
                 pages: pages,
@@ -368,9 +372,8 @@ router.post('/search', async(req, res) => {
     } else {
         res.render('home/search', {
             parentCat: parentCat,
-            catDetail: catDetail[0],
             matrixChildCat: matrixChildCat,
-            list: rs.products,
+            list: rs,
             pages: pages,
             navs: navs,
             title: "Category"
